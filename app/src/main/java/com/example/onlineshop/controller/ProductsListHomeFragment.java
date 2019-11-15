@@ -78,7 +78,7 @@ public class ProductsListHomeFragment extends Fragment implements ProductFetcher
     }
 
     @Override
-    public void onResponse(List<Product> items) {
+    public void onProductResponse(List<Product> items) {
         mProductsList = items;
         setupAdapter();
     }

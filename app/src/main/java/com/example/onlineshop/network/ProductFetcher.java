@@ -5,16 +5,11 @@ import android.util.Log;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.network.interfaces.ProductService;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.Credentials;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductFetcher {
 
-    //    private static final String BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/products/";
     private static final String BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/";
 
     private static final String TAG_PRODUCT = "TagProduct";
@@ -70,7 +64,7 @@ public class ProductFetcher {
 
                     List<Product> list = response.body();
                     mProductList = list;
-                    mCallbacks.onResponse(mProductList);
+                    mCallbacks.onProductResponse(mProductList);
                 }
             }
 
@@ -84,7 +78,7 @@ public class ProductFetcher {
     }
 
     public interface ProductFetcherCallbacks {
-        void onResponse(List<Product> items);
+        void onProductResponse(List<Product> productList);
         //void onProductResponse(List<Product> productList);
         //void onCategoryResponse(List<Category> categoryList);
 
