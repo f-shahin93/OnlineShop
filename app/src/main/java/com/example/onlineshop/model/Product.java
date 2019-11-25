@@ -1,10 +1,13 @@
 package com.example.onlineshop.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Product {
+public class Product implements Parcelable {
 
     @SerializedName("upsell_ids")
     private List<Object> upsellIds;
@@ -203,6 +206,68 @@ public class Product {
 
     @SerializedName("dimensions")
     private Dimensions dimensions;
+
+    protected Product(Parcel in) {
+        featured = in.readByte() != 0;
+        purchasable = in.readByte() != 0;
+        taxStatus = in.readString();
+        catalogVisibility = in.readString();
+        type = in.readString();
+        externalUrl = in.readString();
+        price = in.readString();
+        id = in.readInt();
+        sku = in.readString();
+        slug = in.readString();
+        shippingRequired = in.readByte() != 0;
+        dateModifiedGmt = in.readString();
+        stockStatus = in.readString();
+        priceHtml = in.readString();
+        downloadExpiry = in.readInt();
+        backordered = in.readByte() != 0;
+        weight = in.readString();
+        ratingCount = in.readInt();
+        soldIndividually = in.readByte() != 0;
+        backorders = in.readString();
+        shippingTaxable = in.readByte() != 0;
+        parentId = in.readInt();
+        downloadLimit = in.readInt();
+        name = in.readString();
+        shippingClass = in.readString();
+        buttonText = in.readString();
+        permalink = in.readString();
+        status = in.readString();
+        shortDescription = in.readString();
+        virtual = in.readByte() != 0;
+        downloadable = in.readByte() != 0;
+        menuOrder = in.readInt();
+        description = in.readString();
+        regularPrice = in.readString();
+        backordersAllowed = in.readByte() != 0;
+        reviewsAllowed = in.readByte() != 0;
+        totalSales = in.readInt();
+        onSale = in.readByte() != 0;
+        manageStock = in.readByte() != 0;
+        purchaseNote = in.readString();
+        dateCreated = in.readString();
+        taxClass = in.readString();
+        dateCreatedGmt = in.readString();
+        averageRating = in.readString();
+        salePrice = in.readString();
+        shippingClassId = in.readInt();
+        dateModified = in.readString();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 
     public void setUpsellIds(List<Object> upsellIds){
         this.upsellIds = upsellIds;
@@ -805,4 +870,59 @@ public class Product {
                         "}";
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeByte((byte) (featured ? 1 : 0));
+        parcel.writeByte((byte) (purchasable ? 1 : 0));
+        parcel.writeString(taxStatus);
+        parcel.writeString(catalogVisibility);
+        parcel.writeString(type);
+        parcel.writeString(externalUrl);
+        parcel.writeString(price);
+        parcel.writeInt(id);
+        parcel.writeString(sku);
+        parcel.writeString(slug);
+        parcel.writeByte((byte) (shippingRequired ? 1 : 0));
+        parcel.writeString(dateModifiedGmt);
+        parcel.writeString(stockStatus);
+        parcel.writeString(priceHtml);
+        parcel.writeInt(downloadExpiry);
+        parcel.writeByte((byte) (backordered ? 1 : 0));
+        parcel.writeString(weight);
+        parcel.writeInt(ratingCount);
+        parcel.writeByte((byte) (soldIndividually ? 1 : 0));
+        parcel.writeString(backorders);
+        parcel.writeByte((byte) (shippingTaxable ? 1 : 0));
+        parcel.writeInt(parentId);
+        parcel.writeInt(downloadLimit);
+        parcel.writeString(name);
+        parcel.writeString(shippingClass);
+        parcel.writeString(buttonText);
+        parcel.writeString(permalink);
+        parcel.writeString(status);
+        parcel.writeString(shortDescription);
+        parcel.writeByte((byte) (virtual ? 1 : 0));
+        parcel.writeByte((byte) (downloadable ? 1 : 0));
+        parcel.writeInt(menuOrder);
+        parcel.writeString(description);
+        parcel.writeString(regularPrice);
+        parcel.writeByte((byte) (backordersAllowed ? 1 : 0));
+        parcel.writeByte((byte) (reviewsAllowed ? 1 : 0));
+        parcel.writeInt(totalSales);
+        parcel.writeByte((byte) (onSale ? 1 : 0));
+        parcel.writeByte((byte) (manageStock ? 1 : 0));
+        parcel.writeString(purchaseNote);
+        parcel.writeString(dateCreated);
+        parcel.writeString(taxClass);
+        parcel.writeString(dateCreatedGmt);
+        parcel.writeString(averageRating);
+        parcel.writeString(salePrice);
+        parcel.writeInt(shippingClassId);
+        parcel.writeString(dateModified);
+    }
 }

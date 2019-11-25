@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:id="@+id/Cv_item_list_HomeP">
 
     <LinearLayout
         android:padding="5dp"
@@ -13,11 +14,10 @@
         android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_margin="5dp"
         android:layout_gravity="center"
-        android:background="@color/colorAccent"
         android:id="@+id/Iv_product"/>
 
     <TextView
@@ -25,11 +25,8 @@
         android:id="@+id/tv_name_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="name_product"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:text="name_product"
+        style="?android:listSeparatorTextViewStyle"/>
 
     <TextView
         style="@style/Divider.Horizontal"
