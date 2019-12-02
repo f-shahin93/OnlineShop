@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlineshop.R;
-import com.example.onlineshop.controller.CategoryViewPagerActivity;
-import com.example.onlineshop.controller.MainActivity;
+import com.example.onlineshop.controller.activities.CategoryViewPagerActivity;
 import com.example.onlineshop.model.CategoriesItem;
 
 import java.util.List;

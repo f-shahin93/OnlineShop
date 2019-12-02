@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".controller.DetailProductFragment">
+    tools:context=".controller.fragments.DetailProductFragment">
 
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/slider_detail_product"

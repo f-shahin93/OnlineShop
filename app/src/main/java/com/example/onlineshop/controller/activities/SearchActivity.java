@@ -1,42 +1,78 @@
-package com.example.onlineshop.controller;
+package com.example.onlineshop.controller.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.onlineshop.R;
+import com.example.onlineshop.controller.fragments.SearchProductListFragment;
+import com.example.onlineshop.controller.fragments.SortDialogFragment;
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.network.ProductFetcher;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
-public class SearchActivity extends AppCompatActivity implements ProductFetcher.ProductFetcherCallbacks {
+public class SearchActivity extends AppCompatActivity implements ProductFetcher.ProductFetcherCallbacks,
+        SortDialogFragment.ResultDialogCallback {
 
+    public static final String TAG_SORT_DIALOG_FRAGMENT = "SortDialogFragment";
     private SearchView mSearchView;
     private List<Product> mListProduct = new ArrayList<>();
     private List<Product> mListProductFilter = new ArrayList<>();
+    private List<Product> mListProductSorted = new ArrayList<>();
     private List<CategoriesItem> mListCategory = new ArrayList<>();
     private List<CategoriesItem> mListCategoryFilter = new ArrayList<>();
     private String mQueryString;
+    private TextView mTvSort, mTvFilter, mTvHintSort, mTvHintFilter;
+    private SortDialogFragment mSortDialogFragment;
+    private Toolbar mToolbar;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        mTvFilter = findViewById(R.id.tv_filter_item_search);
+        mTvHintFilter = findViewById(R.id.tv_hint_filter_item_search);
+        mTvSort = findViewById(R.id.tv_sort_item_search);
+        mTvHintSort = findViewById(R.id.tv_hint_sort_item_search);
+        mToolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+
+        mSortDialogFragment = SortDialogFragment.newInstance(this, mTvHintSort.getText().toString());
+
+        mTvFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        mTvSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSortDialogFragment.show(getSupportFragmentManager(), TAG_SORT_DIALOG_FRAGMENT);
+
+            }
+        });
 
     }
 
@@ -124,21 +160,73 @@ public class SearchActivity extends AppCompatActivity implements ProductFetcher.
         }
 
         for (int i = 0; i < mListCategory.size(); i++) {
-                for (int j = i + 1; j < mListCategory.size(); j++) {
-                    if (mListCategory.get(j).getId() == mListCategory.get(i).getId()) {
-                        mListCategory.remove(j);
-                    }
+            for (int j = i + 1; j < mListCategory.size(); j++) {
+                if (mListCategory.get(j).getId() == mListCategory.get(i).getId()) {
+                    mListCategory.remove(j);
                 }
+            }
 
         }
 
+        callFragment();
+
+    }
+
+
+    @Override
+    public void getResultDialog(String sortList) {
+        mTvHintSort.setText(sortList);
+        switch (sortList) {
+            case "پرفروش ترین": {
+                Collections.sort(mListProductFilter, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product product, Product p1) {
+                        return Integer.valueOf(product.getTotalSales()).compareTo(p1.getTotalSales());
+                    }
+                });
+
+                callFragment();
+                break;
+            }
+            case "قیمت از زیاد به کم": {
+                Collections.sort(mListProductFilter, Collections.reverseOrder(new Comparator<Product>() {
+                    @Override
+                    public int compare(Product product, Product t1) {
+                        return Integer.valueOf(product.getPrice()).compareTo(Integer.valueOf(t1.getPrice()));
+                    }
+                }));
+
+                callFragment();
+                break;
+            }
+            case "قیمت از کم به زیاد": {
+                Collections.sort(mListProductFilter, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product product, Product p1) {
+                        return Integer.valueOf(product.getPrice()).compareTo(Integer.valueOf(p1.getPrice()));
+                    }
+                });
+                callFragment();
+                break;
+            }
+            case "جدیدترین": {
+                Collections.sort(mListProductFilter, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product product, Product p1) {
+                        return (product.getDateModified()).compareTo(p1.getDateModified());
+                    }
+                });
+                callFragment();
+                break;
+            }
+        }
+    }
+
+    private void callFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.container_search_list, SearchProductListFragment.newInstance(mListProductFilter, mListCategory))
                 .commit();
-
     }
-
-
 }

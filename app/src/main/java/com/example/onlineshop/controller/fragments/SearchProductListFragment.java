@@ -1,4 +1,4 @@
-package com.example.onlineshop.controller;
+package com.example.onlineshop.controller.fragments;
 
 
 import android.os.Bundle;

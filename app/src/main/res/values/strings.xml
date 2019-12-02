@@ -6,5 +6,9 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="most_sales">پرفروش ترین</string>
+    <string name="price_muchToLow">قیمت از زیاد به کم</string>
+    <string name="price_lowToMuch">قیمت از کم به زیاد</string>
+    <string name="newest">جدیدترین</string>
 
 </resources>

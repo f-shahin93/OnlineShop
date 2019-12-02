@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    tools:context=".controller.fragments.SortDialogFragment">
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/rb_most_sales_dialog_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="@string/most_sales"
+        android:textSize="16sp" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/rb_price_muchToLow_dialog_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="@string/price_muchToLow"
+        android:textSize="16sp" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/rb_price_lowToMuch_dialog_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="@string/price_lowToMuch"
+        android:textSize="16sp" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/rb_newest_dialog_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="@string/newest"
+        android:textSize="16sp" />
+
+</LinearLayout>

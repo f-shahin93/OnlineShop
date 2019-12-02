@@ -1,4 +1,4 @@
-package com.example.onlineshop.controller;
+package com.example.onlineshop.controller.fragments;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,19 +18,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.onlineshop.R;
+import com.example.onlineshop.controller.activities.DisconnectActivity;
 
 
 public class BroadcastRecFragment extends Fragment {
 
     public static final String ARG_TAG_PAGE_NAME = "Arg tagPageName";
     private boolean mIsNetworkAvailable;
-    /*BroadcastReceiver mybroadcast = new BroadcastReceiver() {
+    BroadcastReceiver mybroadcast = new BroadcastReceiver() {
 
         //When Event is published, onReceive method is called
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            if (isOnline()) {
+            if (isOnline(context)) {
                 Log.d("TagProduct", "Connected : " + intent.getAction());
                 Toast.makeText(context, "Connected", Toast.LENGTH_LONG).show();
             } else {
@@ -41,7 +41,7 @@ public class BroadcastRecFragment extends Fragment {
             }
 
         }
-    };*/
+    };
 
     public BroadcastRecFragment() {
         // Required empty public constructor
@@ -74,10 +74,14 @@ public class BroadcastRecFragment extends Fragment {
 
         }
 
+        IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE" );
+        getActivity().registerReceiver(mybroadcast ,intentFilter);
+
+
         if(isOnline(getContext())){
 
         }else {
-            Intent intent = new Intent(this.getContext(),DisconnectActivity.class);
+            Intent intent = new Intent(this.getContext(), DisconnectActivity.class);
             startActivity(intent);
             Toast.makeText(getContext(),"hiiiiiii",Toast.LENGTH_LONG).show();
         }

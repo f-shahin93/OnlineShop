@@ -1,4 +1,4 @@
-package com.example.onlineshop.controller;
+package com.example.onlineshop.controller.fragments;
 
 
 import android.os.Bundle;
@@ -14,11 +14,12 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.onlineshop.R;
+import com.example.onlineshop.controller.activities.ShoppingCartActivity;
 import com.example.onlineshop.model.ImagesItem;
 import com.example.onlineshop.model.Product;
+import com.example.onlineshop.repository.ProductRepository;
 import com.google.android.material.button.MaterialButton;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -32,6 +33,7 @@ public class DetailProductFragment extends Fragment {
     private TextView mTvStatusProduct,mTvPriceSale,mTvPriceRegular , mTvDescription ,mTvRate;
     private MaterialButton mButtonAddShoppingCart;
     private Product mProduct;
+    private ProductRepository mProductRepository;
 
     public DetailProductFragment() {
         // Required empty public constructor
@@ -51,6 +53,7 @@ public class DetailProductFragment extends Fragment {
         if (getArguments() != null) {
             mProduct = getArguments().getParcelable(ARG_PRODUCT);
         }
+        mProductRepository = ProductRepository.getInstance();
     }
 
     @Override
@@ -65,7 +68,8 @@ public class DetailProductFragment extends Fragment {
         mButtonAddShoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mProductRepository.addPruductToList(mProduct);
+                getActivity().startActivity(ShoppingCartActivity.newIntent(getContext()));
             }
         });
 

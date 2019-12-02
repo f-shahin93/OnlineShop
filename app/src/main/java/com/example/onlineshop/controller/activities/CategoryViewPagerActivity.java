@@ -1,13 +1,11 @@
-package com.example.onlineshop.controller;
+package com.example.onlineshop.controller.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -15,17 +13,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.onlineshop.R;
+import com.example.onlineshop.controller.fragments.DetailListCategoryFragment;
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.network.ProductFetcher;
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.sergivonavi.materialbanner.Banner;
 import com.sergivonavi.materialbanner.BannerInterface;
@@ -40,6 +35,7 @@ public class CategoryViewPagerActivity extends AppCompatActivity implements Prod
     private List<CategoriesItem> mCategoriesList = new ArrayList<>();
     private FragmentStatePagerAdapter mAdapter;
     private Banner mBanner;
+    private Toolbar mToolbar;
 
 
     @Override
@@ -52,7 +48,9 @@ public class CategoryViewPagerActivity extends AppCompatActivity implements Prod
 
         mViewPager = findViewById(R.id.activity_viewPager_category);
         mTabLayout = findViewById(R.id.tabLayout_category);
+        mToolbar = findViewById(R.id.toolbar);
 
+        setSupportActionBar(mToolbar);
         //mViewPager.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
         LinearLayoutCompat linearLayout = findViewById(R.id.layout_root_view_pager_activity);

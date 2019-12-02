@@ -14,8 +14,8 @@
         android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_margin="5dp"
         android:layout_gravity="center"
         android:id="@+id/Iv_product"/>
@@ -23,18 +23,19 @@
     <TextView
         android:layout_gravity="center"
         android:id="@+id/tv_name_product"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="name_product"
+        android:padding="5dp"
         style="?android:listSeparatorTextViewStyle"/>
 
     <TextView
-        style="@style/Divider.Horizontal"
         android:layout_gravity="center"
         android:id="@+id/tv_price_product"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="price_product"/>
+        android:text="price_product"
+        android:padding="2dp"/>
 
     </LinearLayout>
 

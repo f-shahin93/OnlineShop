@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".controller.MainActivity"
+        tools:context=".controller.activities.MainActivity"
         android:id="@+id/layout_root_home_page">
 
         <androidx.appcompat.widget.Toolbar

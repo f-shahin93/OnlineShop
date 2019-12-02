@@ -1,10 +1,9 @@
-package com.example.onlineshop.controller;
+package com.example.onlineshop.controller.activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.onlineshop.R;
+import com.example.onlineshop.controller.fragments.BroadcastRecFragment;
 
 public class DisconnectActivity extends AppCompatActivity {
 
