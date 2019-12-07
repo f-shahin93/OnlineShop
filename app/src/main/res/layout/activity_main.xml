@@ -22,5 +22,4 @@
         android:id="@+id/navigation"
         android:fitsSystemWindows="true"/>
 
-
 </androidx.drawerlayout.widget.DrawerLayout>

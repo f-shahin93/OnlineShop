@@ -1,13 +1,13 @@
 package com.example.onlineshop.network;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
+import com.example.onlineshop.model.customers.Customers;
 import com.example.onlineshop.network.interfaces.ProductService;
-import com.example.onlineshop.repository.CategoryRepository;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,9 +50,13 @@ public class ProductFetcher {
     }
 
     public void getLastProduct(String status) {
-
-        Call<List<Product>> call = mProductService.getAllProducts(status);
+//
+//        Call<List<Product>> call = mProductService.getAllProducts(status);
+//        call.enqueue(getRetrofitCallback());
+        mQueries.put("orderby",status);
+        Call<List<Product>> call = mProductService.getAllProductsWithQuery(mQueries);
         call.enqueue(getRetrofitCallback());
+
     }
 
     public void getLastProduct() {
@@ -60,13 +64,18 @@ public class ProductFetcher {
         call.enqueue(getRetrofitCallback());
     }
 
+    public void setCustomer(Customers customer){
+        Call<Customers> customersCall = mProductService.setCustomers(customer);
+        customersCall.enqueue(setCustomerwithRetrofit());
+    }
+
     public void getAllProduct() {
-        Call<List<Product>> call = mProductService.getAllProductsPage();
+        Call<List<Product>> call = mProductService.getAllProductsPage(mQueries);
         call.enqueue(getRetrofitCallback());
     }
 
     public void getProductsSubCategory(String name,String idCatrgory) {
-        Call<List<Product>> call = mProductService.getProductsSubCategoires(idCatrgory,name);
+        Call<List<Product>> call = mProductService.getProductsSubCategoires(mQueries,idCatrgory,name);
         call.enqueue(getRetrofitCallback());
     }
 
@@ -93,7 +102,7 @@ public class ProductFetcher {
 
     public void getAllCategory() {
 
-        Call<List<CategoriesItem>> call = mProductService.getAllCategories();
+        Call<List<CategoriesItem>> call = mProductService.getAllCategories(mQueries);
         call.enqueue(new Callback<List<CategoriesItem>>() {
 
             @Override
@@ -160,9 +169,26 @@ public class ProductFetcher {
 
     }
 
+    public Callback<Customers> setCustomerwithRetrofit() {
+        return new Callback<Customers>() {
+            @Override
+            public void onResponse(Call<Customers> call, Response<Customers> response) {
+                mCallbacks.onCustomerResponse(true);
+            }
+
+            @Override
+            public void onFailure(Call<Customers> call, Throwable t) {
+                mCallbacks.onCustomerResponse(false);
+            }
+        };
+
+    }
+
+
     public interface ProductFetcherCallbacks {
         void onProductResponse(List<Product> productList);
         void onCategoryResponse(List<CategoriesItem> categoryList);
+        void onCustomerResponse(boolean singupCustomer);
 
     }
 

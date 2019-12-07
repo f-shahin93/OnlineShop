@@ -24,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List mCategoryList = new ArrayList();
     private SearchView mSearchView;
     private Banner mBanner;
+    private TextView mTvAccount;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -73,6 +75,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mLinearLayoutMostViewedProducts = findViewById(R.id.linearLayout_most_viewed_products);
         mLinearLayoutMostPointsProducts = findViewById(R.id.linearLayout_most_points_products);
         mRecyclerViewCategory = findViewById(R.id.recycler_view_category_homePage);
+      //  mTvAccount = findViewById(R.id.tv_nav_account);
+
+        /*mTvAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });*/
 
         LinearLayout linearLayout = findViewById(R.id.layout_banner_home_page);
         mBanner = new Banner.Builder(this)
@@ -245,6 +255,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_setting: {
                 break;
             }
+            case R.id.tv_nav_account:{
+                LoginActivity.newIntent(this);
+                break;
+            }
 
         }
 
@@ -262,6 +276,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onCategoryResponse(List<CategoriesItem> categoryList) {
         mCategoryList = categoryList;
         setupAdapter();
+    }
+
+    @Override
+    public void onCustomerResponse(boolean singupCustomer) {
+
     }
 
     private void setupAdapter() {

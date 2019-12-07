@@ -95,6 +95,11 @@ public class ProductsListHomeFragment extends Fragment implements ProductFetcher
 
     }
 
+    @Override
+    public void onCustomerResponse(boolean singupCustomer) {
+
+    }
+
     private void updateItems() {
         ProductFetcher productFetcher = new ProductFetcher(this);
         productFetcher.getLastProduct(mStatusList);

@@ -20,12 +20,12 @@
         android:weightSum="4">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layoutDirection="rtl"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="3">
 
             <TextView
                 android:id="@+id/title_product_shopping_cart"
@@ -94,11 +94,10 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/Iv_product_shopping_cart"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="70dp"
-            android:layout_margin="15sp"
-            android:padding="10dp"
-            android:layout_weight="3"/>
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

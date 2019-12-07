@@ -100,4 +100,9 @@ public class DetailListCategoryFragment extends Fragment implements ProductFetch
     public void onCategoryResponse(List<CategoriesItem> categoryList) {
 
     }
+
+    @Override
+    public void onCustomerResponse(boolean singupCustomer) {
+
+    }
 }

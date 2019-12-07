@@ -119,7 +119,7 @@ public class CategoryViewPagerActivity extends AppCompatActivity implements Prod
                 return mCategoriesList.get(position).getName();
             }
         };
-
+        //mViewPager.setLayoutDirection();
         mViewPager.setAdapter(mAdapter);
 
 
@@ -239,6 +239,11 @@ public class CategoryViewPagerActivity extends AppCompatActivity implements Prod
     public void onCategoryResponse(List<CategoriesItem> categoryList) {
         mCategoriesList = categoryList;
         setupTabLayout();
+    }
+
+    @Override
+    public void onCustomerResponse(boolean singupCustomer) {
+
     }
 
     public static Intent newIntent(Context context){

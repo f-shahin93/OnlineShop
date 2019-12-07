@@ -126,6 +126,11 @@ public class SearchActivity extends AppCompatActivity implements ProductFetcher.
 
     }
 
+    @Override
+    public void onCustomerResponse(boolean singupCustomer) {
+
+    }
+
     public void searchList() {
         mListProductFilter = new ArrayList<>();
         mListCategory = new ArrayList<>();
