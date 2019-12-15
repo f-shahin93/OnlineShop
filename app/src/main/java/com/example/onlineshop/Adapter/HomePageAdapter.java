@@ -91,7 +91,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Produc
         public void bind(Product product) {
             mProductVh = product;
 
-            Picasso.with(mContext).load(mProductVh.getImages().get(0).getSrc()).into(mIvproduct);
+            if (mProductVh.getImages().size() > 0)
+                Picasso.with(mContext).load(mProductVh.getImages().get(0).getSrc()).into(mIvproduct);
             mTvProductName.setText(mProductVh.getName());
             mTvProductPrice.setText(mProductVh.getPrice());
 
