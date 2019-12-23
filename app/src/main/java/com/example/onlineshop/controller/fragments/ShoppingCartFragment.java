@@ -28,7 +28,8 @@ public class ShoppingCartFragment extends Fragment implements ProductShoppingCar
     private ProductShoppingCartAdapter mAdapter;
     private List<Product> mProductList = new ArrayList<>();
     private ProductRepository mProductRepository = ProductRepository.getInstance();
-    private TextView mTvConfirmShopping, mTvTotalPurchasePrice;
+    private TextView mTvTotalPurchasePrice;
+    //private TextView mTvConfirmShopping;
 
 
     public ShoppingCartFragment() {
@@ -63,13 +64,12 @@ public class ShoppingCartFragment extends Fragment implements ProductShoppingCar
         setTotalPrice();
         setupAdapter();
 
-        mTvConfirmShopping.setOnClickListener(new View.OnClickListener() {
+       /* mTvConfirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(),"خرید نهایی شد!",Toast.LENGTH_SHORT).show();
             }
-        });
-
+        });*/
 
 
         return view;
@@ -85,7 +85,7 @@ public class ShoppingCartFragment extends Fragment implements ProductShoppingCar
 
     private void init(View view) {
         mRecyclerView = view.findViewById(R.id.recycler_view_shopping_cart);
-        mTvConfirmShopping = view.findViewById(R.id.tv_confirm_shopping);
+     //   mTvConfirmShopping = view.findViewById(R.id.tv_confirm_shopping);
         mTvTotalPurchasePrice = view.findViewById(R.id.tv_total_purchase_price);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

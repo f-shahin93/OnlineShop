@@ -8,6 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Theme.Digikala" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/digikala_red_light</item>
+        <item name="colorPrimary">@color/digikala_red_light</item>
+        <item name="colorPrimaryDark">@color/digikala_red_dark</item>
+    </style>
+
+    <style name="MyTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="Divider">
         <item name="android:background">?android:attr/listDivider</item>
     </style>
