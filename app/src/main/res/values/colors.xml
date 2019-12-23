@@ -9,5 +9,12 @@
     <color name="digikala_red_dark">#ffef394e</color>
     <color name="digikala_red_light">#ffef394e</color>
     <color name="digikala_secondaryTextColor">#ffaaaaaa</color>
+    <color name="gray_100">#fff5f5f5</color>
+    <color name="gray_100_transparent">#eef5f5f5</color>
+    <color name="gray_200">#ffeeeeee</color>
+    <color name="gray_300">#ffe0e0e0</color>
+    <color name="gray_400">#ffbdbdbd</color>
+    <color name="gray_500">#ff9e9e9e</color>
+    <color name="gray_600">#ff757575</color>
 
 </resources>

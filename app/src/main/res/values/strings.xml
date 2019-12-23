@@ -10,5 +10,8 @@
     <string name="price_muchToLow">قیمت از زیاد به کم</string>
     <string name="price_lowToMuch">قیمت از کم به زیاد</string>
     <string name="newest">جدیدترین</string>
+    <string name="latest_product">جدیدترین محصولات</string>
+    <string name="see_all">لیست کامل</string>
+    <string name="most_viewed_product">پربازدیدترین محصولات</string>
 
 </resources>

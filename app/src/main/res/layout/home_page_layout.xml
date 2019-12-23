@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scrollView_home_page">
+    android:id="@+id/scrollView_home_page"
+    android:background="@color/gray_100">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -105,7 +106,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Most Viewed Product"
+                android:padding="2dp"
+                android:text="@string/most_viewed_product"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout_newest_products" />
 
@@ -116,7 +118,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:text="See All"
+                android:padding="2dp"
+                android:text="@string/see_all"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_most_viewed_products"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_most_viewed_products" />
@@ -129,7 +132,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:text="See All"
+                android:padding="2dp"
+                android:text="@string/see_all"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_latest_products"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout_newest_products"
                 app:layout_constraintTop_toTopOf="@+id/tv_latest_products" />
@@ -142,7 +146,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Most Points Product"
+                android:padding="2dp"
+                android:text="بهترین محصولات"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout_most_viewed_products" />
 
@@ -153,7 +158,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:text="See All"
+                android:padding="2dp"
+                android:text="@string/see_all"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_most_points_products"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_most_points_products" />
@@ -166,7 +172,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Latest Product"
+                android:padding="2dp"
+                android:text="@string/latest_product"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout_newest_products"
                 app:layout_constraintTop_toTopOf="parent" />
 

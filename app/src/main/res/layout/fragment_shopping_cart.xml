@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".controller.fragments.ShoppingCartFragment">
+    tools:context=".controller.fragments.ShoppingCartFragment"
+    android:background="@color/gray_100">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
