@@ -202,7 +202,7 @@ public class Product implements Parcelable {
     private List<Integer> relatedIds;
 
     @SerializedName("attributes")
-    private List<Object> attributes;
+    private List<Attributes> attributes;
 
     @SerializedName("dimensions")
     private Dimensions dimensions;
@@ -781,11 +781,11 @@ public class Product implements Parcelable {
         return relatedIds;
     }
 
-    public void setAttributes(List<Object> attributes){
+    public void setAttributes(List<Attributes> attributes){
         this.attributes = attributes;
     }
 
-    public List<Object> getAttributes(){
+    public List<Attributes> getAttributes(){
         return attributes;
     }
 

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbarHomeActionbar_toolbar"
+    android:background="@color/color_dark_violet"
+    android:padding="0.0dip"
+    android:layout_width="fill_parent"
+    android:layout_height="56.0dip"
+    app:contentInsetEnd="0.0dip"
+    app:contentInsetStart="0.0dip"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout android:gravity="center_vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/toolbarHeight_actionbar">
+
+        <RelativeLayout android:id="@+id/toolbarHomeActionbar_rv_toggleButtonRipple"
+            android:layout_width="56.0dip" android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+
+            <ImageButton android:id="@+id/toolbarHomeActionbar_iv_toggleButton"
+                android:background="@drawable/hover_oval"
+                android:padding="12.0dip" android:layout_width="48.0dip"
+                android:layout_height="48.0dip" android:layout_margin="4.0dip"
+                android:src="@drawable/ic_nav_menu"
+                android:layout_alignParentRight="true" style="@style/actions" />
+
+            <ImageButton android:id="@+id/toolbarHomeActionbar_iv_backButton"
+                android:background="@drawable/hover_oval" android:padding="12.0dip"
+                android:layout_width="48.0dip" android:layout_height="48.0dip"
+                android:layout_margin="4.0dip"
+                android:src="@drawable/ic_arrow_back"
+                android:layout_alignParentRight="true"
+                style="@style/actions" />
+
+        </RelativeLayout>
+
+        <ImageView android:layout_gravity="center_vertical"
+            android:id="@+id/toolbarHomeActionbar_iv_digikalaIC" android:focusable="true"
+            android:clickable="true" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_password"
+            android:layout_toLeftOf="@id/toolbarHomeActionbar_tv_beta"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/content_description" />
+
+        <TextView
+            android:textColor="#ffffffff"
+            android:id="@+id/toolbarHomeActionbar_tv_beta" android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30.0dip" android:text="Beta"
+            android:layout_toLeftOf="@id/toolbarHomeActionbar_rv_toggleButtonRipple"
+            style="@style/bannersTextViewStyle" />
+
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="56.0dip"
+            android:layout_toLeftOf="@id/toolbarHomeActionbar_rv_toggleButtonRipple"
+            android:layout_toRightOf="@id/toolbar_home_actionbar_search_favorite">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:textSize="18.0sp"
+                android:textColor="@android:color/white"
+                android:ellipsize="end"
+                android:gravity="center|right"
+                android:id="@+id/toolbarHomeActionbar_iv_activityTitle"
+                android:focusable="true" android:clickable="true"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:lines="1" android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+        <RelativeLayout android:id="@+id/toolbar_home_actionbar_search_favorite"
+            android:background="@null" android:layout_width="48.0dip"
+            android:layout_height="48.0dip" android:layout_marginTop="4.0dip"
+            android:layout_marginBottom="4.0dip"
+            android:layout_toRightOf="@id/toolbarHomeActionbar_iv_cart_button">
+
+            <ImageButton android:id="@+id/toolbarHomeActionbar_iv_searchIcButton"
+                android:background="@drawable/hover_oval"
+                android:layout_width="48.0dip" android:layout_height="48.0dip"
+                android:src="@drawable/ic_search"
+                android:contentDescription="@string/content_description" />
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/toolbarHomeActionbar_iv_tree_dots"
+            android:background="@drawable/hover_oval"
+            android:padding="12.0dip" android:layout_width="48.0dip"
+            android:layout_height="48.0dip" android:layout_marginTop="4.0dip"
+            android:layout_marginBottom="4.0dip" android:src="@drawable/ic_menu_circle"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/content_description" />
+
+        <ImageButton android:id="@+id/toolbarHomeActionbar_btn_profile"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="12.0dip" android:visibility="gone"
+            android:layout_width="48.0dip"
+            android:layout_height="48.0dip" android:layout_marginTop="4.0dip"
+            android:layout_marginBottom="4.0dip"
+            android:src="@drawable/ic_account"
+            android:layout_toRightOf="@id/toolbarHomeActionbar_iv_tree_dots"
+            android:contentDescription="@string/content_description"
+            android:layout_toEndOf="@id/toolbarHomeActionbar_iv_tree_dots" />
+
+        <ImageButton android:id="@+id/toolbarHomeActionbar_iv_cart_button"
+            android:background="@drawable/hover_oval" android:padding="12.0dip"
+            android:layout_width="48.0dip" android:layout_height="48.0dip"
+            android:layout_marginTop="4.0dip" android:layout_marginBottom="4.0dip"
+            android:src="@drawable/ic_shopping_cart"
+            android:layout_toRightOf="@id/toolbarHomeActionbar_btn_profile"
+            android:contentDescription="@string/content_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:textSize="11.0sp"
+            android:textStyle="bold"
+            android:textColor="@color/digikala_red_dark"
+            android:gravity="center"
+            android:id="@+id/toolbarHomeActionbar_iv_cartCounter"
+            android:background="@drawable/background_cart_counter"
+            android:layout_width="20.0dip" android:layout_height="20.0dip"
+            android:layout_marginLeft="-26.0dip" android:layout_marginTop="7.0dip"
+            android:layout_toRightOf="@id/toolbarHomeActionbar_iv_cart_button"/>
+
+    </RelativeLayout>
+
+</androidx.appcompat.widget.Toolbar>
+</layout>

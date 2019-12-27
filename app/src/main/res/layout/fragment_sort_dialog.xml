@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     android:orientation="vertical"
-    tools:context=".controller.fragments.SortDialogFragment">
+    tools:context=".view.fragments.SortDialogFragment">
 
     <com.google.android.material.radiobutton.MaterialRadioButton
         android:id="@+id/rb_most_sales_dialog_sort"

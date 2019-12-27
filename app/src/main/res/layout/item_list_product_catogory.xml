@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/Cv_item_list_HomeP"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/Cv_item_list_category_view_pager"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
@@ -12,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_name_product"
+            android:id="@+id/tv_name_product_category_view_pager"
             style="?android:listSeparatorTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,31 +23,31 @@
             android:padding="10dp"
             android:text="name_product"
             android:textDirection="rtl"
-            app:layout_constraintEnd_toStartOf="@+id/Iv_product"
+            app:layout_constraintEnd_toStartOf="@+id/Iv_product_category_view_pager"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_price_regular_item_list_category"
+            android:id="@+id/tv_price_regular_item_list_category_view_pager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="price_product"
             android:textColor="@android:color/holo_red_dark"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name_product" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_product_category_view_pager" />
 
         <TextView
-            android:id="@+id/tv_price_product"
+            android:id="@+id/tv_price_product_category_view_pager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="price_product"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_price_regular_item_list_category" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_price_regular_item_list_category_view_pager" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/Iv_product"
+            android:id="@+id/Iv_product_category_view_pager"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
@@ -56,28 +59,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
-
-    <!--
-    <TextView
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:id="@+id/tv_name_item_list_category"
-                style="?android:listSeparatorTextViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="name_product"
-                android:textDirection="rtl"
-                app:layout_constraintEnd_toStartOf="@+id/Iv_product"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-     <TextView
-                android:layout_margin="5dp"
-                android:id="@+id/tv_price_sale_item_list_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="price_product"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_price_regular_item_list_category"
-    -->
+</layout>

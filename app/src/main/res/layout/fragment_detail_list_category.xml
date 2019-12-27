@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.fragments.DetailListCategoryFragment"
+    tools:context=".view.fragments.DetailListCategoryFragment"
     android:background="@color/gray_100"
     android:id="@+id/recycler_view_detail_list_category"
     android:layout_margin="1dp"

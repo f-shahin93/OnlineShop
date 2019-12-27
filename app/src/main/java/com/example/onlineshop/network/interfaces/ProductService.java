@@ -13,6 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import retrofit2.http.QueryName;
 
 public interface ProductService {
 
@@ -25,27 +26,23 @@ public interface ProductService {
     @GET("products/?")
     Call<List<Product>> getAllProducts(@Query("orderby") String orderType);
 
-    @GET("products/?")
-    Call<List<Product>> getAllProductsWithQuery(@QueryMap Map<String, String> productQueries);
+//    @GET("products/?")
+//    Call<List<Product>> getAllProductsWithQuery(@QueryMap Map<String, String> productQueries);
 
     @GET("products/?per_page=100")
     Call<List<Product>> getAllProductsPage();
 
-    @GET("products/?per_page=100")
+    @GET("products/?page=4")
     Call<List<Product>> getAllProductsPage(@QueryMap Map<String, String> productQueries);
 
     @GET("products/{id}/?")
-    Call<Product> getProduct(@Path("id") String productId);
+    Call<Product> getProduct(@Path("id") String productId, @QueryMap Map<String, String> productQueries);
 
     @GET("products/categories")
     Call<List<CategoriesItem>> getAllCategories(@QueryMap Map<String, String> productQueries);
 
-    @GET("products/categories/?per_page=100")
+    @GET("products/categories/?per_page=10")
     Call<List<CategoriesItem>> getSubCategories(@Query("parent") String categoryId);
-
-    @GET("products/?")
-    Call<List<Product>> getProductsSubCategoires(@Query("page") String pageNumber, @Query("category") String categoryId
-            , @Query("orderby") String orderBy, @Query("order") String order, @Query("attribute_term") String... attributes);
 
     @GET("products/?")
     Call<List<Product>> getProductsSubCategoires(@Query("category") String categoryId
@@ -57,6 +54,7 @@ public interface ProductService {
 
     @POST("customers")
     Call<Customers> setCustomers(@Query("customers") Customers customers);
+
 
 
 }

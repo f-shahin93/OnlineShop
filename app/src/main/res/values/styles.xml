@@ -42,4 +42,17 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="actions">
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="bannersTextViewStyle">
+        <item name="android:shadowColor">#00000000</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">0.0</item>
+        <item name="android:shadowRadius">10.0</item>
+    </style>
+
 </resources>

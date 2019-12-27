@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".controller.activities.CategoryViewPagerActivity"
+    tools:context=".view.activities.CategoryViewPagerActivity"
     android:id="@+id/layout_root_view_pager_activity">
 
     <androidx.appcompat.widget.Toolbar

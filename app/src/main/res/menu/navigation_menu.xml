@@ -43,7 +43,7 @@
                 android:title="تنظیمات" />
             <item
                 android:id="@+id/nav_frequently_questions"
-                android:icon="@drawable/ic_question"
+                android:icon="@drawable/ic_user_comment"
                 android:title="سوالات متداول"/>
     </group>
 
