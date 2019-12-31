@@ -2,6 +2,7 @@ package com.example.onlineshop.viewmodel;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,34 +23,47 @@ public class HomePageViewModel extends AndroidViewModel {
     private MutableLiveData<List<CategoriesItem>> mListCategoryMutableLiveData;
     private ItemShopFetcher mShopFetcher;
 
-
-
     public HomePageViewModel(@NonNull Application application) {
         super(application);
-        mShopFetcher = new ItemShopFetcher();
+        mShopFetcher =  ItemShopFetcher.getInstance();
     }
 
     public MutableLiveData<List<Product>> getListNewestProMutableLiveData() {
-        mListNewestProMutableLiveData = mShopFetcher.getLastProduct("date");
+        mListNewestProMutableLiveData = mShopFetcher.getListNewestProMutableLiveData();
         return mListNewestProMutableLiveData;
-
     }
 
     public MutableLiveData<List<Product>> getListPopularProMutableLiveData() {
-        mListPopularProMutableLiveData = mShopFetcher.getLastProduct("popularity");
+        mListPopularProMutableLiveData = mShopFetcher.getListPopularProMutableLiveData();
         return mListPopularProMutableLiveData;
     }
 
     public MutableLiveData<List<Product>> getListMostPointProMutableLiveData() {
-        mListMostPointProMutableLiveData = mShopFetcher.getLastProduct("rating");
+        mListMostPointProMutableLiveData = mShopFetcher.getListMostPointProMutableLiveData();
         return mListMostPointProMutableLiveData;
     }
 
     public MutableLiveData<List<CategoriesItem>> getListCategoryMutableLiveData() {
-        mListCategoryMutableLiveData = mShopFetcher.getAllCategory();
+        mListCategoryMutableLiveData = mShopFetcher.getListCategoryLiveData();
         return mListCategoryMutableLiveData;
     }
 
+    public MutableLiveData<List<Product>> getListNewestProByPageMutableLiveData(String status,int pageNumber) {
+        MutableLiveData<List<Product>> mLisProMutableLiveData;
+        mLisProMutableLiveData = mShopFetcher.getOrderProductListByPage(status,pageNumber);
+        return mLisProMutableLiveData;
+    }
 
+    public MutableLiveData<List<Product>> getListPopularProByPageMutableLiveData(String status,int pageNumber) {
+        MutableLiveData<List<Product>> mLisProMutableLiveData;
+        mLisProMutableLiveData = mShopFetcher.getOrderProductListByPage(status,pageNumber);
+        return mLisProMutableLiveData;
+    }
+
+    public MutableLiveData<List<Product>> getListMostPointProByPageMutableLiveData(String status,int pageNumber) {
+        MutableLiveData<List<Product>> mLisProMutableLiveData;
+        mLisProMutableLiveData= mShopFetcher.getOrderProductListByPage(status,pageNumber);
+        return mLisProMutableLiveData;
+    }
 
 }

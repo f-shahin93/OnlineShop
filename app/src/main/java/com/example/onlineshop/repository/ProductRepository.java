@@ -1,5 +1,7 @@
 package com.example.onlineshop.repository;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.onlineshop.model.Product;
 
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 public class ProductRepository {
     private static ProductRepository instance;
     private List<Product> mProductList;
+    MutableLiveData<List<Product>> mListProductLiveData = new MutableLiveData<>();
 
     private ProductRepository() {
         mProductList = new ArrayList<>();
@@ -30,7 +33,6 @@ public class ProductRepository {
     }
 
     public List<Product> getListCategory(){
-
         List<Product> list = new ArrayList<>();
 
         return list;

@@ -1,10 +1,12 @@
 package com.example.onlineshop.network;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.airbnb.lottie.L;
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.model.customers.Customers;
@@ -24,17 +26,30 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ItemShopFetcher {
 
     private static final String BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/";
+    public static final String TAG_PRODUCT = "TagProduct";
 
-    private static final String TAG_PRODUCT = "TagProduct";
-
+    private static ItemShopFetcher mInstance;
     private Map<String, String> mQueries;
     private static Retrofit mRetrofit;
     private ProductService mProductService;
-    private MutableLiveData<List<CategoriesItem>> mListCategoryLiveData;
+    private MutableLiveData<List<CategoriesItem>> mListCategoryLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Product>> mListNewestProMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Product>> mListPopularProMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Product>> mListMostPointProMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<Product> mProductLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Product>> mAllProductListMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Product>> mProductListSubCategMLiveData = new MutableLiveData<>();
+    private MutableLiveData<Customers> mCustomerLiveData = new MutableLiveData<>();
 
-    //private ProductFetcherCallbacks mCallbacks;
 
-    public ItemShopFetcher() {
+    public static ItemShopFetcher getInstance() {
+        if (mInstance == null) {
+            mInstance = new ItemShopFetcher();
+        }
+        return mInstance;
+    }
+
+    private ItemShopFetcher() {
 
         //mCallbacks = callbacks;
 
@@ -52,58 +67,145 @@ public class ItemShopFetcher {
 
     }
 
-    public MutableLiveData<List<Product>> getLastProduct(String status) {
-
-        MutableLiveData<List<Product>> mListProductLiveData = new MutableLiveData<>();
-        mQueries.put("orderby", status);
-        Call<List<Product>> call = mProductService.getProductBody(mQueries);
-        call.enqueue(getRetrofitCallback(mListProductLiveData));
-        return mListProductLiveData;
-    }
-
-    public MutableLiveData<List<Product>> getLastProduct() {
-        MutableLiveData<List<Product>> mutableLiveData = new MutableLiveData<>();
-        Call<List<Product>> call = mProductService.getProductBody(mQueries);
-        call.enqueue(getRetrofitCallback(mutableLiveData));
-        return mutableLiveData;
-    }
-
-    public MutableLiveData<Product> getProductById(String productId) {
-        MutableLiveData<Product> productLiveData = new MutableLiveData<>();
-       // mQueries.remove("orderby");
-        Call<Product> call = mProductService.getProduct(productId,mQueries);
-        call.enqueue(getRetrofitProduct(productLiveData));
-        return productLiveData;
-    }
-
-//    public Response getSpecificProduct(int id) throws IOException {
-//        mQueries.remove(ORDERBY);
-//        Call<Response> call = mApiInterfaces.getSpecificProduct(String.valueOf(id), mQueries);
-//
-//        return call.execute().body();
+//    public void getLastProduct(String status) {
+//        MutableLiveData<List<Product>> mListProductLiveData = new MutableLiveData<>();
+//        mStatusListProduct = status;
+//        mQueries.put("orderby", status);
+//        Call<List<Product>> call = mProductService.getProductBody(mQueries);
+//        call.enqueue(getRetrofitCallback());
+//        //return mListProductLiveData;
 //    }
+
+    public void getLastProduct() {
+        // MutableLiveData<List<Product>> mutableLiveData = new MutableLiveData<>();
+        mQueries.remove("page");
+        mQueries.remove("orderby");
+        Call<List<Product>> call = mProductService.getProductBody(mQueries);
+        call.enqueue(getRetrofitCallback(mAllProductListMutableLiveData));
+        //return mutableLiveData;
+    }
+
+    public void getProductById(String productId) {
+        //MutableLiveData<Product> productLiveData = new MutableLiveData<>();
+        mQueries.remove("page");
+        mQueries.remove("orderby");
+        Call<Product> call = mProductService.getProduct(productId, mQueries);
+        call.enqueue(getRetrofitProduct());
+        //return productLiveData;
+    }
 
     public void setCustomer(Customers customer) {
         Call<Customers> customersCall = mProductService.setCustomers(customer);
         customersCall.enqueue(setCustomerwithRetrofit());
     }
 
-    public MutableLiveData<List<Product>> getAllProduct() {
-        MutableLiveData<List<Product>> mutableLiveData = new MutableLiveData<>();
-        Call<List<Product>> call = mProductService.getAllProductsPage(mQueries);
-        call.enqueue(getRetrofitCallback(mutableLiveData));
-        return mutableLiveData;
+    public void getAllProduct() {
+        //MutableLiveData<List<Product>> mutableLiveData = new MutableLiveData<>();
+        mQueries.remove("page");
+        mQueries.remove("orderby");
+        Call<List<Product>> call = mProductService.getProductBody(mQueries);
+        call.enqueue(getRetrofitCallback(mAllProductListMutableLiveData));
+        //return mutableLiveData;
     }
 
-    public MutableLiveData<List<Product>> getProductsSubCategory(String name, String idCatrgory) {
-        MutableLiveData<List<Product>> mutableLiveData = new MutableLiveData<>();
+    public void getProductsSubCategory(String name, String idCatrgory) {
+        //MutableLiveData<List<Product>> mutableLiveData = new MutableLiveData<>();
+        mQueries.remove("page");
+        mQueries.remove("orderby");
         Call<List<Product>> call = mProductService.getProductsSubCategoires(mQueries, idCatrgory, name);
-        call.enqueue(getRetrofitCallback(mutableLiveData));
-        return mutableLiveData;
+        call.enqueue(getRetrofitCallback(mProductListSubCategMLiveData));
+        //return mutableLiveData;
+    }
+
+    public void getOrderProductList(String status) {
+        mQueries.remove("page");
+        mQueries.put("orderby", status);
+        Call<List<Product>> call = mProductService.getProductBody(mQueries);
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                Log.d(TAG_PRODUCT, "successfulOrderProduct");
+                List<Product> list = response.body();
+
+                if (status.equals("date")) {
+                    mListNewestProMutableLiveData.setValue(list);
+
+                } else if (status.equals("popularity")) {
+                    mListPopularProMutableLiveData.setValue(list);
+
+                } else if (status.equals("rating")) {
+                    mListMostPointProMutableLiveData.setValue(list);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Log.d(TAG_PRODUCT, "Failed " + t.getMessage());
+            }
+        });
+    }
+
+    public MutableLiveData<List<Product>> getOrderProductListByPage(String status , int pageNumber) {
+
+        MutableLiveData<List<Product>> mAllProductListMLData = new MutableLiveData<>();
+        mQueries.put("orderby", status);
+        mQueries.put("page",String.valueOf(pageNumber));
+
+        Call<List<Product>> call = mProductService.getAllProductsByPage(mQueries);
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                Log.d(TAG_PRODUCT, "successfulOrderProduct page");
+                List<Product> list = response.body();
+
+                if (status.equals("date")) {
+                    mAllProductListMLData.setValue(list);
+
+                } else if (status.equals("popularity")) {
+                    mAllProductListMLData.setValue(list);
+
+                } else if (status.equals("rating")) {
+                    mAllProductListMLData.setValue(list);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Log.d(TAG_PRODUCT, "Failed page " + t.getMessage());
+            }
+        });
+
+        return mAllProductListMLData;
+    }
+
+    public MutableLiveData<List<Product>> getAllProductListByPage(int pageNumber) {
+
+        MutableLiveData<List<Product>> mAllProductListMLData = new MutableLiveData<>();
+        mQueries.remove("orderby");
+        mQueries.put("page",String.valueOf(pageNumber));
+
+        Call<List<Product>> call = mProductService.getAllProductsByPage(mQueries);
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                Log.d(TAG_PRODUCT, "successfulOrderProduct page");
+                List<Product> list = response.body();
+                mAllProductListMLData.setValue(list);
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Log.d(TAG_PRODUCT, "Failed page " + t.getMessage());
+            }
+        });
+
+        return mAllProductListMLData;
     }
 
     public MutableLiveData<List<CategoriesItem>> getCategory() {
-         final MutableLiveData<List<CategoriesItem>> mListCategoryLiveData = new MutableLiveData<>();
+        mQueries.remove("page");
+        mQueries.remove("orderby");
+        final MutableLiveData<List<CategoriesItem>> mListCategoryLiveData = new MutableLiveData<>();
         Call<CategoriesItem> call = mProductService.getProductCategory(mQueries);
         call.enqueue(new Callback<CategoriesItem>() {
             @Override
@@ -125,8 +227,9 @@ public class ItemShopFetcher {
         return mListCategoryLiveData;
     }
 
-    public MutableLiveData<List<CategoriesItem>> getAllCategory() {
-        mListCategoryLiveData = new MutableLiveData<>();
+    public void getAllCategory() {
+        mQueries.remove("page");
+        mQueries.remove("orderby");
         Call<List<CategoriesItem>> call = mProductService.getAllCategories(mQueries);
         call.enqueue(new Callback<List<CategoriesItem>>() {
 
@@ -136,8 +239,6 @@ public class ItemShopFetcher {
                     Log.d(TAG_PRODUCT, "successfulCategory");
                     List<CategoriesItem> listCategory = response.body();
                     mListCategoryLiveData.setValue(listCategory);
-                    //mCallbacks.onCategoryResponse(listCategory);
-
                 }
             }
 
@@ -146,7 +247,6 @@ public class ItemShopFetcher {
                 Log.d(TAG_PRODUCT, "FailedCategory " + t.getMessage());
             }
         });
-        return mListCategoryLiveData;
     }
 
     public MutableLiveData<List<CategoriesItem>> getSubCategory(String categoryId) {
@@ -159,8 +259,7 @@ public class ItemShopFetcher {
                 if (response.isSuccessful()) {
                     Log.d(TAG_PRODUCT, "successfulCategory");
                     List<CategoriesItem> listCategory = response.body();
-                    mListCategoryLiveData.setValue(listCategory);
-                    //mCallbacks.onCategoryResponse(listCategory);
+                    //mListCategoryLiveData.setValue(listCategory);
                 }
             }
 
@@ -173,7 +272,7 @@ public class ItemShopFetcher {
     }
 
 
-    private Callback<List<Product>> getRetrofitCallback(final MutableLiveData<List<Product>> listProMutableLiveData) {
+    private Callback<List<Product>> getRetrofitCallback(MutableLiveData<List<Product>> listProMutableLiveData) {
         return new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
@@ -181,21 +280,18 @@ public class ItemShopFetcher {
                     Log.d(TAG_PRODUCT, "isSuccessful ");
                     List<Product> list = response.body();
                     listProMutableLiveData.setValue(list);
-                    //mCallbacks.onProductResponse(mProductList);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-
                 Log.d(TAG_PRODUCT, "Failed " + t.getMessage());
             }
         };
-
     }
 
     public Callback<Customers> setCustomerwithRetrofit() {
-         final MutableLiveData<Customers> mCustomerLiveData = new MutableLiveData<>();
+        MutableLiveData<Customers> mCustomerLiveData = new MutableLiveData<>();
         return new Callback<Customers>() {
             @Override
             public void onResponse(Call<Customers> call, Response<Customers> response) {
@@ -208,17 +304,16 @@ public class ItemShopFetcher {
                 //mCallbacks.onCustomerResponse(false);
             }
         };
-
     }
 
-    private Callback<Product> getRetrofitProduct(final MutableLiveData<Product> productMutableLiveData) {
+    private Callback<Product> getRetrofitProduct() {
         return new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG_PRODUCT, "isSuccessful Find Product");
                     Product product = response.body();
-                    productMutableLiveData.setValue(product);
+                    mProductLiveData.setValue(product);
                 }
             }
 
@@ -229,14 +324,37 @@ public class ItemShopFetcher {
         };
     }
 
+    public MutableLiveData<List<CategoriesItem>> getListCategoryLiveData() {
+        return mListCategoryLiveData;
+    }
 
-    /*public interface ProductFetcherCallbacks {
-        void onProductResponse(List<Product> productList);
-        void onCategoryResponse(List<CategoriesItem> categoryList);
-        void onCustomerResponse(boolean singupCustomer);
+    public MutableLiveData<List<Product>> getListNewestProMutableLiveData() {
+        return mListNewestProMutableLiveData;
+    }
 
-    }*/
+    public MutableLiveData<List<Product>> getListPopularProMutableLiveData() {
+        return mListPopularProMutableLiveData;
+    }
 
+    public MutableLiveData<List<Product>> getListMostPointProMutableLiveData() {
+        return mListMostPointProMutableLiveData;
+    }
+
+    public MutableLiveData<Product> getProductLiveData() {
+        return mProductLiveData;
+    }
+
+    public MutableLiveData<List<Product>> getAllProductListMutableLiveData() {
+        return mAllProductListMutableLiveData;
+    }
+
+    public MutableLiveData<List<Product>> getProductListSubCategMLiveData() {
+        return mProductListSubCategMLiveData;
+    }
+
+    public MutableLiveData<Customers> getCustomerLiveData() {
+        return mCustomerLiveData;
+    }
 
 }
 

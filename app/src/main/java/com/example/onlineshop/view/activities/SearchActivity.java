@@ -36,14 +36,10 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
 
     public static final String TAG_SORT_DIALOG_FRAGMENT = "SortDialogFragment";
     private SearchView mSearchView;
-    // private List<Product> mListProduct = new ArrayList<>();
-    private List<Product> mListProductFilter = new ArrayList<>();
-    // private List<Product> mListProductSorted = new ArrayList<>();
-    private List<CategoriesItem> mListCategory = new ArrayList<>();
+    private List<Product> mListProductFilter;
+    private List<CategoriesItem> mListCategory ;
     private String mQueryString;
-    // private TextView mTvSort, mTvFilter, mTvHintSort, mTvHintFilter;
     private SortDialogFragment mSortDialogFragment;
-    // private Toolbar mToolbar;
     private SearchViewModel mSearchViewModel;
     private ActivitySearchBinding mBinding;
     private String mTagDialogFragment;
@@ -53,16 +49,9 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_search);
 
         mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_search);
-
-//        mTvFilter = findViewById(R.id.tv_filter_item_search);
-//        mTvHintFilter = findViewById(R.id.tv_hint_filter_item_search);
-//        mTvSort = findViewById(R.id.tv_sort_item_search);
-//        mTvHintSort = findViewById(R.id.tv_hint_sort_item_search);
-//        mToolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(mBinding.toolbar);
 
@@ -70,45 +59,14 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
 
         mBinding.setSearchViewModel(mSearchViewModel);
 
-        mSearchViewModel.getIsClickSortingLiveData().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
-                    mTagDialogFragment = mSortDialogFragment.getTag();
-                    mSortDialogFragment.show(getSupportFragmentManager(), TAG_SORT_DIALOG_FRAGMENT);
-                }
-            }
+        mBinding.llSortingActivitySearch.setOnClickListener(view -> {
+            mTagDialogFragment = mSortDialogFragment.getTag();
+            mSortDialogFragment.show(getSupportFragmentManager(), TAG_SORT_DIALOG_FRAGMENT);
         });
 
-        mSearchViewModel.getIsClickFilteringLiveData().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
+        mBinding.llFilteringActivitySearch.setOnClickListener(view -> {
 
-                }
-            }
         });
-
-       // mSortDialogFragment.getResult();
-
-
-//        mTvFilter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//
-//        mTvSort.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mSortDialogFragment.show(getSupportFragmentManager(), TAG_SORT_DIALOG_FRAGMENT);
-//
-//            }
-//        });
-
-//        Bundle args = new Bundle();
-//        mSortDialogFragment = (SortDialogFragment) getSupportFragmentManager().getFragment(args,TAG_SORT_DIALOG_FRAGMENT);
 
     }
 
@@ -128,19 +86,15 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
 
                 if (query != null) {
                     mQueryString = query;
-//                    ItemShopFetcher productFetcher = new ItemShopFetcher();
-//                    productFetcher.getAllProduct();
-                    mSearchViewModel.getAllproduct().observe(SearchActivity.this, new Observer<List<Product>>() {
-                        @Override
-                        public void onChanged(List<Product> list) {
-                            // mListProduct = list;
-                            mListProductFilter = mSearchViewModel.searchList(list, mQueryString);
-                            mListCategory = mSearchViewModel.getCategoriesItemList();
-                            //searchList();
-                            callFragment();
-                        }
+
+                    mSearchViewModel.getAllproduct().observe(SearchActivity.this, list -> {
+                        mListProductFilter = mSearchViewModel.searchList(list, mQueryString);
+                        mListCategory = mSearchViewModel.getCategoriesItemList();
+                        callFragment();
                     });
                 }
+                mSearchView.setFocusable(false);
+               // mSearchView.onActionViewCollapsed();
                 return true;
             }
 
@@ -160,22 +114,25 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
         return intent;
     }
 
-//    @Override
-//    public void onProductResponse(List<Product> productList) {
-//        mListProduct = productList;
-//        searchList();
-//
-//    }
-//
-//    @Override
-//    public void onCategoryResponse(List<CategoriesItem> categoryList) {
-//
-//    }
-//
-//    @Override
-//    public void onCustomerResponse(boolean singupCustomer) {
-//
-//    }
+    private void callFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.container_search_list, SearchProductListFragment.newInstance(mListProductFilter, mListCategory))
+                .commit();
+    }
+
+
+    @Override
+    public void getResultDialog(String sortList) {
+
+        mBinding.tvHintSortItemSearch.setText(sortList);
+
+        mListProductFilter = mSearchViewModel.getResultDialog(sortList, mListProductFilter);
+        callFragment();
+
+    }
+
 
 //    public void searchList() {
 //        mListProductFilter = new ArrayList<>();
@@ -223,64 +180,4 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
 //
 //    }
 
-
-    @Override
-    public void getResultDialog(String sortList) {
-
-        mListProductFilter = mSearchViewModel.getResultDialog(sortList,mListProductFilter);
-        callFragment();
-//        mBinding.tvHintSortItemSearch.setText(sortList);
-//        switch (sortList) {
-//            case "پرفروش ترین": {
-//                Collections.sort(mListProductFilter, new Comparator<Product>() {
-//                    @Override
-//                    public int compare(Product product, Product p1) {
-//                        return Integer.valueOf(product.getTotalSales()).compareTo(p1.getTotalSales());
-//                    }
-//                });
-//
-//                callFragment();
-//                break;
-//            }
-//            case "قیمت از زیاد به کم": {
-//                Collections.sort(mListProductFilter, Collections.reverseOrder(new Comparator<Product>() {
-//                    @Override
-//                    public int compare(Product product, Product t1) {
-//                        return Integer.valueOf(product.getPrice()).compareTo(Integer.valueOf(t1.getPrice()));
-//                    }
-//                }));
-//
-//                callFragment();
-//                break;
-//            }
-//            case "قیمت از کم به زیاد": {
-//                Collections.sort(mListProductFilter, new Comparator<Product>() {
-//                    @Override
-//                    public int compare(Product product, Product p1) {
-//                        return Integer.valueOf(product.getPrice()).compareTo(Integer.valueOf(p1.getPrice()));
-//                    }
-//                });
-//                callFragment();
-//                break;
-//            }
-//            case "جدیدترین": {
-//                Collections.sort(mListProductFilter, new Comparator<Product>() {
-//                    @Override
-//                    public int compare(Product product, Product p1) {
-//                        return (product.getDateModified()).compareTo(p1.getDateModified());
-//                    }
-//                });
-//                callFragment();
-//                break;
-//            }
-//        }
-    }
-
-    private void callFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.container_search_list, SearchProductListFragment.newInstance(mListProductFilter, mListCategory))
-                .commit();
-    }
 }

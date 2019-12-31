@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,13 +6,41 @@
     android:orientation="vertical"
     tools:context=".view.activities.DetailProductActivity">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar_detail_pro"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:background="@android:color/white" />-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_detail_pro"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
+        android:layoutDirection="ltr">
 
-    <include layout="@layout/toolbar_custom"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layoutDirection="ltr">
+
+
+        <ImageButton android:id="@+id/toolbarHomeActionbar_iv_cart_button"
+            android:background="@drawable/hover_oval" android:padding="12.0dip"
+            android:layout_width="48.0dip" android:layout_height="48.0dip"
+            android:layout_marginTop="4.0dip" android:layout_marginBottom="4.0dip"
+            android:src="@drawable/ic_shopping_cart"
+            android:contentDescription="@string/content_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:textSize="11.0sp"
+            android:textStyle="bold"
+            android:textColor="@color/digikala_red_dark"
+            android:gravity="center"
+            android:id="@+id/toolbarHomeActionbar_iv_cartCounter"
+            android:background="@drawable/background_cart_counter"
+            android:layout_width="20.0dip" android:layout_height="20.0dip"
+            android:layout_marginLeft="-26.0dip" android:layout_marginTop="7.0dip"
+            android:layout_toRightOf="@id/toolbarHomeActionbar_iv_cart_button"/>
+
+</RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+<!--    <include layout="@layout/toolbar_custom"/>-->
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/container_detail_pro"
@@ -21,4 +48,3 @@
         android:layout_height="wrap_content" />
 
 </LinearLayout>
-</layout>

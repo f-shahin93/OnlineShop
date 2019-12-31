@@ -22,30 +22,19 @@ import java.util.List;
 public class SearchViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Product>> mListProMutableLiveData;
-    private MutableLiveData<List<CategoriesItem>> mListCategoryMutableLiveData;
     private ItemShopFetcher mShopFetcher;
     private List<CategoriesItem> mCategoriesItemList;
-    private MutableLiveData<Boolean> mIsClickSortingLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> mIsClickFilteringLiveData = new MutableLiveData<>();
-    private String mHintSort;
 
 
     public SearchViewModel(@NonNull Application application) {
         super(application);
-        mShopFetcher = new ItemShopFetcher();
+        mShopFetcher = ItemShopFetcher.getInstance();
     }
 
     public MutableLiveData<List<Product>> getAllproduct() {
-        mListProMutableLiveData = mShopFetcher.getAllProduct();
-        return mListProMutableLiveData;
-    }
-
-    public MutableLiveData<List<Product>> getListProMutableLiveData() {
-        return mListProMutableLiveData;
-    }
-
-    public void setListProMutableLiveData(MutableLiveData<List<Product>> listProMutableLiveData) {
-        mListProMutableLiveData = listProMutableLiveData;
+       // mShopFetcher.getAllProductListByPage()
+        mShopFetcher.getAllProduct();
+        return mListProMutableLiveData = mShopFetcher.getAllProductListMutableLiveData();
     }
 
     public List<Product> searchList(List<Product> list ,String mQueryString) {
@@ -65,7 +54,6 @@ public class SearchViewModel extends AndroidViewModel {
 
             //search other feature product
             if (product.getDateCreated().equals(mQueryString) || product.getDescription().equals(mQueryString)
-                    || product.getName().contains(mQueryString)
                     || product.getPrice().equals(mQueryString) || product.getPriceHtml().equals(mQueryString)
                     || product.getRegularPrice().equals(mQueryString) || product.getSalePrice().equals(mQueryString)
                     || product.getPurchaseNote().equals(product) || product.getShippingClass().equals(mQueryString)
@@ -93,43 +81,19 @@ public class SearchViewModel extends AndroidViewModel {
         return mListProductFilter;
     }
 
+
     public List<CategoriesItem> getCategoriesItemList() {
         return mCategoriesItemList;
     }
+
 
     public void setCategoriesItemList(List<CategoriesItem> categoriesItemList) {
         mCategoriesItemList = categoriesItemList;
     }
 
 
-    public MutableLiveData<Boolean> getIsClickSortingLiveData() {
-        return mIsClickSortingLiveData;
-    }
-
-    public void setIsClickSortingLiveData() {
-        mIsClickSortingLiveData.setValue(true);
-    }
-
-    public MutableLiveData<Boolean> getIsClickFilteringLiveData() {
-        return mIsClickFilteringLiveData;
-    }
-
-    public void setIsClickFilteringLiveData() {
-        mIsClickFilteringLiveData.setValue(true);
-    }
-
-    public void setHintSort(String hintSort){
-        mHintSort = hintSort;
-    }
-
-    public String getHintSort(){
-        return mHintSort;
-    }
-
     public List<Product> getResultDialog(String sortList , List<Product> listProductFilter) {
-        setHintSort(sortList);
         List<Product> mListProductFilter = listProductFilter;
-        //mBinding.tvHintSortItemSearch.setText(sortList);
         switch (sortList) {
             case "پرفروش ترین": {
                 Collections.sort(mListProductFilter, new Comparator<Product>() {

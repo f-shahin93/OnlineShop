@@ -14,7 +14,7 @@
         <item name="colorPrimaryDark">@color/digikala_red_dark</item>
     </style>
 
-    <style name="MyTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+    <style name="MyTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>

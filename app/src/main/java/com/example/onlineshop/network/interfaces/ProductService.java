@@ -24,16 +24,7 @@ public interface ProductService {
     Call<List<Product>> getProductBody(@QueryMap Map<String, String> productQueries);
 
     @GET("products/?")
-    Call<List<Product>> getAllProducts(@Query("orderby") String orderType);
-
-//    @GET("products/?")
-//    Call<List<Product>> getAllProductsWithQuery(@QueryMap Map<String, String> productQueries);
-
-    @GET("products/?per_page=100")
-    Call<List<Product>> getAllProductsPage();
-
-    @GET("products/?page=4")
-    Call<List<Product>> getAllProductsPage(@QueryMap Map<String, String> productQueries);
+    Call<List<Product>> getAllProductsByPage(@QueryMap Map<String, String> productQueries);
 
     @GET("products/{id}/?")
     Call<Product> getProduct(@Path("id") String productId, @QueryMap Map<String, String> productQueries);

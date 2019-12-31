@@ -25,22 +25,9 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends SingleFragmentActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    /* public static final String HOME_PAGE_VIEW_PAGER_CATEGORY = "homePageViewPagerCategory";
-     private SliderLayout mSliderPic;
-     private LinearLayout mLinearLayoutLatestProducts;
-     private LinearLayout mLinearLayoutMostViewedProducts;
-     private LinearLayout mLinearLayoutMostPointsProducts;
-     private RecyclerView mRecyclerViewCategory;
-     private CategoryAdapter mCategoryAdapter;
-     private List mCategoryList = new ArrayList();
-     private SearchView mSearchView;
-     private Banner mBanner;
-     private TextView mTvAccount;
- */
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
-    private SearchView mSearchView;
 
 
     @Override
@@ -84,14 +71,6 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
         init();
 
 
-        /*mSliderPic = findViewById(R.id.slider_picApp);
-        mLinearLayoutLatestProducts = findViewById(R.id.rec_view_newest_products_list_home);
-        mLinearLayoutMostViewedProducts = findViewById(R.id.rec_view_most_viewed_products_list_home);
-        mLinearLayoutMostPointsProducts = findViewById(R.id.rec_view_most_points_products_list_home);
-        mRecyclerViewCategory = findViewById(R.id.recycler_view_category_homePage);*/
-
-        //  mTvAccount = findViewById(R.id.tv_nav_account);
-
         /*mTvAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,7 +78,7 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
             }
         });*/
 
-      //  LinearLayout linearLayout = findViewById(R.id.layout_banner_home_page);
+        //  LinearLayout linearLayout = findViewById(R.id.layout_banner_home_page);
        /* mBanner = new Banner.Builder(this)
                 .setParent(linearLayout)
                 .setIcon(R.drawable.ic_wifi)
@@ -136,11 +115,6 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
 
         }*/
 
-        /*ItemShopFetcher productFetcher = new ItemShopFetcher(this);
-        productFetcher.getAllCategory();*/
-
-        //setupSlider();
-
 
     }
 
@@ -166,69 +140,11 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
 
         });
 
-
         mDrawer.setDrawerListener(toggle);
         mNavigationView.setNavigationItemSelectedListener(this);
         toggle.syncState();
-
-
-      /*  LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        mRecyclerViewCategory.setLayoutManager(layoutManager);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_products_list_home);
-        if (fragment == null)
-            fragmentManager
-                    .beginTransaction()
-                    .add(R.id.rec_view_newest_products_list_home, ProductsListHomeFragment.newInstance("date"))
-                    .commit();
-
-        FragmentManager fragmentManager2 = getSupportFragmentManager();
-        Fragment fragment2 = fragmentManager2.findFragmentById(R.id.fragment_products_list_home);
-        if (fragment2 == null)
-            fragmentManager2
-                    .beginTransaction()
-                    .add(R.id.rec_view_most_viewed_products_list_home, ProductsListHomeFragment.newInstance("popularity"))
-                    .commit();
-
-        FragmentManager fragmentManager3 = getSupportFragmentManager();
-        Fragment fragment3 = fragmentManager3.findFragmentById(R.id.fragment_products_list_home);
-        if (fragment3 == null)
-            fragmentManager3
-                    .beginTransaction()
-                    .add(R.id.rec_view_most_points_products_list_home, ProductsListHomeFragment.newInstance("rating"))
-                    .commit();*/
     }
 
-    /*private void setupSlider() {
-
-        HashMap<String, String> url_maps = new HashMap<>();
-        url_maps.put("لوازم برقی", "https://bucket-15.digicloud-oss.com/digikala-adservice-banners/1000012855.jpg");
-        url_maps.put("صوتی و تصویری", "https://bucket-15.digicloud-oss.com/digikala-adservice-banners/1000012860.jpg");
-        url_maps.put("مراقبت از پوست", "https://bucket-15.digicloud-oss.com/digikala-adservice-banners/1000012909.jpg");
-        url_maps.put("لذت از لحظات", "https://bucket-15.digicloud-oss.com/digikala-adservice-banners/1000013192.jpg");
-
-
-        for (String name : url_maps.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(this);
-            // initialize a SliderLayout
-            textSliderView
-                    .description(name)
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
-
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra", name);
-
-            mSliderPic.addSlider(textSliderView);
-        }
-        mSliderPic.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        mSliderPic.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        mSliderPic.setDuration(5000);
-    }*/
 
     @Override
     public void onBackPressed() {
@@ -245,6 +161,10 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
 
         switch (menuItem.getItemId()) {
             case R.id.nav_home_page: {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container_frag_home_p, MainFragment.newInstance())
+                        .commit();
                 break;
             }
             case R.id.nav_list_category: {
@@ -253,21 +173,31 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
                 break;
             }
             case R.id.nav_shopping_cart: {
+                Intent intent = ShoppingCartActivity.newIntent(this);
+                startActivity(intent);
                 break;
             }
             case R.id.nav_newest_products: {
+                Intent intent = ProductListSeeAllActivity.newIntent(this,"date");
+                startActivity(intent);
                 break;
             }
             case R.id.nav_most_viewed_products: {
+                Intent intent = ProductListSeeAllActivity.newIntent(this,"popularity");
+                startActivity(intent);
                 break;
             }
             case R.id.nav_most_points_products: {
+                Intent intent = ProductListSeeAllActivity.newIntent(this,"rating");
+                startActivity(intent);
                 break;
             }
             case R.id.nav_frequently_questions: {
+
                 break;
             }
             case R.id.nav_setting: {
+
                 break;
             }
             case R.id.tv_nav_account: {
@@ -282,27 +212,7 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
     }
 
 
-  /*  @Override
-    public void onProductResponse(List<Product> productList) {
-
-    }
-
-    @Override
-    public void onCategoryResponse(List<CategoriesItem> categoryList) {
-        mCategoryList = categoryList;
-        setupAdapter();
-    }
-
-    @Override
-    public void onCustomerResponse(boolean singupCustomer) {
-
-    }
-
-    private void setupAdapter() {
-        mCategoryAdapter = new CategoryAdapter(this, mCategoryList, HOME_PAGE_VIEW_PAGER_CATEGORY);
-        mRecyclerViewCategory.setAdapter(mCategoryAdapter);
-    }
-
+  /*
     public boolean isOnline(Context context) {
         try {
             ConnectivityManager connectivityManager =
@@ -322,30 +232,34 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
 
-        mSearchView = (SearchView) menu.findItem(R.id.search_menu_item).getActionView();
+        // mSearchView = (SearchView) menu.findItem(R.id.search_menu_item).getActionView();
 
-        mSearchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(SearchActivity.newIntent(MainActivity.this));
-                mSearchView.setFocusable(false);
-                mSearchView.onActionViewCollapsed();
-
-            }
-        });
+//        mSearchView.setOnSearchClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(SearchActivity.newIntent(MainActivity.this));
+//                mSearchView.setFocusable(false);
+//                mSearchView.onActionViewCollapsed();
+//
+//            }
+//        });
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.shopping_cart_main_menu_item: {
                 startActivity(ShoppingCartActivity.newIntent(this));
                 break;
             }
+            case R.id.search_menu_item: {
+                startActivity(SearchActivity.newIntent(MainActivity.this));
+            }
 
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }

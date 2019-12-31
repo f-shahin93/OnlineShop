@@ -19,8 +19,8 @@
             style="?android:listSeparatorTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
             android:text="name_product"
             android:textDirection="rtl"
             app:layout_constraintEnd_toStartOf="@+id/Iv_product_category_view_pager"
@@ -48,8 +48,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/Iv_product_category_view_pager"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             app:layout_constraintBottom_toBottomOf="parent"

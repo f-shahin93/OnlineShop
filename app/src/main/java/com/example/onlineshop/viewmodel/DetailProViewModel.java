@@ -22,12 +22,13 @@ public class DetailProViewModel extends AndroidViewModel {
     public DetailProViewModel(@NonNull Application application) {
         super(application);
         mProductRepository = ProductRepository.getInstance();
-        mShopFetcher = new ItemShopFetcher();
+        mShopFetcher = ItemShopFetcher.getInstance();
 
     }
 
     public MutableLiveData<Product> getProductLiveData(int productId) {
-        mProductLiveData = mShopFetcher.getProductById(String.valueOf(productId));
+        mShopFetcher.getProductById(String.valueOf(productId));
+        mProductLiveData = mShopFetcher.getProductLiveData();
         return mProductLiveData;
     }
 

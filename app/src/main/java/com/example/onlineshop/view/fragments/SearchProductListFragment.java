@@ -16,18 +16,18 @@ import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.view.Adapter.CategoryAdapter;
 import com.example.onlineshop.view.Adapter.HomePageAdapter;
+import com.example.onlineshop.view.Adapter.ProductListSubCategoryAdapter;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class SearchProductListFragment extends Fragment {
 
-    public static final String Search_Product_List_Fragment = "SearchProductListFragment";
     public static final String ARG_CATEGORIES_LIST = "Arg categories List";
     private List<Product> mProductList;
     private List<CategoriesItem> mCategoriesList;
     private RecyclerView mRecyclerViewProductList,mRecyclerViewCategoriesList ;
-    private HomePageAdapter mHomePageAdapter;
+    private ProductListSubCategoryAdapter mProductListSubCategoryAdapter;
     private CategoryAdapter mCategoryAdapter;
 
 
@@ -70,14 +70,13 @@ public class SearchProductListFragment extends Fragment {
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerViewCategoriesList.setLayoutManager(layoutManager);
 
-        mHomePageAdapter = new HomePageAdapter(getContext(), mProductList);
-        mRecyclerViewProductList.setAdapter(mHomePageAdapter);
+        mProductListSubCategoryAdapter = new ProductListSubCategoryAdapter(getContext(), mProductList);
+        mRecyclerViewProductList.setAdapter(mProductListSubCategoryAdapter);
 
         mCategoryAdapter = new CategoryAdapter(getContext(), mCategoriesList);
         mRecyclerViewCategoriesList.setAdapter(mCategoryAdapter);
 
         return view;
-
     }
 
 }

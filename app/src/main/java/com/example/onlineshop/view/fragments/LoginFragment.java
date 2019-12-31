@@ -51,7 +51,7 @@ public class LoginFragment extends Fragment {
         Customers customers = new Customers();
         customers.setEmail(mEtUsername.getText().toString());
 
-        ItemShopFetcher productFetcher = new ItemShopFetcher();
+        ItemShopFetcher productFetcher =  ItemShopFetcher.getInstance();
         productFetcher.setCustomer(customers);
 
         return view;

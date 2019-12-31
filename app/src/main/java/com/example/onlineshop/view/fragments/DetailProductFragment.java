@@ -1,8 +1,11 @@
 package com.example.onlineshop.view.fragments;
 
 
+import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -55,10 +58,13 @@ public class DetailProductFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mProductId = getArguments().getInt(ARG_PRODUCT);
         }
+
         mDetailProViewModel = ViewModelProviders.of(this).get(DetailProViewModel.class);
+
         mDetailProViewModel.getProductLiveData(mProductId).observe(this, new Observer<Product>() {
             @Override
             public void onChanged(Product product) {
@@ -69,17 +75,15 @@ public class DetailProductFragment extends Fragment {
 
             }
         });
+
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_product, container, false);
-        //View view =inflater.inflate(R.layout.fragment_detail_product, container, false);
-
-        //initUI();
-        //setupSlider();
 
         /*buttonAddToShoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +92,8 @@ public class DetailProductFragment extends Fragment {
                 getActivity().startActivity(ShoppingCartActivity.newIntent(getContext()));
             }
         });*/
+
+
 
         return mBinding.getRoot();
     }
@@ -112,7 +118,7 @@ public class DetailProductFragment extends Fragment {
             mBinding.activityProductDetailsConfigLayout.setVisibility(View.GONE);
             mBinding.tvProductDetailsNotExist.setVisibility(View.VISIBLE);
         } else {
-            if (mProduct.getAttributes() != null && mProduct.getAttributes().size()>0) {
+            if (mProduct.getAttributes() != null && mProduct.getAttributes().size() > 0) {
                 if (mProduct.getAttributes().get(0) != null && mProduct.getAttributes().get(0).getName().equals("رنگ")) {
                     mBinding.tvProductDetailsColor.setText("رنگ");
                     int countColor = mProduct.getAttributes().get(0).getOptions().size();
@@ -123,7 +129,7 @@ public class DetailProductFragment extends Fragment {
                     }
                     mBinding.tvProductDetailsColorShow.setText(namesColor);
                 }
-                if (mProduct.getAttributes().size()>1 && mProduct.getAttributes().get(1) != null && mProduct.getAttributes().get(1).getName().equals("سایز")) {
+                if (mProduct.getAttributes().size() > 1 && mProduct.getAttributes().get(1) != null && mProduct.getAttributes().get(1).getName().equals("سایز")) {
                     mBinding.tvProductDetailsSize.setText("سایز");
                     int countsize = mProduct.getAttributes().get(1).getOptions().size();
                     mBinding.tvProductDetailsSizeCount.setText(" سایز" + countsize);
@@ -156,6 +162,7 @@ public class DetailProductFragment extends Fragment {
             if (mProduct.getRegularPrice() != null && mProduct.getRegularPrice() != "") {
                 mBinding.tvProductDetailsPayablePrice.setText(" تومان" + mProduct.getRegularPrice());
                 mBinding.tvProductDetailsRealPrice.setText(" تومان" + mProduct.getPrice());
+                mBinding.tvProductDetailsRealPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             } else {
                 mBinding.tvProductDetailsPayablePrice.setText(" تومان" + mProduct.getPrice());
                 mBinding.tvProductDetailsRealPrice.setVisibility(View.GONE);
@@ -165,7 +172,7 @@ public class DetailProductFragment extends Fragment {
             mDetailProViewModel.getIsClickAddtoCartLiveData().observe(DetailProductFragment.this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean aBoolean) {
-                    if(aBoolean){
+                    if (aBoolean) {
                         mDetailProViewModel.storeProduct(mProduct);
                         getActivity().startActivity(ShoppingCartActivity.newIntent(getContext()));
                     }
@@ -188,8 +195,8 @@ public class DetailProductFragment extends Fragment {
 //            url_maps.put("", imagesItem.getSrc());
 //        }
 
-        for (int i = 0 ;i<mProduct.getImages().size();i++){
-            url_maps.put("",mProduct.getImages().get(i).getSrc());
+        for (int i = 0; i < mProduct.getImages().size(); i++) {
+            url_maps.put("", mProduct.getImages().get(i).getSrc());
         }
 
         for (String name : url_maps.keySet()) {

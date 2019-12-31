@@ -24,16 +24,16 @@ public class ViewPagerCategViewModel extends AndroidViewModel {
 
     public ViewPagerCategViewModel(@NonNull Application application) {
         super(application);
-        mShopFetcher = new ItemShopFetcher();
+        mShopFetcher =  ItemShopFetcher.getInstance();
     }
 
     public MutableLiveData<List<CategoriesItem>> getListCategoryMutableLiveData() {
-        mListCategoryMutableLiveData = mShopFetcher.getAllCategory();
+      //  mListCategoryMutableLiveData = mShopFetcher.getAllCategory();
         return mListCategoryMutableLiveData;
     }
 
     public MutableLiveData<List<Product>> getListProMutableLiveData() {
-        mListProMutableLiveData = mShopFetcher.getProductsSubCategory(mCategoryName,String.valueOf(mCategoryId));
+       // mListProMutableLiveData = mShopFetcher.getProductsSubCategory(mCategoryName,String.valueOf(mCategoryId));
         return mListProMutableLiveData;
     }
 
@@ -53,9 +53,4 @@ public class ViewPagerCategViewModel extends AndroidViewModel {
         mCategoryId = categoryId;
     }
 
-    public Fragment setFragment(CategoriesItem categoryItem){
-        setCategoryName(categoryItem.getName());
-        setCategoryId(categoryItem.getId());
-        return DetailListCategoryFragment.newInstance();
-    }
 }

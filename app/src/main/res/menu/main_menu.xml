@@ -6,8 +6,7 @@
         android:id="@+id/search_menu_item"
         android:icon="@drawable/ic_search"
         app:showAsAction="always"
-        android:title="search product"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+        android:title="search product" />
 
     <item
         android:id="@+id/shopping_cart_main_menu_item"

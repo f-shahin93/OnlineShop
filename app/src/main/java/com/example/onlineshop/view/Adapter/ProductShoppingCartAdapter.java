@@ -146,6 +146,7 @@ public class ProductShoppingCartAdapter extends RecyclerView.Adapter<ProductShop
             Picasso.with(mContext)
                     .load(mProductVh.getImages().get(0).getSrc())
                     .resize(100, 100)
+                    .placeholder(R.drawable.place_holder_shopping_cart)
                     .into(mIvProduct);
         }
 

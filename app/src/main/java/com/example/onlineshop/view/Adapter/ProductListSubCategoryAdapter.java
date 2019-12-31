@@ -92,7 +92,10 @@ public class ProductListSubCategoryAdapter extends RecyclerView.Adapter<ProductL
             mProductVh = product;
 
             if (mProductVh.getImages().size() > 0)
-                Picasso.with(mContext).load(mProductVh.getImages().get(0).getSrc()).into(mBinding.IvProductCategoryViewPager);
+                Picasso.with(mContext)
+                        .load(mProductVh.getImages().get(0).getSrc())
+                        .placeholder(R.drawable.place_holder_shopping_cart)
+                        .into(mBinding.IvProductCategoryViewPager);
             mBinding.tvNameProductCategoryViewPager.setText(mProductVh.getName());
             mBinding.tvPriceProductCategoryViewPager.setText(mProductVh.getPrice());
             mBinding.tvPriceRegularItemListCategoryViewPager.setText(mProductVh.getRegularPrice());

@@ -194,10 +194,9 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                //String tabName = mTabLayout.getTabAt(position).getText().toString();
-//                return DetailListCategoryFragment.newInstance(
-//                        mCategoriesList.get(position).getId(),mCategoriesList.get(position).getName());
-                return mViewModel.setFragment(mCategoriesList.get(position));
+                return DetailListCategoryFragment.newInstance(
+                        mCategoriesList.get(position).getId(),mCategoriesList.get(position).getName());
+                //return mViewModel.setFragment(mCategoriesList.get(position));
             }
 
             @Override

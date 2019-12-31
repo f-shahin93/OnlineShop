@@ -30,15 +30,19 @@ public class DetailListCategoryFragment extends Fragment {
     private ProductListSubCategoryAdapter mAdapter;
     private List<Product> mProductList = new ArrayList<>();
     private ViewPagerCategViewModel mViewModel;
+    private String mCategoryName;
+    private long mCategoryId ;
 
 
     public DetailListCategoryFragment() {
         // Required empty public constructor
     }
 
-    public static DetailListCategoryFragment newInstance() {
+    public static DetailListCategoryFragment newInstance(long categoryId , String categoryName) {
         DetailListCategoryFragment fragment = new DetailListCategoryFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_CATEGORY_NAME,categoryName);
+        args.putLong(ARG_CATEGORY_ID,categoryId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,13 +50,13 @@ public class DetailListCategoryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mCategoryName = getArguments().getString(ARG_CATEGORY_NAME);
-//            mCategoryId = getArguments().getLong(ARG_CATEGORY_ID);
-//        }
+        if (getArguments() != null) {
+            mCategoryName = getArguments().getString(ARG_CATEGORY_NAME);
+            mCategoryId = getArguments().getLong(ARG_CATEGORY_ID);
+        }
 
         mViewModel = ViewModelProviders.of(this).get(ViewPagerCategViewModel.class);
-        
+
         mViewModel.getListProMutableLiveData().observe(this, new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> list) {

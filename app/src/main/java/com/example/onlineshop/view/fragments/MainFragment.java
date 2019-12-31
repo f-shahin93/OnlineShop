@@ -1,6 +1,7 @@
 package com.example.onlineshop.view.fragments;
 
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -23,13 +24,12 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.onlineshop.R;
 import com.example.onlineshop.databinding.HomePageLayoutBinding;
-import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.view.Adapter.CategoryAdapter;
 import com.example.onlineshop.view.Adapter.HomePageAdapter;
+import com.example.onlineshop.view.activities.ProductListSeeAllActivity;
 import com.example.onlineshop.viewmodel.HomePageViewModel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,12 +56,10 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mHomePageViewModel = ViewModelProviders.of(this).get(HomePageViewModel.class);
 
-        mHomePageViewModel.getListCategoryMutableLiveData().observe(this, new Observer<List<CategoriesItem>>() {
-            @Override
-            public void onChanged(List<CategoriesItem> categoriesItemList) {
-                mCategoryAdapter = new CategoryAdapter(getContext(),categoriesItemList);
-                mBinding.recyclerViewCategoryHomePage.setAdapter(mCategoryAdapter);
-            }
+        mHomePageViewModel.getListCategoryMutableLiveData().observe(this, categoriesItemList -> {
+            Log.d("TagProduct", "successfulCategory in frag");
+            mCategoryAdapter = new CategoryAdapter(getContext(), categoriesItemList);
+            mBinding.recyclerViewCategoryHomePage.setAdapter(mCategoryAdapter);
         });
 
         mHomePageViewModel.getListNewestProMutableLiveData().observe(this, new Observer<List<Product>>() {
@@ -104,7 +102,30 @@ public class MainFragment extends Fragment {
         setupSlider();
         init();
 
-        //return inflater.inflate(R.layout.fragment_main, container, false);
+        mBinding.tvSeeAllLatestProducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = ProductListSeeAllActivity.newIntent(getContext(),"date");
+                startActivity(intent);
+            }
+        });
+
+        mBinding.tvSeeAllMostPointsProducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = ProductListSeeAllActivity.newIntent(getContext(),"rating");
+                startActivity(intent);
+            }
+        });
+
+        mBinding.tvSeeAllMostViewedProducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = ProductListSeeAllActivity.newIntent(getContext(),"popularity");
+                startActivity(intent);
+            }
+        });
+
         return mBinding.getRoot();
     }
 
