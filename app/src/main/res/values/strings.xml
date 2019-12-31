@@ -28,6 +28,13 @@
     <string name="fake_title_product">غیر اصل</string>
     <string name="title_warranty">گارانتی 24 ماهه شاهین کالا</string>
     <string name="tv_title_name_saller">فروش توسط دیجی کالا</string>
+    <string name="myfont">fonts/IRAN_Sans.ttf</string>
+    <string name="search_title">جستجو</string>
+    <string name="title_exist">موجود</string>
+    <string name="title_delete">پاک کردن</string>
+    <string name="title_do_filter">فیلتر کن</string>
+    <string name="filter_from">از</string>
+    <string name="filter_to">تا</string>
 
 
 </resources>

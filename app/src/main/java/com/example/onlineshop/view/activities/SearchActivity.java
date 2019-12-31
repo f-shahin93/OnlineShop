@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.onlineshop.R;
 import com.example.onlineshop.databinding.ActivitySearchBinding;
@@ -37,12 +38,13 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
     public static final String TAG_SORT_DIALOG_FRAGMENT = "SortDialogFragment";
     private SearchView mSearchView;
     private List<Product> mListProductFilter;
-    private List<CategoriesItem> mListCategory ;
+    private List<Product> mListProduct = new ArrayList<>();
+    private List<CategoriesItem> mListCategory;
     private String mQueryString;
     private SortDialogFragment mSortDialogFragment;
     private SearchViewModel mSearchViewModel;
     private ActivitySearchBinding mBinding;
-    private String mTagDialogFragment;
+    private int mTotalPageNumber;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -59,14 +61,19 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
 
         mBinding.setSearchViewModel(mSearchViewModel);
 
-        mBinding.llSortingActivitySearch.setOnClickListener(view -> {
-            mTagDialogFragment = mSortDialogFragment.getTag();
-            mSortDialogFragment.show(getSupportFragmentManager(), TAG_SORT_DIALOG_FRAGMENT);
+        mTotalPageNumber = Integer.parseInt(mSearchViewModel.getTotalPageNumber());
+        mSearchViewModel.getAllproduct().observe(SearchActivity.this, list -> {
+            mListProduct.addAll(list);
+            for (int i = 2; i <= mTotalPageNumber; i++) {
+                loadNextDataFromApi(i);
+            }
         });
 
-        mBinding.llFilteringActivitySearch.setOnClickListener(view -> {
+        mBinding.llSortingActivitySearch.setOnClickListener(view ->
+                mSortDialogFragment.show(getSupportFragmentManager(), TAG_SORT_DIALOG_FRAGMENT));
 
-        });
+        mBinding.llFilteringActivitySearch.setOnClickListener(view ->
+                startActivity(FilterSearchActivity.newIntent(this)));
 
     }
 
@@ -86,15 +93,12 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
 
                 if (query != null) {
                     mQueryString = query;
-
-                    mSearchViewModel.getAllproduct().observe(SearchActivity.this, list -> {
-                        mListProductFilter = mSearchViewModel.searchList(list, mQueryString);
-                        mListCategory = mSearchViewModel.getCategoriesItemList();
-                        callFragment();
-                    });
+                    mListProductFilter = mSearchViewModel.searchList(mListProduct, mQueryString);
+                    mListCategory = mSearchViewModel.getCategoriesItemList();
+                    callFragment();
                 }
+
                 mSearchView.setFocusable(false);
-               // mSearchView.onActionViewCollapsed();
                 return true;
             }
 
@@ -104,7 +108,6 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
                 return true;
             }
         });
-
 
         return true;
     }
@@ -122,62 +125,17 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
                 .commit();
     }
 
+    public void loadNextDataFromApi(int offset) {
+        mSearchViewModel.getAllproduct(offset).observe(this, list -> {
+            mListProduct.addAll(list);
+        });
+    }
 
     @Override
     public void getResultDialog(String sortList) {
-
         mBinding.tvHintSortItemSearch.setText(sortList);
-
         mListProductFilter = mSearchViewModel.getResultDialog(sortList, mListProductFilter);
         callFragment();
-
     }
-
-
-//    public void searchList() {
-//        mListProductFilter = new ArrayList<>();
-//        mListCategory = new ArrayList<>();
-//        for (Product product : mListProduct) {
-//
-//            //search into name product
-//            String[] listName = product.getName().split(" ");
-//            for (String str : listName) {
-//                if (str.equalsIgnoreCase(mQueryString) || mQueryString.contains(str)) {
-//                    mListProductFilter.add(product);
-//                    mListCategory.addAll(product.getCategories());
-//                    break;
-//                }
-//            }
-//
-//            //search other feature product
-//            if (product.getDateCreated().equals(mQueryString) || product.getDescription().equals(mQueryString)
-//                    || product.getName().contains(mQueryString)
-//                    || product.getPrice().equals(mQueryString) || product.getPriceHtml().equals(mQueryString)
-//                    || product.getRegularPrice().equals(mQueryString) || product.getSalePrice().equals(mQueryString)
-//                    || product.getPurchaseNote().equals(product) || product.getShippingClass().equals(mQueryString)
-//                    || product.getShortDescription().equals(mQueryString) || product.getSku().equals(mQueryString)
-//                    || product.getStatus().equals(mQueryString) || product.getTaxClass().equals(mQueryString)
-//                    || product.getTaxStatus().equals(mQueryString) || product.getType().equals(mQueryString)
-//                    || product.getWeight().equals(mQueryString) || product.getDateModified().equals(mQueryString)
-//                    || String.valueOf(product.getTotalSales()).equals(mQueryString)) {
-//
-//                mListProductFilter.add(product);
-//                mListCategory.addAll(product.getCategories());
-//            }
-//
-//        }
-//
-//        for (int i = 0; i < mListCategory.size(); i++) {
-//            for (int j = i + 1; j < mListCategory.size(); j++) {
-//                if (mListCategory.get(j).getId() == mListCategory.get(i).getId()) {
-//                    mListCategory.remove(j);
-//                }
-//            }
-//
-//        }
-//
-//        callFragment();
-//
-//    }
 
 }

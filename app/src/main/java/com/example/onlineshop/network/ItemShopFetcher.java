@@ -40,6 +40,7 @@ public class ItemShopFetcher {
     private MutableLiveData<List<Product>> mAllProductListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Product>> mProductListSubCategMLiveData = new MutableLiveData<>();
     private MutableLiveData<Customers> mCustomerLiveData = new MutableLiveData<>();
+    private String mTotalPageNumber;
 
 
     public static ItemShopFetcher getInstance() {
@@ -126,6 +127,7 @@ public class ItemShopFetcher {
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 Log.d(TAG_PRODUCT, "successfulOrderProduct");
                 List<Product> list = response.body();
+                setTotalPageNumber(response.raw().header("X-WP-TotalPages"));
 
                 if (status.equals("date")) {
                     mListNewestProMutableLiveData.setValue(list);
@@ -145,11 +147,11 @@ public class ItemShopFetcher {
         });
     }
 
-    public MutableLiveData<List<Product>> getOrderProductListByPage(String status , int pageNumber) {
+    public MutableLiveData<List<Product>> getOrderProductListByPage(String status, int pageNumber) {
 
         MutableLiveData<List<Product>> mAllProductListMLData = new MutableLiveData<>();
         mQueries.put("orderby", status);
-        mQueries.put("page",String.valueOf(pageNumber));
+        mQueries.put("page", String.valueOf(pageNumber));
 
         Call<List<Product>> call = mProductService.getAllProductsByPage(mQueries);
         call.enqueue(new Callback<List<Product>>() {
@@ -182,7 +184,7 @@ public class ItemShopFetcher {
 
         MutableLiveData<List<Product>> mAllProductListMLData = new MutableLiveData<>();
         mQueries.remove("orderby");
-        mQueries.put("page",String.valueOf(pageNumber));
+        mQueries.put("page", String.valueOf(pageNumber));
 
         Call<List<Product>> call = mProductService.getAllProductsByPage(mQueries);
         call.enqueue(new Callback<List<Product>>() {
@@ -356,6 +358,14 @@ public class ItemShopFetcher {
         return mCustomerLiveData;
     }
 
+
+    public String getTotalPageNumber() {
+        return mTotalPageNumber;
+    }
+
+    public void setTotalPageNumber(String totalPageNumber) {
+        mTotalPageNumber = totalPageNumber;
+    }
 }
 
 /*

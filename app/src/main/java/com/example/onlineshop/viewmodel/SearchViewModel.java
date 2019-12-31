@@ -1,15 +1,11 @@
 package com.example.onlineshop.viewmodel;
 
 import android.app.Application;
-import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.Bindable;
-import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.onlineshop.databinding.ActivitySearchBinding;
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.network.ItemShopFetcher;
@@ -32,9 +28,18 @@ public class SearchViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<Product>> getAllproduct() {
-       // mShopFetcher.getAllProductListByPage()
         mShopFetcher.getAllProduct();
         return mListProMutableLiveData = mShopFetcher.getAllProductListMutableLiveData();
+    }
+
+    public MutableLiveData<List<Product>> getAllproduct(int pageNumber) {
+        MutableLiveData<List<Product>> mutableLiveData = new MutableLiveData<>();
+        mutableLiveData =  mShopFetcher.getAllProductListByPage(pageNumber);
+        return mutableLiveData;
+    }
+
+    public String getTotalPageNumber(){
+        return mShopFetcher.getTotalPageNumber();
     }
 
     public List<Product> searchList(List<Product> list ,String mQueryString) {
@@ -43,23 +48,22 @@ public class SearchViewModel extends AndroidViewModel {
         for (Product product : list) {
 
             //search into name product
-            String[] listName = product.getName().split(" ");
-            for (String str : listName) {
-                if (str.equalsIgnoreCase(mQueryString) || mQueryString.contains(str)) {
-                    mListProductFilter.add(product);
-                    mListCategory.addAll(product.getCategories());
-                    break;
-                }
-            }
+//            String[] listName = product.getName().split(" ");
+//            for (String str : listName) {
+//                if (str.equalsIgnoreCase(mQueryString) || mQueryString.contains(str)) {
+//                    mListProductFilter.add(product);
+//                    mListCategory.addAll(product.getCategories());
+//                    break;
+//                }
+//            }
 
             //search other feature product
             if (product.getDateCreated().equals(mQueryString) || product.getDescription().equals(mQueryString)
+                    || product.getName().contains(mQueryString) || product.getShortDescription().equals(mQueryString)
                     || product.getPrice().equals(mQueryString) || product.getPriceHtml().equals(mQueryString)
                     || product.getRegularPrice().equals(mQueryString) || product.getSalePrice().equals(mQueryString)
                     || product.getPurchaseNote().equals(product) || product.getShippingClass().equals(mQueryString)
-                    || product.getShortDescription().equals(mQueryString) || product.getSku().equals(mQueryString)
-                    || product.getStatus().equals(mQueryString) || product.getTaxClass().equals(mQueryString)
-                    || product.getTaxStatus().equals(mQueryString) || product.getType().equals(mQueryString)
+                    || product.getStatus().equals(mQueryString) || product.getTaxStatus().equals(mQueryString) || product.getType().equals(mQueryString)
                     || product.getWeight().equals(mQueryString) || product.getDateModified().equals(mQueryString)
                     || String.valueOf(product.getTotalSales()).equals(mQueryString)) {
 
@@ -96,43 +100,23 @@ public class SearchViewModel extends AndroidViewModel {
         List<Product> mListProductFilter = listProductFilter;
         switch (sortList) {
             case "پرفروش ترین": {
-                Collections.sort(mListProductFilter, new Comparator<Product>() {
-                    @Override
-                    public int compare(Product product, Product p1) {
-                        return Integer.valueOf(product.getTotalSales()).compareTo(p1.getTotalSales());
-                    }
-                });
-                //return mListProductFilter;
+                Collections.sort(mListProductFilter, (product, p1) ->
+                        Integer.valueOf(product.getTotalSales()).compareTo(p1.getTotalSales()));
                 break;
             }
             case "قیمت از زیاد به کم": {
-                Collections.sort(mListProductFilter, Collections.reverseOrder(new Comparator<Product>() {
-                    @Override
-                    public int compare(Product product, Product t1) {
-                        return Integer.valueOf(product.getPrice()).compareTo(Integer.valueOf(t1.getPrice()));
-                    }
-                }));
-                //return mListProductFilter;
+                Collections.sort(mListProductFilter, Collections.reverseOrder((product, t1) ->
+                        Integer.valueOf(product.getPrice()).compareTo(Integer.valueOf(t1.getPrice()))));
                 break;
             }
             case "قیمت از کم به زیاد": {
-                Collections.sort(mListProductFilter, new Comparator<Product>() {
-                    @Override
-                    public int compare(Product product, Product p1) {
-                        return Integer.valueOf(product.getPrice()).compareTo(Integer.valueOf(p1.getPrice()));
-                    }
-                });
-                //return mListProductFilter;
+                Collections.sort(mListProductFilter, (product, p1) ->
+                        Integer.valueOf(product.getPrice()).compareTo(Integer.valueOf(p1.getPrice())));
                 break;
             }
             case "جدیدترین": {
-                Collections.sort(mListProductFilter, new Comparator<Product>() {
-                    @Override
-                    public int compare(Product product, Product p1) {
-                        return (product.getDateModified()).compareTo(p1.getDateModified());
-                    }
-                });
-                //return mListProductFilter;
+                Collections.sort(mListProductFilter, (product, p1) ->
+                        (product.getDateModified()).compareTo(p1.getDateModified()));
                 break;
             }
         }
