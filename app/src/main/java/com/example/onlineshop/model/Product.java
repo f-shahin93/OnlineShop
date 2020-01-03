@@ -3,6 +3,7 @@ package com.example.onlineshop.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.onlineshop.model.category.Categories;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -157,7 +158,7 @@ public class Product implements Parcelable {
     private List<Object> variations;
 
     @SerializedName("categories")
-    private List<CategoriesItem> categories;
+    private List<Categories> categories;
 
     @SerializedName("total_sales")
     private int totalSales;
@@ -661,11 +662,11 @@ public class Product implements Parcelable {
         return variations;
     }
 
-    public void setCategories(List<CategoriesItem> categories){
+    public void setCategories(List<Categories> categories){
         this.categories = categories;
     }
 
-    public List<CategoriesItem> getCategories(){
+    public List<Categories> getCategories(){
         return categories;
     }
 

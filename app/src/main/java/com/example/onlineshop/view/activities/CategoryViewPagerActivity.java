@@ -2,10 +2,12 @@ package com.example.onlineshop.view.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,14 +17,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.onlineshop.R;
+import com.example.onlineshop.model.category.Categories;
 import com.example.onlineshop.network.ItemShopFetcher;
 import com.example.onlineshop.view.fragments.DetailListCategoryFragment;
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
+import com.example.onlineshop.view.fragments.SubCategoryFragment;
 import com.example.onlineshop.viewmodel.ViewPagerCategViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.sergivonavi.materialbanner.Banner;
@@ -35,36 +40,39 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private List<CategoriesItem> mCategoriesList = new ArrayList<>();
+    private List<Categories> mCategoriesList = new ArrayList<>();
     private FragmentStatePagerAdapter mAdapter;
+    //private FragmentPagerAdapter mAdapter;
     private Banner mBanner;
     private Toolbar mToolbar;
     private ViewPagerCategViewModel mViewModel;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_view_pager);
        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
         mViewPager = findViewById(R.id.activity_viewPager_category);
         mTabLayout = findViewById(R.id.tabLayout_category);
-        mToolbar = findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar_categories);
 
         setSupportActionBar(mToolbar);
+        mToolbar.setTitle("دسته بندی محصولات");
+        mViewPager.setOffscreenPageLimit(0);
+
         //mViewPager.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+       // mTabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
         mViewModel = ViewModelProviders.of(this).get(ViewPagerCategViewModel.class);
 
-        mViewModel.getListCategoryMutableLiveData().observe(this, new Observer<List<CategoriesItem>>() {
-            @Override
-            public void onChanged(List<CategoriesItem> categoriesItemList) {
-                mCategoriesList = categoriesItemList;
-                CategoryViewPagerActivity.this.setupTabLayout();
-            }
+        mViewModel.getListCategoryMutableLiveData().observe(this, categoriesItemList -> {
+            mCategoriesList = categoriesItemList;
+            CategoryViewPagerActivity.this.setupTabLayout();
         });
 
         mTabLayout.setupWithViewPager(mViewPager);
@@ -106,11 +114,8 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
             mBanner.setVisibility(View.VISIBLE);
         }*/
 
-        /*ItemShopFetcher productFetcher = new ItemShopFetcher(this);
-        productFetcher.getAllCategory();*/
 
-
-       /* mAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+      /*  mAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
             @Override
             public int getItemPosition(@NonNull Object object) {
@@ -120,9 +125,11 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
             @NonNull
             @Override
             public Fragment getItem(int position) {
+            return SubCategoryFragment
+                        .newInstance(mCategoriesList.get(position).getId());
                 //String tabName = mTabLayout.getTabAt(position).getText().toString();
-                return DetailListCategoryFragment.newInstance(
-                        mCategoriesList.get(position).getId(),mCategoriesList.get(position).getName());
+               // return DetailListCategoryFragment.newInstance(
+                     //   mCategoriesList.get(position).getId(),mCategoriesList.get(position).getName());
             }
 
             @Override
@@ -136,7 +143,7 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
                 return mCategoriesList.get(position).getName();
             }
         };
-        //mViewPager.setLayoutDirection();
+
         mViewPager.setAdapter(mAdapter);
 
 
@@ -166,6 +173,7 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                mViewPager.setCurrentItem(position);
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -191,11 +199,14 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
                 return POSITION_NONE;
             }
 
+
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                return DetailListCategoryFragment.newInstance(
-                        mCategoriesList.get(position).getId(),mCategoriesList.get(position).getName());
+                return SubCategoryFragment
+                        .newInstance(mCategoriesList.get(position).getId());
+//                return DetailListCategoryFragment.newInstance(
+//                        mCategoriesList.get(position).getId(),mCategoriesList.get(position).getName());
                 //return mViewModel.setFragment(mCategoriesList.get(position));
             }
 
@@ -229,15 +240,18 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
             @Override
             public void onPageSelected(int position) {
-                mAdapter.notifyDataSetChanged();
+                //mViewPager.setCurrentItem(position);
+                //mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
+
             }
         });
 
@@ -249,22 +263,6 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
         return intent;
     }
 
-
-//    @Override
-//    public void onProductResponse(List<Product> productList) {
-//
-//    }
-//
-//    @Override
-//    public void onCategoryResponse(List<CategoriesItem> categoryList) {
-//        mCategoriesList = categoryList;
-//        setupTabLayout();
-//    }
-//
-//    @Override
-//    public void onCustomerResponse(boolean singupCustomer) {
-//
-//    }
 //    public boolean isOnline(Context context) {
 //        try {
 //            ConnectivityManager connectivityManager =

@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +34,7 @@ import java.util.List;
 
 public class MainFragment extends Fragment {
 
+    public static final String TAG_MAIN_FRAGMENT = "MainFragment";
     private CategoryAdapter mCategoryAdapter;
     private HomePageAdapter mHomePageAdapter;
     private HomePageLayoutBinding mBinding;
@@ -56,32 +56,19 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mHomePageViewModel = ViewModelProviders.of(this).get(HomePageViewModel.class);
 
-        mHomePageViewModel.getListCategoryMutableLiveData().observe(this, categoriesItemList -> {
-            Log.d("TagProduct", "successfulCategory in frag");
-            mCategoryAdapter = new CategoryAdapter(getContext(), categoriesItemList);
+        mHomePageViewModel.getListCategoryMutableLiveData().observe(this, categoriesList -> {
+            mCategoryAdapter = new CategoryAdapter(getContext(), categoriesList, TAG_MAIN_FRAGMENT);
             mBinding.recyclerViewCategoryHomePage.setAdapter(mCategoryAdapter);
         });
 
-        mHomePageViewModel.getListNewestProMutableLiveData().observe(this, new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> list) {
-                MainFragment.this.setupProductAdapter(list, mBinding.recViewNewestProductsListHome);
-            }
-        });
+        mHomePageViewModel.getListNewestProMutableLiveData().observe(this, list ->
+                MainFragment.this.setupProductAdapter(list, mBinding.recViewNewestProductsListHome));
 
-        mHomePageViewModel.getListPopularProMutableLiveData().observe(this, new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> list) {
-                MainFragment.this.setupProductAdapter(list, mBinding.recViewMostViewedProductsListHome);
-            }
-        });
+        mHomePageViewModel.getListPopularProMutableLiveData().observe(this, list ->
+                MainFragment.this.setupProductAdapter(list, mBinding.recViewMostViewedProductsListHome));
 
-        mHomePageViewModel.getListMostPointProMutableLiveData().observe(this, new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> list) {
-                MainFragment.this.setupProductAdapter(list, mBinding.recViewMostPointsProductsListHome);
-            }
-        });
+        mHomePageViewModel.getListMostPointProMutableLiveData().observe(this, list ->
+                MainFragment.this.setupProductAdapter(list, mBinding.recViewMostPointsProductsListHome));
 
     }
 
@@ -102,28 +89,19 @@ public class MainFragment extends Fragment {
         setupSlider();
         init();
 
-        mBinding.tvSeeAllLatestProducts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = ProductListSeeAllActivity.newIntent(getContext(),"date");
-                startActivity(intent);
-            }
+        mBinding.tvSeeAllLatestProducts.setOnClickListener(view -> {
+            Intent intent = ProductListSeeAllActivity.newIntent(getContext(),"date");
+            startActivity(intent);
         });
 
-        mBinding.tvSeeAllMostPointsProducts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = ProductListSeeAllActivity.newIntent(getContext(),"rating");
-                startActivity(intent);
-            }
+        mBinding.tvSeeAllMostPointsProducts.setOnClickListener(view -> {
+            Intent intent = ProductListSeeAllActivity.newIntent(getContext(),"rating");
+            startActivity(intent);
         });
 
-        mBinding.tvSeeAllMostViewedProducts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = ProductListSeeAllActivity.newIntent(getContext(),"popularity");
-                startActivity(intent);
-            }
+        mBinding.tvSeeAllMostViewedProducts.setOnClickListener(view -> {
+            Intent intent = ProductListSeeAllActivity.newIntent(getContext(),"popularity");
+            startActivity(intent);
         });
 
         return mBinding.getRoot();

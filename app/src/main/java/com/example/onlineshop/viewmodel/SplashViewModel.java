@@ -18,7 +18,7 @@ public class SplashViewModel extends AndroidViewModel {
     }
 
     public void setItemsListsOfHomePage() {
-        mShopFetcher.getAllCategory();
+        mShopFetcher.getAllCategory("default",0);
         mShopFetcher.getOrderProductList("date");
         mShopFetcher.getOrderProductList("popularity");
         mShopFetcher.getOrderProductList("rating");

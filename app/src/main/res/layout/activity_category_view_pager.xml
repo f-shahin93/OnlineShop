@@ -5,13 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl"
     android:orientation="vertical"
     tools:context=".view.activities.CategoryViewPagerActivity"
     android:id="@+id/layout_root_view_pager_activity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_categories"
         app:titleTextColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -23,17 +22,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@color/gray_500"
+        app:tabTextColor="@color/digikala_white_grey300"
+        app:tabIndicatorColor="@android:color/white"
         app:tabMode="scrollable"
-        android:layoutDirection="rtl">
+        android:animateLayoutChanges="true"/>
 
-    </com.google.android.material.tabs.TabLayout>
 
-    <com.duolingo.open.rtlviewpager.RtlViewPager
+
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/activity_viewPager_category"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true" />
 
-    </com.duolingo.open.rtlviewpager.RtlViewPager>
+<!--    <com.duolingo.open.rtlviewpager.RtlViewPager-->
+<!--        android:id="@+id/activity_viewPager_category"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:animateLayoutChanges="true"/>-->
 
 </androidx.appcompat.widget.LinearLayoutCompat>

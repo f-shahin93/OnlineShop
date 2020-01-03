@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import com.example.onlineshop.R;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.view.Adapter.ProductListSubCategoryAdapter;
+import com.example.onlineshop.view.activities.EndlessRecyclerViewScrollListener;
+import com.example.onlineshop.viewmodel.SearchViewModel;
 import com.example.onlineshop.viewmodel.ViewPagerCategViewModel;
 
 import java.util.ArrayList;
@@ -24,25 +26,27 @@ import java.util.List;
 
 public class DetailListCategoryFragment extends Fragment {
 
-    public static final String ARG_CATEGORY_NAME = "Arg categoryName";
-    public static final String ARG_CATEGORY_ID = "Arg categoryId";
+    private static final String ARG_CATEGORY_NAME = "Arg categoryName";
+    private static final String ARG_CATEGORY_ID = "Arg categoryId";
     private RecyclerView mRecyclerView;
     private ProductListSubCategoryAdapter mAdapter;
     private List<Product> mProductList = new ArrayList<>();
     private ViewPagerCategViewModel mViewModel;
     private String mCategoryName;
-    private long mCategoryId ;
+    private int mCategoryId;
+    private EndlessRecyclerViewScrollListener mEndlessRecyclVScrollListener;
+    private int mPageNumber = 1;
 
 
     public DetailListCategoryFragment() {
         // Required empty public constructor
     }
 
-    public static DetailListCategoryFragment newInstance(long categoryId , String categoryName) {
+    public static DetailListCategoryFragment newInstance(int categoryId, String categoryName) {
         DetailListCategoryFragment fragment = new DetailListCategoryFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_CATEGORY_NAME,categoryName);
-        args.putLong(ARG_CATEGORY_ID,categoryId);
+        args.putString(ARG_CATEGORY_NAME, categoryName);
+        args.putInt(ARG_CATEGORY_ID, categoryId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,12 +56,12 @@ public class DetailListCategoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mCategoryName = getArguments().getString(ARG_CATEGORY_NAME);
-            mCategoryId = getArguments().getLong(ARG_CATEGORY_ID);
+            mCategoryId = getArguments().getInt(ARG_CATEGORY_ID);
         }
 
         mViewModel = ViewModelProviders.of(this).get(ViewPagerCategViewModel.class);
 
-        mViewModel.getListProMutableLiveData().observe(this, new Observer<List<Product>>() {
+        mViewModel.getListProMutableLiveData(mCategoryName, mCategoryId).observe(this, new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> list) {
                 mProductList = list;
@@ -65,7 +69,6 @@ public class DetailListCategoryFragment extends Fragment {
             }
         });
 
-        //updateItem();
     }
 
     @Override
@@ -82,35 +85,34 @@ public class DetailListCategoryFragment extends Fragment {
 
     private void init(View view) {
         mRecyclerView = view.findViewById(R.id.recycler_view_detail_list_category);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+
+        mEndlessRecyclVScrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                mPageNumber++;
+                loadNextDataFromApi(mPageNumber);
+                // mEndlessRecyclVScrollListener.resetState();
+            }
+        };
+
+        mRecyclerView.addOnScrollListener(mEndlessRecyclVScrollListener);
 
     }
 
-    public void setupAdapter() {
+    private void loadNextDataFromApi(int offset) {
+        mViewModel.getListProByPageMutableLiveData(mCategoryName,mCategoryId,offset).observe(this, list -> {
+            mProductList.addAll(list);
+            setupAdapter();
+        });
+    }
+
+    private void setupAdapter() {
         if (isAdded()) {
             mAdapter = new ProductListSubCategoryAdapter(getContext(), mProductList);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
 
-//    private void updateItem() {
-//        ItemShopFetcher productFetcher = new ItemShopFetcher(this);
-//        productFetcher.getProductsSubCategory(mCategoryName,String.valueOf(mCategoryId));
-//    }
-
-//    @Override
-//    public void onProductResponse(List<Product> productList) {
-//        mProductList = productList;
-//        setupAdapter();
-//    }
-//
-//    @Override
-//    public void onCategoryResponse(List<CategoriesItem> categoryList) {
-//
-//    }
-//
-//    @Override
-//    public void onCustomerResponse(boolean singupCustomer) {
-//
-//    }
 }

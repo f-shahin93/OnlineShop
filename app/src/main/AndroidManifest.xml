@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".view.activities.FilterSearchActivity"
+        <activity android:name=".view.activities.ProductListSubCategoriesActivity"></activity>
+        <activity
+            android:name=".view.activities.FilterSearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity android:name=".view.activities.ProductListSeeAllActivity" />
         <activity
             android:name=".view.activities.SplashActivity"
@@ -48,8 +50,8 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

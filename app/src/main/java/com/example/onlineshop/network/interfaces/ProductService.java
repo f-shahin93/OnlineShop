@@ -2,6 +2,7 @@ package com.example.onlineshop.network.interfaces;
 
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
+import com.example.onlineshop.model.category.Categories;
 import com.example.onlineshop.model.customers.Customers;
 
 import java.util.List;
@@ -31,7 +32,8 @@ public interface ProductService {
     Call<Product> getProduct(@Path("id") String productId, @QueryMap Map<String, String> productQueries);
 
     @GET("products/categories")
-    Call<List<CategoriesItem>> getAllCategories(@QueryMap Map<String, String> productQueries);
+    Call<List<Categories>> getAllCategories(@QueryMap Map<String, String> productQueries
+            , @Query("display") String displayCategories ,@Query("parent") String parentCategories );
 
     @GET("products/categories/?per_page=10")
     Call<List<CategoriesItem>> getSubCategories(@Query("parent") String categoryId);

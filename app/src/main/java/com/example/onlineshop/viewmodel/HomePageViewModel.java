@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
+import com.example.onlineshop.model.category.Categories;
 import com.example.onlineshop.network.ItemShopFetcher;
 import com.example.onlineshop.repository.ProductRepository;
 
@@ -20,7 +21,7 @@ public class HomePageViewModel extends AndroidViewModel {
     private MutableLiveData<List<Product>> mListNewestProMutableLiveData;
     private MutableLiveData<List<Product>> mListPopularProMutableLiveData;
     private MutableLiveData<List<Product>> mListMostPointProMutableLiveData;
-    private MutableLiveData<List<CategoriesItem>> mListCategoryMutableLiveData;
+    private MutableLiveData<List<Categories>> mListCategoryMutableLiveData;
     private ItemShopFetcher mShopFetcher;
 
     public HomePageViewModel(@NonNull Application application) {
@@ -43,7 +44,7 @@ public class HomePageViewModel extends AndroidViewModel {
         return mListMostPointProMutableLiveData;
     }
 
-    public MutableLiveData<List<CategoriesItem>> getListCategoryMutableLiveData() {
+    public MutableLiveData<List<Categories>> getListCategoryMutableLiveData() {
         mListCategoryMutableLiveData = mShopFetcher.getListCategoryLiveData();
         return mListCategoryMutableLiveData;
     }
