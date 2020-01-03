@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
+import com.example.onlineshop.model.category.Categories;
 import com.example.onlineshop.network.ItemShopFetcher;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class SearchViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Product>> mListProMutableLiveData;
     private ItemShopFetcher mShopFetcher;
-    private List<CategoriesItem> mCategoriesItemList;
+    private List<Categories> mCategoriesItemList = new ArrayList<>();
 
 
     public SearchViewModel(@NonNull Application application) {
@@ -32,66 +33,35 @@ public class SearchViewModel extends AndroidViewModel {
         return mListProMutableLiveData = mShopFetcher.getAllProductListMutableLiveData();
     }
 
-    public MutableLiveData<List<Product>> getAllproduct(int pageNumber) {
-        MutableLiveData<List<Product>> mutableLiveData = new MutableLiveData<>();
-        mutableLiveData =  mShopFetcher.getAllProductListByPage(pageNumber);
-        return mutableLiveData;
+
+    public MutableLiveData<List<Product>> search(String querySearch){
+        mShopFetcher.getProductListSearch(querySearch);
+        return mListProMutableLiveData = mShopFetcher.getProductListSearchMLiveData();
+
     }
 
-    public String getTotalPageNumber(){
-        return mShopFetcher.getTotalPageNumber();
+
+    public List<Categories> getCategoriesItemList() {
+        return mCategoriesItemList;
     }
 
-    public List<Product> searchList(List<Product> list ,String mQueryString) {
-        List<Product> mListProductFilter = new ArrayList<>();
-        List<CategoriesItem> mListCategory = new ArrayList<>();
-        for (Product product : list) {
+    public void setCategoryList(List<Product> list) {
 
-            //search into name product
-//            String[] listName = product.getName().split(" ");
-//            for (String str : listName) {
-//                if (str.equalsIgnoreCase(mQueryString) || mQueryString.contains(str)) {
-//                    mListProductFilter.add(product);
-//                    mListCategory.addAll(product.getCategories());
-//                    break;
-//                }
-//            }
-
-            //search other feature product
-            if (product.getDateCreated().equals(mQueryString) || product.getDescription().equals(mQueryString)
-                    || product.getName().contains(mQueryString) || product.getShortDescription().equals(mQueryString)
-                    || product.getPrice().equals(mQueryString) || product.getPriceHtml().equals(mQueryString)
-                    || product.getRegularPrice().equals(mQueryString) || product.getSalePrice().equals(mQueryString)
-                    || product.getPurchaseNote().equals(product) || product.getShippingClass().equals(mQueryString)
-                    || product.getStatus().equals(mQueryString) || product.getTaxStatus().equals(mQueryString) || product.getType().equals(mQueryString)
-                    || product.getWeight().equals(mQueryString) || product.getDateModified().equals(mQueryString)
-                    || String.valueOf(product.getTotalSales()).equals(mQueryString)) {
-
-                mListProductFilter.add(product);
-                mListCategory.addAll(product.getCategories());
-            }
-
+        for(Product product : list){
+            mCategoriesItemList.addAll(product.getCategories());
         }
 
-        for (int i = 0; i < mListCategory.size(); i++) {
-            for (int j = i + 1; j < mListCategory.size(); j++) {
-                if (mListCategory.get(j).getId() == mListCategory.get(i).getId()) {
-                    mListCategory.remove(j);
+        for (int i = 0; i < mCategoriesItemList.size(); i++) {
+            for (int j = i + 1; j < mCategoriesItemList.size(); j++) {
+                if (mCategoriesItemList.get(j).getId() == mCategoriesItemList.get(i).getId()) {
+                    mCategoriesItemList.remove(j);
                 }
             }
         }
 
-        setCategoriesItemList(mListCategory);
-        return mListProductFilter;
     }
 
-
-    public List<CategoriesItem> getCategoriesItemList() {
-        return mCategoriesItemList;
-    }
-
-
-    public void setCategoriesItemList(List<CategoriesItem> categoriesItemList) {
+    public void setCategoriesItemList(List<Categories> categoriesItemList) {
         mCategoriesItemList = categoriesItemList;
     }
 

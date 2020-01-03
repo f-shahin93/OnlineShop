@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.onlineshop.R;
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
+import com.example.onlineshop.model.category.Categories;
 import com.example.onlineshop.view.Adapter.CategoryAdapter;
 import com.example.onlineshop.view.Adapter.HomePageAdapter;
 import com.example.onlineshop.view.Adapter.ProductListSubCategoryAdapter;
@@ -24,8 +25,9 @@ import java.util.List;
 public class SearchProductListFragment extends Fragment {
 
     public static final String ARG_CATEGORIES_LIST = "Arg categories List";
+    public static final String SEARCH_PRODUCT_LIST_FRAGMENT = "SearchProductListFragment";
     private List<Product> mProductList;
-    private List<CategoriesItem> mCategoriesList;
+    private List<Categories> mCategoriesList;
     private RecyclerView mRecyclerViewProductList,mRecyclerViewCategoriesList ;
     private ProductListSubCategoryAdapter mProductListSubCategoryAdapter;
     private CategoryAdapter mCategoryAdapter;
@@ -37,7 +39,7 @@ public class SearchProductListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static SearchProductListFragment newInstance(List<Product> productList, List<CategoriesItem> categoriesList) {
+    public static SearchProductListFragment newInstance(List<Product> productList, List<Categories> categoriesList) {
         SearchProductListFragment fragment = new SearchProductListFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PRODUCT_LIST, (Serializable) productList);
@@ -51,7 +53,7 @@ public class SearchProductListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mProductList = (List<Product>) getArguments().getSerializable(ARG_PRODUCT_LIST);
-            mCategoriesList = (List<CategoriesItem>) getArguments().getSerializable(ARG_CATEGORIES_LIST);
+            mCategoriesList = (List<Categories>) getArguments().getSerializable(ARG_CATEGORIES_LIST);
         }
     }
 
@@ -73,7 +75,7 @@ public class SearchProductListFragment extends Fragment {
         mProductListSubCategoryAdapter = new ProductListSubCategoryAdapter(getContext(), mProductList);
         mRecyclerViewProductList.setAdapter(mProductListSubCategoryAdapter);
 
-        mCategoryAdapter = new CategoryAdapter(getContext(), mCategoriesList);
+        mCategoryAdapter = new CategoryAdapter(getContext(), mCategoriesList, SEARCH_PRODUCT_LIST_FRAGMENT);
         mRecyclerViewCategoriesList.setAdapter(mCategoryAdapter);
 
         return view;

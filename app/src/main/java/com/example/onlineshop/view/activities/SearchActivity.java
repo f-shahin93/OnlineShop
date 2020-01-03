@@ -3,7 +3,6 @@ package com.example.onlineshop.view.activities;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -15,16 +14,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.onlineshop.R;
 import com.example.onlineshop.databinding.ActivitySearchBinding;
-import com.example.onlineshop.network.ItemShopFetcher;
+import com.example.onlineshop.model.category.Categories;
 import com.example.onlineshop.view.fragments.SearchProductListFragment;
 import com.example.onlineshop.view.fragments.SortDialogFragment;
-import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.viewmodel.SearchViewModel;
 
@@ -38,13 +33,11 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
     public static final String TAG_SORT_DIALOG_FRAGMENT = "SortDialogFragment";
     private SearchView mSearchView;
     private List<Product> mListProductFilter;
-    private List<Product> mListProduct = new ArrayList<>();
-    private List<CategoriesItem> mListCategory;
+    private List<Categories> mListCategory;
     private String mQueryString;
     private SortDialogFragment mSortDialogFragment;
     private SearchViewModel mSearchViewModel;
     private ActivitySearchBinding mBinding;
-    private int mTotalPageNumber;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -60,14 +53,6 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
         mSortDialogFragment = SortDialogFragment.newInstance(this, mBinding.tvHintSortItemSearch.getText().toString());
 
         mBinding.setSearchViewModel(mSearchViewModel);
-
-        mTotalPageNumber = Integer.parseInt(mSearchViewModel.getTotalPageNumber());
-        mSearchViewModel.getAllproduct().observe(SearchActivity.this, list -> {
-            mListProduct.addAll(list);
-            for (int i = 2; i <= mTotalPageNumber; i++) {
-                loadNextDataFromApi(i);
-            }
-        });
 
         mBinding.llSortingActivitySearch.setOnClickListener(view ->
                 mSortDialogFragment.show(getSupportFragmentManager(), TAG_SORT_DIALOG_FRAGMENT));
@@ -93,9 +78,16 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
 
                 if (query != null) {
                     mQueryString = query;
-                    mListProductFilter = mSearchViewModel.searchList(mListProduct, mQueryString);
-                    mListCategory = mSearchViewModel.getCategoriesItemList();
-                    callFragment();
+                    mSearchViewModel.search(mQueryString).observe(SearchActivity.this, new Observer<List<Product>>() {
+                        @Override
+                        public void onChanged(List<Product> list) {
+                            mListProductFilter = list;
+                            mSearchViewModel.setCategoryList(list);
+                            mListCategory = mSearchViewModel.getCategoriesItemList();
+                            callFragment();
+                        }
+                    });
+
                 }
 
                 mSearchView.setFocusable(false);
@@ -123,12 +115,6 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
                 .beginTransaction()
                 .replace(R.id.container_search_list, SearchProductListFragment.newInstance(mListProductFilter, mListCategory))
                 .commit();
-    }
-
-    public void loadNextDataFromApi(int offset) {
-        mSearchViewModel.getAllproduct(offset).observe(this, list -> {
-            mListProduct.addAll(list);
-        });
     }
 
     @Override
