@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +40,7 @@ import java.util.List;
 public class CategoryViewPagerActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
+    //private ViewPager2 mViewPager;
     private TabLayout mTabLayout;
     private List<Categories> mCategoriesList = new ArrayList<>();
     private FragmentStatePagerAdapter mAdapter;
@@ -63,7 +65,7 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolbar);
         mToolbar.setTitle("دسته بندی محصولات");
-        mViewPager.setOffscreenPageLimit(0);
+        mViewPager.setOffscreenPageLimit(1);
 
         //mViewPager.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
        // mTabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -198,7 +200,6 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
             public int getItemPosition(@NonNull Object object) {
                 return POSITION_NONE;
             }
-
 
             @NonNull
             @Override

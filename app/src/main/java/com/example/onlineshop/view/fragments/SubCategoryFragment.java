@@ -71,7 +71,7 @@ public class SubCategoryFragment extends Fragment {
 
         init(root);
 
-        setupAdapter();
+        //setupAdapter();
 
         return root;
     }
