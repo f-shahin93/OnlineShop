@@ -79,7 +79,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
 
             itemView.setOnClickListener(view -> {
-                Intent intent = CategoryViewPagerActivity.newIntent(mContext);
+                Intent intent = CategoryViewPagerActivity.newIntent(mContext ,String.valueOf(mCategories.getId()));
                 mContext.startActivity(intent);
 
             });
@@ -116,7 +116,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mSubcategoriesBinding.tvSubCategoriesFragViewp.setText(categories.getName());
             Picasso.with(mContext)
                     .load(categories.getImage().getSrc())
-                    .placeholder(R.drawable.place_holder_shopping_cart)
                     .into(mSubcategoriesBinding.ivSubCategoriesFragViewp);
         }
     }
