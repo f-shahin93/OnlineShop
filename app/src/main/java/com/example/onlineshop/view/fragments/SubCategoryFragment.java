@@ -56,11 +56,13 @@ public class SubCategoryFragment extends Fragment {
 
         mCategViewModel = ViewModelProviders.of(this).get(ViewPagerCategViewModel.class);
 
+
         mCategViewModel.getSubCategoriesMutableLiveData(mDisplaySubCategory, mIdParentCategory)
                 .observe(this, categories -> {
                     mCategoriesList = categories;
                     setupAdapter();
                 });
+
     }
 
     @Override
@@ -70,8 +72,7 @@ public class SubCategoryFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_sub_category, container, false);
 
         init(root);
-
-        //setupAdapter();
+        setupAdapter();
 
         return root;
     }
@@ -81,15 +82,6 @@ public class SubCategoryFragment extends Fragment {
             mAdapter = new CategoryAdapter(getContext(), mCategoriesList, SUB_CATEGORY_FRAGMENT);
             mRecyclerView.setAdapter(mAdapter);
         }
-//        if (isAdded()) {
-//            if (mAdapter == null) {
-//                mAdapter = new CategoryAdapter(getContext(), mCategoriesList, SUB_CATEGORY_FRAGMENT);
-//                mRecyclerView.setAdapter(mAdapter);
-//            } else {
-//                mAdapter.setListCategoryAdapter(mCategoriesList);
-//                mAdapter.notifyDataSetChanged();
-//            }
-//        }
     }
 
     private void init(View root) {

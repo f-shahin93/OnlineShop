@@ -8,10 +8,9 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
@@ -24,30 +23,29 @@ import android.view.View;
 
 import com.example.onlineshop.R;
 import com.example.onlineshop.model.category.Categories;
-import com.example.onlineshop.network.ItemShopFetcher;
-import com.example.onlineshop.view.fragments.DetailListCategoryFragment;
-import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.view.fragments.SubCategoryFragment;
 import com.example.onlineshop.viewmodel.ViewPagerCategViewModel;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.sergivonavi.materialbanner.Banner;
 import com.sergivonavi.materialbanner.BannerInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CategoryViewPagerActivity extends AppCompatActivity {
 
-    private ViewPager mViewPager;
-    //private ViewPager2 mViewPager;
+    public static final String EXTRA_ID_CATEGORY = "Extra idCategory";
+    private ViewPager2 mViewPager;
     private TabLayout mTabLayout;
     private List<Categories> mCategoriesList = new ArrayList<>();
-    private FragmentStatePagerAdapter mAdapter;
-    //private FragmentPagerAdapter mAdapter;
+    private FragmentStateAdapter mAdapter;
     private Banner mBanner;
     private Toolbar mToolbar;
     private ViewPagerCategViewModel mViewModel;
+    private String mIdCategory;
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -55,31 +53,15 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_view_pager);
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-
-        mViewPager = findViewById(R.id.activity_viewPager_category);
-        mTabLayout = findViewById(R.id.tabLayout_category);
-        mToolbar = findViewById(R.id.toolbar_categories);
-
-        setSupportActionBar(mToolbar);
-        mToolbar.setTitle("دسته بندی محصولات");
-        mViewPager.setOffscreenPageLimit(1);
-
-        //mViewPager.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-       // mTabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        mIdCategory = getIntent().getStringExtra(EXTRA_ID_CATEGORY);
 
         mViewModel = ViewModelProviders.of(this).get(ViewPagerCategViewModel.class);
+        mCategoriesList = mViewModel.getBasicCategories();
 
-        mViewModel.getListCategoryMutableLiveData().observe(this, categoriesItemList -> {
-            mCategoriesList = categoriesItemList;
-            CategoryViewPagerActivity.this.setupTabLayout();
-        });
-
-        mTabLayout.setupWithViewPager(mViewPager);
+        initUi();
+        setupToolbar();
         setupTabLayout();
-
 
         /*LinearLayoutCompat linearLayout = findViewById(R.id.layout_root_view_pager_activity);
         mBanner = new Banner.Builder(this)
@@ -117,150 +99,63 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
         }*/
 
 
-      /*  mAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+    }
 
-            @Override
-            public int getItemPosition(@NonNull Object object) {
-                return POSITION_NONE;
-            }
+    private void initUi() {
+        mViewPager = findViewById(R.id.activity_viewPager_category);
+        mTabLayout = findViewById(R.id.tabLayout_category);
 
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-            return SubCategoryFragment
-                        .newInstance(mCategoriesList.get(position).getId());
-                //String tabName = mTabLayout.getTabAt(position).getText().toString();
-               // return DetailListCategoryFragment.newInstance(
-                     //   mCategoriesList.get(position).getId(),mCategoriesList.get(position).getName());
-            }
-
-            @Override
-            public int getCount() {
-                return mCategoriesList.size();
-            }
-
-            @Nullable
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return mCategoriesList.get(position).getName();
-            }
-        };
-
-        mViewPager.setAdapter(mAdapter);
-
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-               // mTabLayout.setScrollPosition(position ,positionOffset,false);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mViewPager.setCurrentItem(position);
-                mAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });*/
+        for (int i = 0; i < mCategoriesList.size(); i++) {
+            mTabLayout.addTab(mTabLayout.newTab().setText(mCategoriesList.get(i).getName()));
+        }
 
     }
 
-    public void setupTabLayout(){
+    private void setupToolbar() {
+        mToolbar = findViewById(R.id.toolbar_categories);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("دسته بندی محصولات");
+    }
 
-        mAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-
-            @Nullable
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return mCategoriesList.get(position).getName();
-            }
-
-            @Override
-            public int getItemPosition(@NonNull Object object) {
-                return POSITION_NONE;
-            }
+    public void setupTabLayout() {
+        mAdapter = new FragmentStateAdapter(this) {
 
             @NonNull
             @Override
-            public Fragment getItem(int position) {
+            public Fragment createFragment(int position) {
                 return SubCategoryFragment
                         .newInstance(mCategoriesList.get(position).getId());
-//                return DetailListCategoryFragment.newInstance(
-//                        mCategoriesList.get(position).getId(),mCategoriesList.get(position).getName());
-                //return mViewModel.setFragment(mCategoriesList.get(position));
             }
 
             @Override
-            public int getCount() {
+            public int getItemCount() {
                 return mCategoriesList.size();
             }
         };
 
         mViewPager.setAdapter(mAdapter);
 
+        new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) ->
+                tab.setText(mCategoriesList.get(position).getName())).attach();
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
+        if (!mIdCategory.equals("")) {
+            int num = Integer.parseInt(mIdCategory);
+            int position = 0;
+            for (int i = 0; i < mCategoriesList.size(); i++) {
+                if (mCategoriesList.get(i).getId() == num) {
+                    position = i;
+                    break;
+                }
             }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                //mViewPager.setCurrentItem(position);
-                //mAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
+            mTabLayout.setScrollPosition(position, 0, true);
+            mViewPager.setCurrentItem(position);
+        }
 
     }
 
-    public static Intent newIntent(Context context){
-        Intent intent = new Intent(context,CategoryViewPagerActivity.class);
+    public static Intent newIntent(Context context, String idCategory) {
+        Intent intent = new Intent(context, CategoryViewPagerActivity.class);
+        intent.putExtra(EXTRA_ID_CATEGORY, idCategory);
         return intent;
     }
 

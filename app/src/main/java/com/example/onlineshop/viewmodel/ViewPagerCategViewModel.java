@@ -24,18 +24,11 @@ public class ViewPagerCategViewModel extends AndroidViewModel {
     private MutableLiveData<List<Categories>> mListSubCategoryMutableLiveData;
     private MutableLiveData<List<Product>> mListProMutableLiveData;
     private ItemShopFetcher mShopFetcher;
-    private Context mContext;
 
 
     public ViewPagerCategViewModel(@NonNull Application application) {
         super(application);
-        mContext = application;
         mShopFetcher =  ItemShopFetcher.getInstance();
-    }
-
-    public MutableLiveData<List<Categories>> getListCategoryMutableLiveData() {
-        mListCategoryMutableLiveData = mShopFetcher.getListCategoryLiveData();
-        return mListCategoryMutableLiveData;
     }
 
     public MutableLiveData<List<Categories>> getSubCategoriesMutableLiveData(String displayCatg , int parentCateg){
@@ -54,6 +47,10 @@ public class ViewPagerCategViewModel extends AndroidViewModel {
         MutableLiveData<List<Product>> mLisProMutableLiveData;
         mLisProMutableLiveData = mShopFetcher.getProductsSubCategoryByPage(namecateg,String.valueOf(idCateg),pageNumber);
         return mLisProMutableLiveData;
+    }
+
+    public List<Categories> getBasicCategories() {
+        return mShopFetcher.getBasicCategoriesList();
     }
 
 }
