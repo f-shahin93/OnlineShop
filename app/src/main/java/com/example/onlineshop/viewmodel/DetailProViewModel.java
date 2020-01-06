@@ -10,6 +10,8 @@ import com.example.onlineshop.model.Product;
 import com.example.onlineshop.network.ItemShopFetcher;
 import com.example.onlineshop.repository.ProductRepository;
 
+import java.util.List;
+
 public class DetailProViewModel extends AndroidViewModel {
 
     private ProductRepository mProductRepository;
@@ -17,6 +19,7 @@ public class DetailProViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> mIsClickAddtoCartLiveData = new MutableLiveData<>();
     private ItemShopFetcher mShopFetcher;
     private Product mProduct;
+    private List<Product> mProductListShoppingCart;
 
 
     public DetailProViewModel(@NonNull Application application) {
@@ -36,8 +39,12 @@ public class DetailProViewModel extends AndroidViewModel {
         mProductLiveData = productLiveData;
     }
 
-    public void storeProduct(Product product){
+    public void storeProduct(Product product) {
         mProductRepository.addPruductToList(product);
+    }
+
+    public void deleteProduct(Product product) {
+        mProductRepository.deletePruductFromList(product);
     }
 
     public Product getProduct() {
@@ -56,4 +63,22 @@ public class DetailProViewModel extends AndroidViewModel {
     public void setIsClickAddtoCartLiveData() {
         mIsClickAddtoCartLiveData.setValue(true);
     }
+
+    public int calculateTotalPriceShoppingCart() {
+        int numberTotal = 0;
+        for (Product product : mProductListShoppingCart) {
+            if (product.getRegularPrice().equals("")) {
+                numberTotal += Integer.parseInt(product.getPrice());
+            }else
+                numberTotal += Integer.parseInt(product.getRegularPrice());
+        }
+        return numberTotal;
+    }
+
+    public List<Product> getListShoppingCart() {
+        mProductListShoppingCart = mProductRepository.getProductList();
+        return mProductListShoppingCart;
+    }
+
+
 }
