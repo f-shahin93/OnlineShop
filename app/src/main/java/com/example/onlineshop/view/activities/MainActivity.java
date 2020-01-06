@@ -8,8 +8,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -17,16 +20,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.onlineshop.R;
 import com.example.onlineshop.view.fragments.MainFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.sergivonavi.materialbanner.Banner;
+import com.sergivonavi.materialbanner.BannerInterface;
 
 public class MainActivity extends SingleFragmentActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
+    private View headerNav;
+    private TextView mTvAccount;
 
 
     @Override
@@ -50,97 +59,42 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
+        initToolbar();
+        initDrawer();
+
+        mTvAccount.setOnClickListener(view -> startActivity(LoginActivity.newIntent(MainActivity.this)));
+
+    }
+
+    private void initToolbar() {
         mToolbar = findViewById(R.id.toolbar);
-        mDrawer = findViewById(R.id.drawer_layout);
-        mNavigationView = findViewById(R.id.navigation);
-
-        /*Typeface.createFromAsset(mToolbar.getChildAt(0).getContext().getAssets(),"");
-
-        fun Toolbar.changeToolbarFont(){
-            for (i in 0 until childCount) {
-                val view = getChildAt(i)
-                if (view is TextView && view.text == title) {
-                    view.typeface = Typeface.createFromAsset(view.context.assets, "fonts/customFont")
-                    break
-                }
-            }
-        }*/
-
-        init();
-
-
-        /*mTvAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });*/
-
-        //  LinearLayout linearLayout = findViewById(R.id.layout_banner_home_page);
-       /* mBanner = new Banner.Builder(this)
-                .setParent(linearLayout)
-                .setIcon(R.drawable.ic_wifi)
-                .setMessage("You have lost connection to the Internet. This app is offline.")
-                .setLeftButton("Dismiss", new BannerInterface.OnClickListener() {
-                    @Override
-                    public void onClick(BannerInterface banner) {
-                        mBanner.dismiss();
-                    }
-                })
-                .setRightButton("Turn on wifi", new BannerInterface.OnClickListener() {
-                    @Override
-                    public void onClick(BannerInterface banner) {
-                        if (isOnline(MainActivity.this)) {
-                            mBanner.setVisibility(View.GONE);
-                            mBanner.dismiss();
-                            recreate();
-                        } else {
-                            mBanner.show();
-                            mBanner.setVisibility(View.VISIBLE);
-                        }
-                    }
-                })
-                .create();
-
-        if (isOnline(this)) {
-            mBanner.setVisibility(View.GONE);
-            mBanner.dismiss();
-            //recreate();
-        } else {
-            mSliderPic.setVisibility(View.INVISIBLE);
-            mBanner.show();
-            mBanner.setVisibility(View.VISIBLE);
-
-        }*/
-
-
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("فروشگاه آنلاین");
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void init() {
+    private void initDrawer() {
+        mDrawer = findViewById(R.id.drawer_layout);
+        mNavigationView = findViewById(R.id.navigation);
 
-        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        setSupportActionBar(mToolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (mDrawer.isDrawerOpen(Gravity.RIGHT)) {
-                    mDrawer.closeDrawer(Gravity.RIGHT);
-                } else {
-                    mDrawer.openDrawer(Gravity.RIGHT);
-                }
+        mToolbar.setNavigationOnClickListener(v -> {
+            if (mDrawer.isDrawerOpen(Gravity.RIGHT)) {
+                mDrawer.closeDrawer(Gravity.RIGHT);
+            } else {
+                mDrawer.openDrawer(Gravity.RIGHT);
             }
-
         });
 
         mDrawer.setDrawerListener(toggle);
         mNavigationView.setNavigationItemSelectedListener(this);
+        headerNav = mNavigationView.getHeaderView(0);
+        mTvAccount = headerNav.findViewById(R.id.tv_nav_account);
         toggle.syncState();
     }
 
@@ -167,28 +121,23 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
                 break;
             }
             case R.id.nav_list_category: {
-                Intent intent = CategoryViewPagerActivity.newIntent(this);
-                startActivity(intent);
+                startActivity(CategoryViewPagerActivity.newIntent(this,""));
                 break;
             }
             case R.id.nav_shopping_cart: {
-                Intent intent = ShoppingCartActivity.newIntent(this);
-                startActivity(intent);
+                startActivity(ShoppingCartActivity.newIntent(this));
                 break;
             }
             case R.id.nav_newest_products: {
-                Intent intent = ProductListSeeAllActivity.newIntent(this,"date");
-                startActivity(intent);
+                startActivity(ProductListSeeAllActivity.newIntent(this,"date"));
                 break;
             }
             case R.id.nav_most_viewed_products: {
-                Intent intent = ProductListSeeAllActivity.newIntent(this,"popularity");
-                startActivity(intent);
+                startActivity(ProductListSeeAllActivity.newIntent(this,"popularity"));
                 break;
             }
             case R.id.nav_most_points_products: {
-                Intent intent = ProductListSeeAllActivity.newIntent(this,"rating");
-                startActivity(intent);
+                startActivity(ProductListSeeAllActivity.newIntent(this,"rating"));
                 break;
             }
             case R.id.nav_frequently_questions: {
@@ -199,11 +148,6 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
 
                 break;
             }
-            case R.id.tv_nav_account: {
-                LoginActivity.newIntent(this);
-                break;
-            }
-
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
@@ -211,37 +155,11 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
     }
 
 
-  /*
-    public boolean isOnline(Context context) {
-        try {
-            ConnectivityManager connectivityManager =
-                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
-            //checking null when airplane mode
-            return (netInfo != null && netInfo.isConnected());
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //return super.onCreateOptionsMenu(menu);
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
-
-        // mSearchView = (SearchView) menu.findItem(R.id.search_menu_item).getActionView();
-
-//        mSearchView.setOnSearchClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(SearchActivity.newIntent(MainActivity.this));
-//                mSearchView.setFocusable(false);
-//                mSearchView.onActionViewCollapsed();
-//
-//            }
-//        });
 
         return true;
     }
