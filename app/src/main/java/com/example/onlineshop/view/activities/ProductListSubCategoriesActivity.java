@@ -1,7 +1,6 @@
 package com.example.onlineshop.view.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
@@ -9,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.onlineshop.R;
-import com.example.onlineshop.databinding.ToolbarCustomBinding;
 import com.example.onlineshop.view.fragments.DetailListCategoryFragment;
 
 public class ProductListSubCategoriesActivity extends SingleFragmentActivity {
@@ -38,5 +36,16 @@ public class ProductListSubCategoriesActivity extends SingleFragmentActivity {
         intent.putExtra(EXTRA_CATEGORY_NAME,categoryName);
         intent.putExtra(EXTRA_CATEGORY_ID,categoryId);
         return intent;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_product_list_sub_categories);
+        Toolbar mToolbar = findViewById(R.id.toolbar_product_list_category);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(getIntent().getStringExtra(EXTRA_CATEGORY_NAME));
+
     }
 }
