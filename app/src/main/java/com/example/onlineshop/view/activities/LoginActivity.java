@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.example.onlineshop.R;
 import com.example.onlineshop.view.fragments.LoginFragment;
@@ -24,11 +23,6 @@ public class LoginActivity extends SingleFragmentActivity {
     @Override
     public int idRes() {
         return R.id.fragment_container;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     public static Intent newIntent(Context context){
