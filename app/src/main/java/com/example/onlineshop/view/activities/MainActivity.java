@@ -3,6 +3,7 @@ package com.example.onlineshop.view.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.onlineshop.R;
 import com.example.onlineshop.view.fragments.MainFragment;
+import com.example.onlineshop.view.fragments.SettingFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.sergivonavi.materialbanner.Banner;
 import com.sergivonavi.materialbanner.BannerInterface;
@@ -81,7 +83,10 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
         mNavigationView = findViewById(R.id.navigation);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, mDrawer, mToolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        toggle.setDrawerIndicatorEnabled(false);
+        toggle.setHomeAsUpIndicator(R.drawable.ic_nav_menu);
 
         mToolbar.setNavigationOnClickListener(v -> {
             if (mDrawer.isDrawerOpen(Gravity.RIGHT)) {
@@ -145,7 +150,7 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
                 break;
             }
             case R.id.nav_setting: {
-
+                startActivity(SettingActivity.newIntent(this));
                 break;
             }
         }
@@ -178,5 +183,9 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
 
         }
         return true;
+    }
+
+    public static Intent newIntent(Context context){
+        return new Intent(context,MainActivity.class);
     }
 }
