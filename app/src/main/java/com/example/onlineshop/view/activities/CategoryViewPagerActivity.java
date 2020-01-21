@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -25,11 +24,10 @@ import com.example.onlineshop.R;
 import com.example.onlineshop.model.category.Categories;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.view.fragments.SubCategoryFragment;
+import com.example.onlineshop.viewmodel.ConnectivityViewModel;
 import com.example.onlineshop.viewmodel.ViewPagerCategViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.sergivonavi.materialbanner.Banner;
-import com.sergivonavi.materialbanner.BannerInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +40,11 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private List<Categories> mCategoriesList = new ArrayList<>();
     private FragmentStateAdapter mAdapter;
-    private Banner mBanner;
     private Toolbar mToolbar;
     private ViewPagerCategViewModel mViewModel;
+    private ConnectivityViewModel mConnectivityViewModel;
     private String mIdCategory;
+    private int mCurrentPosition;
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -57,6 +56,8 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
         mIdCategory = getIntent().getStringExtra(EXTRA_ID_CATEGORY);
 
         mViewModel = ViewModelProviders.of(this).get(ViewPagerCategViewModel.class);
+        mConnectivityViewModel = ViewModelProviders.of(this).get(ConnectivityViewModel.class);
+
         mCategoriesList = mViewModel.getBasicCategories();
 
         initUi();
@@ -98,7 +99,6 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
             mBanner.setVisibility(View.VISIBLE);
         }*/
 
-
     }
 
     private void initUi() {
@@ -118,6 +118,7 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
     }
 
     public void setupTabLayout() {
+
         mAdapter = new FragmentStateAdapter(this) {
 
             @NonNull
@@ -138,18 +139,21 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
         new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) ->
                 tab.setText(mCategoriesList.get(position).getName())).attach();
 
-        if (!mIdCategory.equals("")) {
-            int num = Integer.parseInt(mIdCategory);
-            int position = 0;
-            for (int i = 0; i < mCategoriesList.size(); i++) {
-                if (mCategoriesList.get(i).getId() == num) {
-                    position = i;
-                    break;
-                }
-            }
-            mTabLayout.setScrollPosition(position, 0, true);
-            mViewPager.setCurrentItem(position);
-        }
+//        if (!mIdCategory.equals("")) {
+//            int num = Integer.parseInt(mIdCategory);
+//            int position = 0;
+//            for (int i = 0; i < mCategoriesList.size(); i++) {
+//                if (mCategoriesList.get(i).getId() == num) {
+//                    position = i;
+//                    break;
+//                }
+//            }
+//            mTabLayout.setScrollPosition(position, 0, true);
+//            mViewPager.setCurrentItem(position);
+//            mAdapter.createFragment(position);
+//            mViewPager.setAdapter(mAdapter);
+//            mAdapter.notifyItemChanged(position);
+//        }
 
     }
 
@@ -158,19 +162,5 @@ public class CategoryViewPagerActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_ID_CATEGORY, idCategory);
         return intent;
     }
-
-//    public boolean isOnline(Context context) {
-//        try {
-//            ConnectivityManager connectivityManager =
-//                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-//            NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
-//            //checking null when airplane mode
-//            return (netInfo != null && netInfo.isConnected());
-//        } catch (NullPointerException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-
 
 }
