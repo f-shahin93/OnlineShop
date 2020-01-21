@@ -49,11 +49,11 @@ public class ProductListSeeAllActivity extends SingleFragmentActivity {
         String statusList = getIntent().getStringExtra(EXTRA_STATUS_LIST);
 
         if(statusList.equals("date")){
-            mToolbar.setTitle("جدیدترین محصولات");
+            getSupportActionBar().setTitle("جدیدترین محصولات");
         }else if(statusList.equals("popularity")){
-            mToolbar.setTitle("پربازدیدترین محصولات");
+            getSupportActionBar().setTitle("پربازدیدترین محصولات");
         }else if(statusList.equals("rating")){
-            mToolbar.setTitle("بهترین محصولات");
+            getSupportActionBar().setTitle("بهترین محصولات");
         }
 
     }
