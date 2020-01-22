@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.example.onlineshop.R;
 import com.example.onlineshop.databinding.FragmentFilterSearchBinding;
 
-public class FilterSearchFragment extends Fragment {
+public class FilterSearchFragment extends VisibleFragment {
 
     private FragmentFilterSearchBinding mBinding;
 

@@ -32,14 +32,16 @@
 
     <style name="seeAll" parent="TextAppearance.MaterialComponents.Headline2">
         <item name="android:textColor">#056DB4</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColorLink">#FFFFFF</item>
+        <item name="fontFamily">@font/iran_sans_bold</item>
     </style>
 
 
     <style name="Title_List_Product_Home" parent="TextAppearance.MaterialComponents.Headline2">
         <item name="android:textColor">#000000</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/iran_sans_bold</item>
     </style>
 
     <style name="actions">

@@ -49,6 +49,8 @@
     <color name="title_blue">#ff0099ff</color>
     <color name="chart_blue">#ff2196f3</color>
     <color name="fresh_text_color">#ff39ae00</color>
+    <color name="price_green">#ff93c54b</color>
+    <color name="green_500">#ff259b24</color>
     <color name="teal_500">#ff009688</color>
 
 

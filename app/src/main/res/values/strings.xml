@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">OnlineShop</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -35,6 +34,23 @@
     <string name="title_do_filter">فیلتر کن</string>
     <string name="filter_from">از</string>
     <string name="filter_to">تا</string>
+    <string name="tv_title_setting_notify">زمان بندی اطلاع رسانی محصولات جدید</string>
+    <string name="rb_15minute_setting_notify">15 دقیقه</string>
+    <string name="rb_3hour__setting_notify">3 ساعت</string>
+    <string name="rb_5hour__setting_notify">5 ساعت</string>
+    <string name="rb_8hour__setting_notify">8 ساعت</string>
+    <string name="rb_12hour__setting_notify">12 ساعت</string>
+    <string name="rb_setting_custom_time">زمان دلخواه</string>
+    <string name="tv_title_setting_nothing_select">لطفا زمان دلخواه خود را انتخاب نمایید:</string>
+    <string name="title_setting">تنظیمات</string>
+    <string name="title_disable">غیر فعال کردن</string>
+    <string name="channel_id">online_shop_channel_id</string>
+    <string name="channel_name">OnlineShop Channel</string>
+    <string name="title_clock">ساعت</string>
+    <string name="title_gift">هدیه</string>
+    <string name="title_color">رنگ</string>
+    <string name="title_counter">تعداد</string>
+    <string name="title_size">سایز</string>
 
 
 </resources>

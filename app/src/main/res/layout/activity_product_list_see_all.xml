@@ -13,7 +13,8 @@
         app:titleTextColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/color_dark_violet" />
+        android:background="@color/color_dark_violet"
+        android:layoutDirection="rtl"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

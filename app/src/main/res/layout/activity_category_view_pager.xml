@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".view.activities.CategoryViewPagerActivity"
-    android:id="@+id/layout_root_view_pager_activity">
+    android:id="@+id/layout_root_view_pager_activity"
+    android:layoutDirection="rtl">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_categories"
@@ -28,17 +29,9 @@
         android:animateLayoutChanges="true"/>
 
 
-
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/activity_viewPager_category"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true" />
-
-<!--    <com.duolingo.open.rtlviewpager.RtlViewPager-->
-<!--        android:id="@+id/activity_viewPager_category"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:animateLayoutChanges="true"/>-->
+        android:layout_height="match_parent"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

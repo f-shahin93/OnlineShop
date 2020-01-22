@@ -24,7 +24,7 @@ import com.example.onlineshop.viewmodel.ViewPagerCategViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailListCategoryFragment extends Fragment {
+public class DetailListCategoryFragment extends VisibleFragment {
 
     private static final String ARG_CATEGORY_NAME = "Arg categoryName";
     private static final String ARG_CATEGORY_ID = "Arg categoryId";

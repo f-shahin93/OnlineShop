@@ -3,13 +3,16 @@
     package="com.example.onlineshop">
 
     <application
+        android:name=".OnlineShopApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_back_online_shop"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".view.activities.ProductListSubCategoriesActivity"></activity>
+        <activity android:name=".view.activities.SettingActivity" />
+
+        <activity android:name=".view.activities.ProductListSubCategoriesActivity" />
         <activity
             android:name=".view.activities.FilterSearchActivity"
             android:screenOrientation="portrait"
@@ -49,6 +52,9 @@
             android:name=".view.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge" />
+        <service
+            android:name=".service.PollService"
+            android:exported="false"></service>
     </application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 

@@ -25,7 +25,8 @@ public class BroadcastRecFragment extends Fragment {
 
     public static final String ARG_TAG_PAGE_NAME = "Arg tagPageName";
     private boolean mIsNetworkAvailable;
-    BroadcastReceiver mybroadcast = new BroadcastReceiver() {
+
+    /*BroadcastReceiver mybroadcast = new BroadcastReceiver() {
 
         //When Event is published, onReceive method is called
         @Override
@@ -41,18 +42,18 @@ public class BroadcastRecFragment extends Fragment {
             }
 
         }
-    };
+    };*/
 
     public BroadcastRecFragment() {
         // Required empty public constructor
     }
 
-    public static BroadcastRecFragment newInstance() {
-        BroadcastRecFragment fragment = new BroadcastRecFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static BroadcastRecFragment newInstance() {
+//        BroadcastRecFragment fragment = new BroadcastRecFragment();
+//        Bundle args = new Bundle();
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     public boolean isOnline(Context context) {
         try {
@@ -74,8 +75,8 @@ public class BroadcastRecFragment extends Fragment {
 
         }
 
-        IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE" );
-        getActivity().registerReceiver(mybroadcast ,intentFilter);
+        //IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE" );
+        //getActivity().registerReceiver(mybroadcast ,intentFilter);
 
 
         if(isOnline(getContext())){
@@ -83,18 +84,17 @@ public class BroadcastRecFragment extends Fragment {
         }else {
             Intent intent = new Intent(this.getContext(), DisconnectActivity.class);
             startActivity(intent);
-            Toast.makeText(getContext(),"hiiiiiii",Toast.LENGTH_LONG).show();
         }
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        TextView textView = new TextView(getActivity());
+//        textView.setText(R.string.hello_blank_fragment);
+//        return textView;
+//    }
 
 
 }

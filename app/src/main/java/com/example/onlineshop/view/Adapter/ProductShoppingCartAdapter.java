@@ -14,11 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlineshop.R;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.repository.ProductRepository;
+import com.example.onlineshop.viewmodel.DetailProViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -109,8 +111,8 @@ public class ProductShoppingCartAdapter extends RecyclerView.Adapter<ProductShop
                             .setPositiveButton("بله", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    ProductRepository.getInstance().deletePruductFromList(mProductVh);
-                                    mCallback.notifyChangedList(true);
+                                    //ProductRepository.getInstance().deletePruductFromList(mProductVh);
+                                    mCallback.notifyChangedList(true,mProductVh);
                                 }
                             })
                             .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
@@ -153,7 +155,7 @@ public class ProductShoppingCartAdapter extends RecyclerView.Adapter<ProductShop
     }
 
     public interface ShoppingAdapterCallback {
-        void notifyChangedList(boolean flagDeleteItem);
+        void notifyChangedList(boolean flagDeleteItem,Product product);
     }
 
 }

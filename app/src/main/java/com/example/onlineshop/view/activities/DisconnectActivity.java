@@ -4,6 +4,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +33,7 @@ public class DisconnectActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-                boolean result = BroadcastRecFragment.newInstance().isOnline(DisconnectActivity.this);
+                boolean result = isOnline(DisconnectActivity.this);
 
                 if (result) {
 
@@ -49,5 +53,23 @@ public class DisconnectActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    public boolean isOnline(Context context) {
+        try {
+            ConnectivityManager connectivityManager =
+                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+            // باید نال را هم بررسی کنید چون در حالت پرواز نال خواهد بود
+            return (netInfo != null && netInfo.isConnected());
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static Intent newIntent(Context context){
+        Intent intent = new Intent(context,DisconnectActivity.class);
+        return intent;
     }
 }

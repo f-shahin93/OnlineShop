@@ -23,7 +23,7 @@ import com.example.onlineshop.viewmodel.HomePageViewModel;
 
 import java.util.List;
 
-public class ProductsListSeeAllFragment extends Fragment {
+public class ProductsListSeeAllFragment extends VisibleFragment {
 
     public static final String ARG_STATUS_LIST = "ARG_STATUS_LIST";
     private RecyclerView mRecyclerView;

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class SubCategoryFragment extends Fragment {
+public class SubCategoryFragment extends VisibleFragment {
 
     public static final String ARG_ID_CATEGORY = "Arg idCategory";
     public static final String SUB_CATEGORY_FRAGMENT = "SubCategoryFragment";

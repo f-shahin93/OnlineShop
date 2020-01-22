@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +27,12 @@ import com.example.onlineshop.view.Adapter.CategoryAdapter;
 import com.example.onlineshop.view.Adapter.HomePageAdapter;
 import com.example.onlineshop.view.activities.ProductListSeeAllActivity;
 import com.example.onlineshop.viewmodel.HomePageViewModel;
+import com.sergivonavi.materialbanner.Banner;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends VisibleFragment {
 
     public static final String TAG_MAIN_FRAGMENT = "MainFragment";
     private CategoryAdapter mCategoryAdapter;
@@ -104,6 +104,44 @@ public class MainFragment extends Fragment {
             startActivity(intent);
         });
 
+/*
+        mBanner = new Banner.Builder(getContext())
+                .setParent(mBinding.llCategoryHomePage)
+                .setIcon(R.drawable.ic_wifi)
+                .setMessage("You have lost connection to the Internet. This app is offline.")
+                .setLeftButton("Dismiss", new BannerInterface.OnClickListener() {
+                    @Override
+                    public void onClick(BannerInterface banner) {
+                        mBanner.dismiss();
+                    }
+                })
+                .setRightButton("Turn on wifi", new BannerInterface.OnClickListener() {
+                    @Override
+                    public void onClick(BannerInterface banner) {
+                        if (isOnline(getContext())) {
+                            mBanner.setVisibility(View.GONE);
+                            mBanner.dismiss();
+                            //recreate();
+                        } else {
+                            mBanner.show();
+                            mBanner.setVisibility(View.VISIBLE);
+                        }
+                    }
+                })
+                .create();
+
+        if (isOnline(getContext())) {
+            mBanner.setVisibility(View.GONE);
+            mBanner.dismiss();
+            //recreate();
+        } else {
+            mBinding.sliderPicApp.setVisibility(View.INVISIBLE);
+            mBanner.show();
+            mBanner.setVisibility(View.VISIBLE);
+
+        }*/
+
+
         return mBinding.getRoot();
     }
 
@@ -125,10 +163,13 @@ public class MainFragment extends Fragment {
     private void setupSlider() {
 
         HashMap<String, String> url_maps = new HashMap<>();
-        url_maps.put("لوازم برقی", "https://bucket-15.digicloud-oss.com/digikala-adservice-banners/1000012855.jpg");
-        url_maps.put("صوتی و تصویری", "https://bucket-15.digicloud-oss.com/digikala-adservice-banners/1000012860.jpg");
-        url_maps.put("مراقبت از پوست", "https://bucket-15.digicloud-oss.com/digikala-adservice-banners/1000012909.jpg");
-        url_maps.put("لذت از لحظات", "https://bucket-15.digicloud-oss.com/digikala-adservice-banners/1000013192.jpg");
+        url_maps.put("عطر و ادکلن مردانه", "https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/1000016881.jpg");
+        url_maps.put("سوپرمارکت", "https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/1000016197.jpg");
+        url_maps.put("گجت آشپزخانه", "https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/1000016913.jpg");
+        url_maps.put("انواع لباس زنانه", "https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/1000016833.jpg");
+        url_maps.put("لوازم پخت و پز", "https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/1000016887.jpg");
+        url_maps.put("کامان", "https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/1000017104.jpg");
+        url_maps.put("انواع کفش مردانه", "https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/1000016859.jpg");
 
 
         for (String name : url_maps.keySet()) {
