@@ -186,12 +186,12 @@ public class DetailProductFragment extends VisibleFragment {
     public void initUIColorText(Attributes attributes) {
         mBinding.tvProductDetailsColor.setVisibility(View.VISIBLE);
         mBinding.tvProductDetailsColorCount.setVisibility(View.VISIBLE);
-        mBinding.tvProductDetailsColorShow.setText(View.VISIBLE);
+        mBinding.tvProductDetailsColorShow.setVisibility(View.VISIBLE);
         int countColor = attributes.getOptions().size();
         mBinding.tvProductDetailsColorCount.setText(countColor + " رنگ");
         String namesColor = attributes.getOptions().get(0);
         for (int i = 1; i < countColor; i++) {
-            namesColor.concat("," + attributes.getOptions().get(i));
+            namesColor += (" , " + attributes.getOptions().get(i));
         }
         mBinding.tvProductDetailsColorShow.setText(namesColor);
     }
@@ -204,7 +204,7 @@ public class DetailProductFragment extends VisibleFragment {
         mBinding.tvProductDetailsSizeCount.setText(countSize + " سایز");
         String namesSize = attributes.getOptions().get(0);
         for (int i = 1; i < countSize; i++) {
-            namesSize.concat("," + attributes.getOptions().get(i));
+            namesSize += (" , " + attributes.getOptions().get(i));
         }
         mBinding.tvProductDetailsSizeShow.setText(namesSize);
     }
