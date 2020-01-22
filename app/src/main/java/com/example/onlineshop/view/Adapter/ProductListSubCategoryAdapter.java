@@ -2,6 +2,7 @@ package com.example.onlineshop.view.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,20 +37,6 @@ public class ProductListSubCategoryAdapter extends RecyclerView.Adapter<ProductL
     @NonNull
     @Override
     public ProductListSubCategoryAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //View view;
-        /*if (mTag.equals(DetailListCategoryFragment.Detail_List_Category_Fragment)
-                || mTag.equals(SearchProductListFragment.Search_Product_List_Fragment)) {
-            ItemListProductCatogoryBinding binding = DataBindingUtil
-                    .inflate(LayoutInflater.from(mContext), R.layout.item_list_product_catogory,parent,false);
-            return new HomePageAdapter.ProductViewHolderItemListCategoryVPager(binding.getRoot());
-            //view = LayoutInflater.from(mContext).inflate(R.layout.item_list_product_catogory, parent, false);
-        } else {
-            ItemListCardViewHomePBinding binding = DataBindingUtil
-                    .inflate(LayoutInflater.from(mContext),R.layout.item_list_card_view_home_p,parent,false);
-            //view = LayoutInflater.from(mContext).inflate(R.layout.item_list_card_view_home_p, parent, false);
-            return new HomePageAdapter.ProductViewHolderCardViewHP(binding.getRoot());
-        }*/
-        //return new ProductViewHolder(view);
         ItemListProductCatogoryBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(mContext), R.layout.item_list_product_catogory, parent, false);
         return new ProductViewHolder(binding);
@@ -69,8 +56,6 @@ public class ProductListSubCategoryAdapter extends RecyclerView.Adapter<ProductL
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        /*private AppCompatImageView mIvproduct;
-        private TextView mTvProductName, mTvRegularPrice, mTvProductPrice;*/
         private Product mProductVh;
         private ItemListProductCatogoryBinding mBinding;
 
@@ -78,12 +63,9 @@ public class ProductListSubCategoryAdapter extends RecyclerView.Adapter<ProductL
             super(binding.getRoot());
             mBinding = binding;
 
-            mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = DetailProductActivity.newIntent(mContext, mProductVh.getId());
-                    mContext.startActivity(intent);
-                }
+            mBinding.getRoot().setOnClickListener(view -> {
+                Intent intent = DetailProductActivity.newIntent(mContext, mProductVh.getId());
+                mContext.startActivity(intent);
             });
         }
 
@@ -96,9 +78,18 @@ public class ProductListSubCategoryAdapter extends RecyclerView.Adapter<ProductL
                         .load(mProductVh.getImages().get(0).getSrc())
                         .placeholder(R.drawable.place_holder_shopping_cart)
                         .into(mBinding.IvProductCategoryViewPager);
+
             mBinding.tvNameProductCategoryViewPager.setText(mProductVh.getName());
-            mBinding.tvPriceProductCategoryViewPager.setText(mProductVh.getPrice());
-            mBinding.tvPriceRegularItemListCategoryViewPager.setText(mProductVh.getRegularPrice());
+
+            if(mProductVh.getRegularPrice().equals("")){
+                mBinding.tvPriceRegularItemListCategoryViewPager.setVisibility(View.INVISIBLE);
+                mBinding.tvPriceProductCategoryViewPager.setText(mProductVh.getPrice()+" تومان");
+            }else {
+                mBinding.tvPriceRegularItemListCategoryViewPager.setVisibility(View.VISIBLE);
+                mBinding.tvPriceProductCategoryViewPager.setText(mProductVh.getPrice()+" تومان");
+                mBinding.tvPriceRegularItemListCategoryViewPager.setText(mProductVh.getRegularPrice()+" تومان");
+                mBinding.tvPriceRegularItemListCategoryViewPager.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            }
 
         }
     }
