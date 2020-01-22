@@ -26,16 +26,16 @@
             android:src="@drawable/ic_shopping_cart"
             android:contentDescription="@string/content_description" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:textSize="11.0sp"
-            android:textStyle="bold"
-            android:textColor="@color/digikala_red_dark"
-            android:gravity="center"
-            android:id="@+id/toolbarHomeActionbar_iv_cartCounter"
-            android:background="@drawable/background_cart_counter"
-            android:layout_width="20.0dip" android:layout_height="20.0dip"
-            android:layout_marginLeft="-26.0dip" android:layout_marginTop="7.0dip"
-            android:layout_toRightOf="@id/toolbarHomeActionbar_iv_cart_button"/>
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:textSize="11.0sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/digikala_red_dark"-->
+<!--            android:gravity="center"-->
+<!--            android:id="@+id/toolbarHomeActionbar_iv_cartCounter"-->
+<!--            android:background="@drawable/background_cart_counter"-->
+<!--            android:layout_width="20.0dip" android:layout_height="20.0dip"-->
+<!--            android:layout_marginLeft="-26.0dip" android:layout_marginTop="7.0dip"-->
+<!--            android:layout_toRightOf="@id/toolbarHomeActionbar_iv_cart_button"/>-->
 
 </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>

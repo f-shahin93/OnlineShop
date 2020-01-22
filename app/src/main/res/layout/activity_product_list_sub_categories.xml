@@ -11,8 +11,10 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:titleTextColor="@android:color/white"
         android:id="@+id/toolbar_product_list_category"
-        android:background="@color/digikala_red_dark"/>
+        android:background="@color/digikala_red_dark"
+        android:layoutDirection="rtl"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
