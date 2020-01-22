@@ -13,6 +13,7 @@ import com.example.onlineshop.model.category.Categories;
 import com.example.onlineshop.model.customers.Customers;
 import com.example.onlineshop.network.interfaces.ProductService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ItemShopFetcher {
     private MutableLiveData<List<Product>> mAllProductListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Product>> mProductListSubCategMLiveData;
     private MutableLiveData<List<Product>> mProductListSearchMLiveData = new MutableLiveData<>();
-    private MutableLiveData<Customers> mCustomerLiveData = new MutableLiveData<>();
+    private MutableLiveData<Customers> mCustomerLiveData;
     private String mTotalPageNumber;
     private List<Categories> mBasicCategoriesList;
     private List<Categories> mSubCategoriesList;
@@ -84,7 +85,10 @@ public class ItemShopFetcher {
     }
 
     public void setCustomer(Customers customer) {
-        Call<Customers> customersCall = mProductService.setCustomers(customer);
+        mQueries.remove("page");
+        mQueries.remove("orderby");
+        Call<Customers> customersCall = mProductService.setCustomers(mQueries,
+                customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getUsername());
         customersCall.enqueue(setCustomerwithRetrofit());
     }
 
@@ -103,8 +107,10 @@ public class ItemShopFetcher {
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                List<Product> list = response.body();
-                mProductListSearchMLiveData.setValue(list);
+                if (response.isSuccessful()) {
+                    List<Product> list = response.body();
+                    mProductListSearchMLiveData.setValue(list);
+                }
             }
 
             @Override
@@ -121,7 +127,6 @@ public class ItemShopFetcher {
         mQueries.remove("orderby");
         Call<List<Product>> call = mProductService.getProductsSubCategoires(mQueries, idCatrgory, name);
         call.enqueue(getRetrofitCallback(mProductListSubCategMLiveData));
-        //return mutableLiveData;
     }
 
     public MutableLiveData<List<Product>> getProductsSubCategoryByPage(String name, String idCatrgory, int page) {
@@ -133,6 +138,23 @@ public class ItemShopFetcher {
         return mutableLiveData;
     }
 
+    /*public List<PhotoItem> fetchRecentPhotos() throws IOException {
+        mQueries.put("method", FETCH_RECENT_METHOD);
+        Call<FlickrBody> call = mFlickrService.getFlickrBody(mQueries);
+
+        return call.execute().body().getPhotos().getPhoto();
+    }*/
+
+    public List<Product> getProductListSync() throws IOException {
+        mQueries.remove("page");
+        mQueries.remove("orderby");
+        HashMap<String,String> map = new HashMap<>();
+        map.putAll(mQueries);
+        map.put("per_page","1");
+        Call<List<Product>> call = mProductService.getProductBody(map);
+        return call.execute().body();
+    }
+
     public void getOrderProductList(String status) {
         mQueries.remove("page");
         mQueries.put("orderby", status);
@@ -140,18 +162,20 @@ public class ItemShopFetcher {
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                Log.d(TAG_PRODUCT, "successfulOrderProduct");
-                List<Product> list = response.body();
-                setTotalPageNumber(response.raw().header("X-WP-TotalPages"));
+                if (response.isSuccessful()) {
+                    Log.d(TAG_PRODUCT, "successfulOrderProduct");
+                    List<Product> list = response.body();
+                    setTotalPageNumber(response.raw().header("X-WP-TotalPages"));
 
-                if (status.equals("date")) {
-                    mListNewestProMutableLiveData.setValue(list);
+                    if (status.equals("date")) {
+                        mListNewestProMutableLiveData.setValue(list);
 
-                } else if (status.equals("popularity")) {
-                    mListPopularProMutableLiveData.setValue(list);
+                    } else if (status.equals("popularity")) {
+                        mListPopularProMutableLiveData.setValue(list);
 
-                } else if (status.equals("rating")) {
-                    mListMostPointProMutableLiveData.setValue(list);
+                    } else if (status.equals("rating")) {
+                        mListMostPointProMutableLiveData.setValue(list);
+                    }
                 }
             }
 
@@ -172,17 +196,19 @@ public class ItemShopFetcher {
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                Log.d(TAG_PRODUCT, "successfulOrderProduct page");
-                List<Product> list = response.body();
+                if (response.isSuccessful()) {
+                    Log.d(TAG_PRODUCT, "successfulOrderProduct page");
+                    List<Product> list = response.body();
 
-                if (status.equals("date")) {
-                    mAllProductListMLData.setValue(list);
+                    if (status.equals("date")) {
+                        mAllProductListMLData.setValue(list);
 
-                } else if (status.equals("popularity")) {
-                    mAllProductListMLData.setValue(list);
+                    } else if (status.equals("popularity")) {
+                        mAllProductListMLData.setValue(list);
 
-                } else if (status.equals("rating")) {
-                    mAllProductListMLData.setValue(list);
+                    } else if (status.equals("rating")) {
+                        mAllProductListMLData.setValue(list);
+                    }
                 }
             }
 
@@ -205,9 +231,11 @@ public class ItemShopFetcher {
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                Log.d(TAG_PRODUCT, "successfulOrderProduct page");
-                List<Product> list = response.body();
-                mAllProductListMLData.setValue(list);
+                if (response.isSuccessful()) {
+                    Log.d(TAG_PRODUCT, "successfulOrderProduct page");
+                    List<Product> list = response.body();
+                    mAllProductListMLData.setValue(list);
+                }
             }
 
             @Override
@@ -220,11 +248,11 @@ public class ItemShopFetcher {
     }
 
 
-    public void getAllCategory(String displayCatg ,int parentCatg) {
+    public void getAllCategory(String displayCatg, int parentCatg) {
         mListSubCategoryLiveData = new MutableLiveData<>();
         mQueries.remove("page");
         mQueries.remove("orderby");
-        Call<List<Categories>> call = mProductService.getAllCategories(mQueries ,displayCatg,String.valueOf(parentCatg));
+        Call<List<Categories>> call = mProductService.getAllCategories(mQueries, displayCatg, String.valueOf(parentCatg));
         call.enqueue(new Callback<List<Categories>>() {
 
             @Override
@@ -232,10 +260,10 @@ public class ItemShopFetcher {
                 if (response.isSuccessful()) {
                     Log.d(TAG_PRODUCT, "successfulCategory");
                     List<Categories> listCategory = response.body();
-                    if(parentCatg == 0){
+                    if (parentCatg == 0) {
                         setBasicCategoriesList(listCategory);
                         mListCategoryLiveData.setValue(listCategory);
-                    }else
+                    } else
                         mListSubCategoryLiveData.setValue(listCategory);
                 }
             }
@@ -266,16 +294,21 @@ public class ItemShopFetcher {
     }
 
     public Callback<Customers> setCustomerwithRetrofit() {
-        MutableLiveData<Customers> mCustomerLiveData = new MutableLiveData<>();
+        mCustomerLiveData = new MutableLiveData<>();
         return new Callback<Customers>() {
             @Override
             public void onResponse(Call<Customers> call, Response<Customers> response) {
-                mCustomerLiveData.setValue(response.body());
-                //mCallbacks.onCustomerResponse(true);
+                if (response.isSuccessful()) {
+                    Log.d(TAG_PRODUCT, "isSuccessful Customer ");
+                    mCustomerLiveData.setValue(response.body());
+                    //mCallbacks.onCustomerResponse(true);
+                }else
+                    Log.d(TAG_PRODUCT, "is not Successful Customer " +response.message());
             }
 
             @Override
             public void onFailure(Call<Customers> call, Throwable t) {
+                Log.d(TAG_PRODUCT, "Failed " + t.getMessage());
                 //mCallbacks.onCustomerResponse(false);
             }
         };

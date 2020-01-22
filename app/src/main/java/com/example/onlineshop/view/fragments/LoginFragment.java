@@ -3,7 +3,11 @@ package com.example.onlineshop.view.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,18 +16,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.onlineshop.R;
+import com.example.onlineshop.databinding.FragmentLoginBinding;
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.model.customers.Customers;
-import com.example.onlineshop.network.ItemShopFetcher;
+import com.example.onlineshop.viewmodel.CustomerViewModel;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends VisibleFragment {
 
-    private MaterialButton mButtonSignUp;
-    private EditText mEtUsername, mEtPassword;
+    private CustomerViewModel mCustomerViewModel;
+    private FragmentLoginBinding mBinding;
 
 
     public static LoginFragment newInstance() {
@@ -37,36 +42,34 @@ public class LoginFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mCustomerViewModel = ViewModelProviders.of(this).get(CustomerViewModel.class);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        mButtonSignUp = view.findViewById(R.id.button_signUp);
-        mEtUsername = view.findViewById(R.id.et_username);
-        mEtPassword = view.findViewById(R.id.et_password);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
 
-        Customers customers = new Customers();
-        customers.setEmail(mEtUsername.getText().toString());
+        mBinding.buttonSignUp.setOnClickListener(view -> {
+            mCustomerViewModel.createCustomer(mBinding.etEmail.getText().toString(),
+                    mBinding.etFirstName.getText().toString(),
+                    mBinding.etLastName.getText().toString(),
+                    mBinding.etUsername.getText().toString(),
+                    mBinding.etPassword.getText().toString())
+                    .observe(this, customers ->
+                            Toast.makeText(getContext()
+                                    , "شما با موفقیت ثبت نام شدید"
+                                    , Toast.LENGTH_LONG).show());
+        });
 
-        ItemShopFetcher productFetcher =  ItemShopFetcher.getInstance();
-        productFetcher.setCustomer(customers);
-
-        return view;
+        return mBinding.getRoot();
     }
 
-//    @Override
-//    public void onProductResponse(List<Product> productList) {
-//
-//    }
-//
-//    @Override
-//    public void onCategoryResponse(List<CategoriesItem> categoryList) {
-//
-//    }
-//
 //    @Override
 //    public void onCustomerResponse(boolean singupCustomer) {
 //        if (singupCustomer) {
@@ -76,4 +79,5 @@ public class LoginFragment extends Fragment {
 //        }
 //
 //    }
+
 }
