@@ -61,6 +61,7 @@
             android:textSize="17.0sp"
             android:textColor="@color/digikala_black_dark"
             android:gravity="center|right"
+            android:fontFamily="@font/iran_sans"
             android:id="@+id/tv_product_details_main_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -81,12 +82,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16.0dip"
             android:layout_marginRight="8.0dip"
-            android:text="@string/fake_title_product"/>
+            android:text="@string/fake_title_product"
+            android:fontFamily="@font/iran_sans"/>
 
         <TextView android:textSize="14.0sp"
             android:textStyle="bold"
             android:textColor="@color/digikala_black_dark_54"
             android:gravity="center|right"
+            android:fontFamily="@font/iran_sans"
             android:id="@+id/tv_product_details_secondary_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -105,18 +108,18 @@
 
             <ImageView android:id="@+id/activityMain_iv_incredibleOfferHeaderBackground" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/back_incredible_offers" android:scaleType="fitStart" />
             <ImageView android:gravity="center|right" android:id="@+id/activityMain_tv_incredibleOfferLabel" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginRight="16.0dip" android:src="@drawable/typeface_specialoffer" android:layout_alignParentRight="true" android:layout_centerInParent="true" />
-            <TextView android:textSize="22.0sp" android:textStyle="bold" android:textColor="@color/digikala_white_pure" android:gravity="center" android:id="@+id/tv_productDetails_remainHours" android:background="@drawable/background_incredible_timer" android:layout_width="32.0dip" android:text="@string/timer_offers_hours" android:layout_height="34.0dip" android:layout_marginLeft="16.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:layout_alignParentLeft="true"/>
-            <TextView android:textSize="22.0sp" android:textColor="#ff424242" android:gravity="center" android:id="@+id/tv_productDetails_firstPeriod" android:layout_width="10.0dip" android:layout_height="34.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:text="@string/seperator_timer_offers" android:layout_toRightOf="@id/tv_productDetails_remainHours"/>
-            <TextView android:textSize="22.0sp" android:textStyle="bold" android:textColor="@color/digikala_white_pure" android:gravity="center" android:id="@+id/tv_productDetails_remainMinute" android:background="@drawable/background_incredible_timer" android:layout_width="32.0dip" android:text="@string/timer_offers_minute" android:layout_height="34.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:layout_toRightOf="@id/tv_productDetails_firstPeriod"/>
-            <TextView android:textSize="20.0sp" android:textColor="#ff424242" android:gravity="center" android:id="@+id/tv_productDetails_secondPeriod" android:layout_width="10.0dip" android:layout_height="34.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:text="@string/seperator_timer_offers" android:layout_toRightOf="@id/tv_productDetails_remainMinute" />
-            <TextView android:textSize="22.0sp" android:textStyle="bold" android:textColor="@color/digikala_white_pure" android:gravity="center" android:id="@+id/tv_productDetails_remainSeconds" android:background="@drawable/background_incredible_timer" android:layout_width="32.0dip" android:text="@string/timer_offers_second" android:layout_height="34.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:minWidth="32.0dip" android:layout_toRightOf="@id/tv_productDetails_secondPeriod"/>
+            <TextView android:fontFamily="@font/iran_sans" android:textSize="22.0sp" android:textStyle="bold" android:textColor="@color/digikala_white_pure" android:gravity="center" android:id="@+id/tv_productDetails_remainHours" android:background="@drawable/background_incredible_timer" android:layout_width="32.0dip" android:text="@string/timer_offers_hours" android:layout_height="34.0dip" android:layout_marginLeft="16.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:layout_alignParentLeft="true"/>
+            <TextView android:fontFamily="@font/iran_sans" android:textSize="22.0sp" android:textColor="#ff424242" android:gravity="center" android:id="@+id/tv_productDetails_firstPeriod" android:layout_width="10.0dip" android:layout_height="34.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:text="@string/seperator_timer_offers" android:layout_toRightOf="@id/tv_productDetails_remainHours"/>
+            <TextView android:fontFamily="@font/iran_sans" android:textSize="22.0sp" android:textStyle="bold" android:textColor="@color/digikala_white_pure" android:gravity="center" android:id="@+id/tv_productDetails_remainMinute" android:background="@drawable/background_incredible_timer" android:layout_width="32.0dip" android:text="@string/timer_offers_minute" android:layout_height="34.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:layout_toRightOf="@id/tv_productDetails_firstPeriod"/>
+            <TextView android:fontFamily="@font/iran_sans" android:textSize="20.0sp" android:textColor="#ff424242" android:gravity="center" android:id="@+id/tv_productDetails_secondPeriod" android:layout_width="10.0dip" android:layout_height="34.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:text="@string/seperator_timer_offers" android:layout_toRightOf="@id/tv_productDetails_remainMinute" />
+            <TextView android:fontFamily="@font/iran_sans" android:textSize="22.0sp" android:textStyle="bold" android:textColor="@color/digikala_white_pure" android:gravity="center" android:id="@+id/tv_productDetails_remainSeconds" android:background="@drawable/background_incredible_timer" android:layout_width="32.0dip" android:text="@string/timer_offers_second" android:layout_height="34.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:minWidth="32.0dip" android:layout_toRightOf="@id/tv_productDetails_secondPeriod"/>
         </RelativeLayout>
 
         <LinearLayout android:orientation="horizontal" android:id="@+id/activityProductDetails_ll_buttons" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dip" android:layout_marginTop="2.0dip" android:layout_marginRight="16.0dip" android:baselineAligned="false" android:weightSum="2.0">
             <androidx.cardview.widget.CardView android:layout_gravity="center" android:id="@+id/cv_product_details_commentBtn" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginRight="3.0dip" android:layout_marginBottom="5.0dip" android:layout_weight="1.0" card_view:cardBackgroundColor="@color/digikala_white_pure" card_view:cardCornerRadius="2.0dip" card_view:cardElevation="2.0dip" card_view:cardPreventCornerOverlap="true" card_view:cardUseCompatPadding="true" xmlns:card_view="http://schemas.android.com/apk/res-auto">
                 <RelativeLayout android:gravity="center" android:id="@+id/activityProductDetails_rl_commentBtn" android:background="@drawable/hover_roundedrectangle" android:layout_width="fill_parent" android:layout_height="40.0dip">
                     <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
-                        <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/digikala_bluegrey_dark" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip" android:text="@string/detail_product_user_comment"/>
+                        <TextView android:textSize="14.0sp" android:textStyle="bold" android:fontFamily="@font/iran_sans" android:textColor="@color/digikala_bluegrey_dark" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip" android:text="@string/detail_product_user_comment"/>
                         <ImageView android:layout_gravity="center" android:layout_width="18.0dip" android:layout_height="18.0dip" android:src="@drawable/ic_forum_grey600_18dp" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -124,7 +127,7 @@
             <androidx.cardview.widget.CardView android:layout_gravity="center" android:id="@+id/cv_product_details_specBtn" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginLeft="3.0dip" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:layout_weight="1.0" card_view:cardBackgroundColor="@color/digikala_white_pure" card_view:cardCornerRadius="2.0dip" card_view:cardElevation="2.0dip" card_view:cardPreventCornerOverlap="true" card_view:cardUseCompatPadding="true" xmlns:card_view="http://schemas.android.com/apk/res-auto">
                 <RelativeLayout android:gravity="center" android:id="@+id/activityProductDetails_rl_specBtn" android:background="@drawable/hover_roundedrectangle" android:layout_width="fill_parent" android:layout_height="40.0dip">
                     <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
-                        <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/digikala_bluegrey_dark" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip" android:text="@string/detail_config_product" />
+                        <TextView android:textSize="14.0sp" android:fontFamily="@font/iran_sans" android:textStyle="bold" android:textColor="@color/digikala_bluegrey_dark" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip" android:text="@string/detail_config_product" />
                         <ImageView android:layout_gravity="center" android:layout_width="18.0dip" android:layout_height="18.0dip" android:src="@drawable/ic_content_paste_grey600_18dp" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -133,47 +136,47 @@
 
         <androidx.cardview.widget.CardView android:layout_gravity="center" android:id="@+id/activityProductDetails_cv_config" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dip" android:layout_marginRight="16.0dip" android:layout_marginBottom="6.0dip" android:layout_below="@id/activityProductDetails_ll_buttons" card_view:cardBackgroundColor="@color/digikala_white_pure" card_view:cardCornerRadius="2.0dip" card_view:cardElevation="2.0dip" card_view:cardPreventCornerOverlap="true" card_view:cardUseCompatPadding="true" xmlns:card_view="http://schemas.android.com/apk/res-auto">
             <RelativeLayout android:id="@+id/config_content_container" android:paddingTop="8.0dip" android:paddingBottom="12.0dip" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content">
-                <TextView android:textSize="18.0sp" android:textColor="@color/red_500" android:gravity="center" android:id="@+id/tv_productDetails_not_exist" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="ناموجود" android:layout_centerInParent="true" />
+                <TextView android:fontFamily="@font/iran_sans" android:textSize="18.0sp" android:textColor="@color/red_500" android:gravity="center" android:id="@+id/tv_productDetails_not_exist" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="ناموجود" android:layout_centerInParent="true" />
                 <RelativeLayout android:id="@+id/activityProductDetails_config_layout" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content">
-                    <TextView android:textSize="14.0sp" android:textColor="@android:color/black" android:id="@+id/tv_productDetails_color" android:paddingRight="16.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="size/color" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
-                    <TextView android:textSize="13.0sp" android:textColor="@color/digikala_black_dark_54" android:id="@+id/tv_productDetails_color_count" android:paddingLeft="16.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="count" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+                    <TextView android:visibility="gone" android:textSize="14.0sp" android:textColor="@android:color/black" android:id="@+id/tv_productDetails_color" android:paddingRight="16.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/title_color" android:fontFamily="@font/iran_sans_bold" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+                    <TextView android:visibility="gone" android:textSize="13.0sp" android:textColor="@color/digikala_black_dark_54" android:id="@+id/tv_productDetails_color_count" android:paddingLeft="16.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/title_counter" android:fontFamily="@font/iran_sans" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
 <!--                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_productDetails_size_color" android:paddingLeft="12.0dip" android:paddingRight="12.0dip" android:paddingBottom="8.0dip" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/tv_productDetails_size_color" />-->
-                    <TextView android:id="@+id/tv_productDetails_color_show" android:paddingLeft="12.0dip" android:paddingRight="12.0dip" android:paddingBottom="8.0dip" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/tv_productDetails_color" />
+                    <TextView android:visibility="gone" android:fontFamily="@font/iran_sans" android:id="@+id/tv_productDetails_color_show" android:paddingLeft="12.0dip" android:paddingRight="12.0dip" android:paddingBottom="8.0dip" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/tv_productDetails_color" />
 
-                    <TextView android:textSize="14.0sp" android:textColor="@android:color/black" android:id="@+id/tv_productDetails_size" android:paddingRight="16.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="size/color"  android:layout_alignParentRight="true" android:layout_below="@id/tv_productDetails_color_show" />
-                    <TextView android:textSize="13.0sp" android:textColor="@color/digikala_black_dark_54" android:id="@+id/tv_productDetails_size_count" android:paddingLeft="16.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="count" android:layout_alignParentLeft="true" android:layout_below="@id/tv_productDetails_color_show" />
-                    <TextView android:id="@+id/tv_productDetails_size_show" android:paddingLeft="12.0dip" android:paddingRight="12.0dip" android:paddingBottom="8.0dip" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/tv_productDetails_size" />
+                    <TextView android:visibility="gone" android:textSize="14.0sp" android:textColor="@android:color/black" android:id="@+id/tv_productDetails_size" android:paddingRight="16.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/title_size" android:fontFamily="@font/iran_sans_bold" android:layout_alignParentRight="true" android:layout_below="@id/tv_productDetails_color_show" />
+                    <TextView android:visibility="gone" android:textSize="13.0sp" android:textColor="@color/digikala_black_dark_54" android:id="@+id/tv_productDetails_size_count" android:paddingLeft="16.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/title_counter" android:fontFamily="@font/iran_sans" android:layout_alignParentLeft="true" android:layout_below="@id/tv_productDetails_color_show" />
+                    <TextView android:visibility="gone" android:fontFamily="@font/iran_sans" android:id="@+id/tv_productDetails_size_show" android:paddingLeft="12.0dip" android:paddingRight="12.0dip" android:paddingBottom="8.0dip" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/tv_productDetails_size" />
 
                     <LinearLayout android:gravity="right" android:orientation="vertical" android:id="@+id/activityProductDetails_rl_config_refresh" android:paddingLeft="16.0dip" android:paddingRight="16.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/tv_productDetails_size_show">
-                        <TextView android:text="@string/title_warranty" android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/digikala_black_dark_54" android:gravity="right" android:id="@+id/tv_productDetails_warranty" android:padding="7.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableRight="@drawable/ic_warranty_24dp" android:drawablePadding="10.0dip" />
+                        <TextView android:fontFamily="@font/iran_sans" android:text="@string/title_warranty" android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/digikala_black_dark_54" android:gravity="right" android:id="@+id/tv_productDetails_warranty" android:padding="7.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableRight="@drawable/ic_warranty_24dp" android:drawablePadding="10.0dip" />
                         <View android:background="@color/gray_200" android:layout_width="wrap_content" android:layout_height="1.0dip" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" />
-                        <TextView android:text="@string/tv_title_name_saller" android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/digikala_black_dark_54" android:gravity="right" android:id="@+id/tv_productDetails_seller_name" android:padding="7.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableRight="@drawable/ic_dk_24dp" android:drawablePadding="10.0dip" />
-                        <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/fresh_text_color" android:gravity="right" android:id="@+id/tv_productDetails_sent_fresh" android:padding="7.0dip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sent_fresh" android:drawableRight="@drawable/ic_fast_delivery" android:drawablePadding="10.0dip"/>
-                        <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/digikala_black_dark_54" android:gravity="right" android:id="@+id/tv_productDetails_sent_from" android:padding="7.0dip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sent_from_prefix" android:drawableRight="@drawable/ic_local_shipping_grey600_24dp" android:drawablePadding="10.0dip" android:layout_alignParentRight="true" />
+                        <TextView android:fontFamily="@font/iran_sans" android:text="@string/tv_title_name_saller" android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/digikala_black_dark_54" android:gravity="right" android:id="@+id/tv_productDetails_seller_name" android:padding="7.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableRight="@drawable/ic_dk_24dp" android:drawablePadding="10.0dip" />
+                        <TextView android:fontFamily="@font/iran_sans" android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/fresh_text_color" android:gravity="right" android:id="@+id/tv_productDetails_sent_fresh" android:padding="7.0dip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sent_fresh" android:drawableRight="@drawable/ic_fast_delivery" android:drawablePadding="10.0dip"/>
+                        <TextView android:fontFamily="@font/iran_sans" android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/digikala_black_dark_54" android:gravity="right" android:id="@+id/tv_productDetails_sent_from" android:padding="7.0dip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sent_from_prefix" android:drawableRight="@drawable/ic_local_shipping_grey600_24dp" android:drawablePadding="10.0dip" android:layout_alignParentRight="true" />
                         <View android:background="@color/gray_200" android:layout_width="wrap_content" android:layout_height="1.0dip" android:layout_marginTop="10.0dip" android:layout_marginBottom="10.0dip" />
                         <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
-                            <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/chart_blue" android:ellipsize="end" android:gravity="right" android:id="@+id/activityProductDetails_tv_gift" android:padding="0.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="هدیه" android:lines="1" android:drawableRight="@drawable/ic_gift_36dp" android:drawablePadding="8.0dip" android:layout_toRightOf="@id/activityProductDetails_ll_price" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+                            <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/chart_blue" android:ellipsize="end" android:gravity="right" android:id="@+id/activityProductDetails_tv_gift" android:padding="0.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="@font/iran_sans" android:text="@string/title_gift" android:lines="1" android:drawableRight="@drawable/ic_gift_36dp" android:drawablePadding="8.0dip" android:layout_toRightOf="@id/activityProductDetails_ll_price" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
                             <LinearLayout android:id="@+id/activityProductDetails_ll_price" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_centerVertical="true">
-                                <TextView android:textSize="20.0sp" android:textColor="@color/digikala_green_light" android:gravity="center_vertical" android:id="@+id/tv_productDetails_payablePrice" android:padding="4.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                                <TextView android:textSize="14.0sp" android:textColor="@color/digikala_red_light" android:gravity="center_vertical" android:id="@+id/tv_productDetails_real_price" android:padding="0.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                                <TextView android:fontFamily="@font/iran_sans" android:textSize="20.0sp" android:textColor="@color/digikala_green_light" android:gravity="center_vertical" android:id="@+id/tv_productDetails_payablePrice" android:padding="4.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                                <TextView android:fontFamily="@font/iran_sans" android:textSize="14.0sp" android:textColor="@color/digikala_red_light" android:gravity="center_vertical" android:id="@+id/tv_productDetails_real_price" android:padding="0.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" />
                             </LinearLayout>
                         </RelativeLayout>
-                        <RelativeLayout android:onClick="@{() -> detailProductViewModel.setIsClickAddtoCartLiveData()}" android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/activityProductDetails_addToCartBtn_layout" android:background="@drawable/background_button_categories" android:layout_width="fill_parent" android:layout_height="48.0dip" android:layout_marginTop="10.0dip">
+                        <RelativeLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/activityProductDetails_addToCartBtn_layout" android:background="@drawable/background_button_categories" android:layout_width="fill_parent" android:layout_height="48.0dip" android:layout_marginTop="10.0dip">
                             <androidx.core.widget.ContentLoadingProgressBar android:max="@android:integer/config_mediumAnimTime" android:id="@+id/progressBar_productDetails_addToCart" android:layout_width="24.0dip" android:layout_height="24.0dip" android:layout_centerInParent="true" />
                             <LinearLayout android:orientation="horizontal" android:id="@+id/ll_productDetails_addToCartBtn" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
-                                <TextView android:textSize="17.0sp" android:textColor="@color/digikala_white_pure" android:gravity="center" android:layout_gravity="center_vertical" android:id="@+id/tv_productDetails_addToCartName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="افزودن به سبد خرید" android:layout_centerInParent="true" />
+                                <TextView android:fontFamily="@font/iran_sans" android:textSize="17.0sp" android:textColor="@color/digikala_white_pure" android:gravity="center" android:layout_gravity="center_vertical" android:id="@+id/tv_productDetails_addToCartName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="افزودن به سبد خرید" android:layout_centerInParent="true" />
                                 <View android:layout_gravity="center_vertical" android:id="@+id/activityProductDetails_v_addToCartDivider" android:visibility="visible" android:layout_width="16.0dip" android:layout_height="24.0dip" />
                                 <ImageView android:textSize="19.0sp" android:layout_gravity="center" android:id="@+id/activityProductDetails_iv_basketIcon" android:visibility="visible" android:layout_width="28.0dip" android:layout_height="28.0dip" android:src="@drawable/ic_add_shopping_cart_2_white_24dp" android:layout_toRightOf="@id/tv_productDetails_addToCartName" android:layout_centerVertical="true" />
                             </LinearLayout>
                         </RelativeLayout>
                         <RelativeLayout android:orientation="horizontal" android:id="@+id/rl_productDetails_fake_alarm" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:layout_marginRight="4.0dip">
                             <ImageView android:id="@+id/image_view_fresh_delivery" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:layout_centerVertical="true" card_view:srcCompat="@drawable/ic_warning" />
-                            <TextView android:textSize="14.0sp" android:textColor="@color/fake_alarm" android:id="@+id/activityProductDetails_tv_fake_alarm" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip" android:text="@string/fake_alarm" android:layout_toLeftOf="@id/image_view_fresh_delivery" />
+                            <TextView android:fontFamily="@font/iran_sans" android:textSize="14.0sp" android:textColor="@color/fake_alarm" android:id="@+id/activityProductDetails_tv_fake_alarm" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip" android:text="@string/fake_alarm" android:layout_toLeftOf="@id/image_view_fresh_delivery" />
                         </RelativeLayout>
                         <View android:id="@+id/activityProductDetails_other_warranty_divider" android:background="@color/gray_200" android:layout_width="wrap_content" android:layout_height="1.0dip" android:layout_marginTop="10.0dip" android:layout_marginBottom="5.0dip" />
                         <LinearLayout android:orientation="horizontal" android:id="@+id/activityProductDetails_other_warranty" android:paddingTop="5.0dip" android:paddingBottom="5.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
                             <ImageView android:layout_gravity="center" android:paddingLeft="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_next_24dp" />
-                            <TextView android:text="@string/counter_saller_garanti_product_detail" android:textSize="13.0sp" android:textColor="@color/chart_blue" android:gravity="right" android:id="@+id/activityProductDetails_tv_other_warranty" android:layout_width="fill_parent" android:layout_height="wrap_content" android:drawableRight="@drawable/ic_shop_24dp" android:drawablePadding="15.0dip" />
+                            <TextView android:fontFamily="@font/iran_sans" android:text="@string/counter_saller_garanti_product_detail" android:textSize="13.0sp" android:textColor="@color/chart_blue" android:gravity="right" android:id="@+id/activityProductDetails_tv_other_warranty" android:layout_width="fill_parent" android:layout_height="wrap_content" android:drawableRight="@drawable/ic_shop_24dp" android:drawablePadding="15.0dip" />
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
@@ -210,6 +213,7 @@
                         android:maxLines="8"
                         android:layout_alignParentTop="true"
                         android:lineSpacingExtra="1.5dip"
+                        android:fontFamily="@font/iran_sans"
                         android:id="@+id/tv_descriptor_detail_product"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -217,7 +221,7 @@
                         android:layout_margin="5dp"/>
 
                     <View android:id="@+id/v_product_details_descDivider" android:background="@color/digikala_dividersColor" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_marginLeft="16.0dip" android:layout_marginRight="16.0dip" android:layout_below="@id/tv_descriptor_detail_product" />
-                    <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/digikala_secondaryTextColor" android:layout_gravity="center_horizontal" android:id="@+id/ativityProductDetails_tv_expandDesc" android:background="@drawable/hover_roundedrectangle" android:layout_marginTop="4dp" android:paddingLeft="8.0dip" android:paddingRight="8.0dip" android:layout_width="wrap_content" android:layout_height="36.0dip" android:text="ادامه مطلب" android:layout_centerInParent="true"/>
+                    <TextView android:fontFamily="@font/iran_sans" android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/digikala_secondaryTextColor" android:layout_gravity="center_horizontal" android:id="@+id/ativityProductDetails_tv_expandDesc" android:background="@drawable/hover_roundedrectangle" android:layout_marginTop="4dp" android:paddingLeft="8.0dip" android:paddingRight="8.0dip" android:layout_width="wrap_content" android:layout_height="36.0dip" android:text="ادامه مطلب" android:layout_centerInParent="true"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
@@ -257,6 +261,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rate"
+                    android:fontFamily="@font/iran_sans_bold"
                     android:textSize="13.0sp"/>
 
                 <TextView
@@ -267,7 +272,8 @@
                     android:layout_gravity="right"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="مجموع رای ثبت شده : "/>
+                    android:text="مجموع رای ثبت شده : "
+                    android:fontFamily="@font/iran_sans"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -276,101 +282,3 @@
         </LinearLayout>
 </ScrollView>
 </layout>
-
-
-    <!--    <RelativeLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content">-->
-
-    <!--        <com.daimajia.slider.library.Tricks.ViewPagerEx-->
-    <!--            android:id="@+id/slider_detail_product"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="200dp">-->
-    <!--            -->
-    <!--            <com.daimajia.slider.library.Indicators.PagerIndicator-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="wrap_content"/>-->
-    <!--            -->
-    <!--        </com.daimajia.slider.library.Tricks.ViewPagerEx>-->
-    <!--        -->
-    <!--    </RelativeLayout>-->
-
-
-    <!--        <androidx.cardview.widget.CardView-->
-    <!--            android:padding="10dp"-->
-    <!--            android:layout_marginLeft="16dp"-->
-    <!--            android:layout_marginRight="16dp"-->
-    <!--            android:layout_marginTop="2dp"-->
-    <!--            android:layout_marginBottom="2dp"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content">-->
-
-    <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:orientation="horizontal">-->
-
-    <!--                    <TextView-->
-    <!--                        android:layout_margin="5dp"-->
-    <!--                        android:id="@+id/tv_status_detail_product"-->
-    <!--                        style="@style/Title_List_Product_Home"-->
-    <!--                        android:layout_width="wrap_content"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:text="status"-->
-    <!--                        app:layout_constraintBottom_toBottomOf="@+id/textView"-->
-    <!--                        app:layout_constraintStart_toStartOf="parent"-->
-    <!--                        app:layout_constraintTop_toTopOf="@+id/textView" />-->
-
-    <!--                    <TextView-->
-    <!--                        android:id="@+id/textView"-->
-    <!--                        style="?android:listSeparatorTextViewStyle"-->
-    <!--                        android:layout_width="wrap_content"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:layout_weight="4"-->
-    <!--                        android:text="وضعیت"-->
-    <!--                        android:layout_margin="5dp"-->
-    <!--                        android:textDirection="rtl"-->
-    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--                    <TextView-->
-    <!--                        android:id="@+id/tv_price_sale_detail_product"-->
-    <!--                        android:layout_width="wrap_content"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:layout_margin="10dp"-->
-    <!--                        android:layout_marginEnd="10dp"-->
-    <!--                        android:layout_marginRight="10dp"-->
-    <!--                        android:text="price_sale_detail_product"-->
-    <!--                        app:layout_constraintBottom_toBottomOf="@+id/tv_price_regular_detail_product"-->
-    <!--                        app:layout_constraintEnd_toStartOf="@+id/tv_price_regular_detail_product"-->
-    <!--                        app:layout_constraintHorizontal_chainStyle="packed"-->
-    <!--                        app:layout_constraintStart_toStartOf="parent"-->
-    <!--                        app:layout_constraintTop_toTopOf="@+id/tv_price_regular_detail_product" />-->
-
-    <!--                    <TextView-->
-    <!--                        android:id="@+id/tv_price_regular_detail_product"-->
-    <!--                        android:layout_width="wrap_content"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:layout_margin="10dp"-->
-    <!--                        android:text="price_regular_detail_product"-->
-    <!--                        android:textColor="@android:color/holo_red_dark"-->
-    <!--                        app:layout_constraintBottom_toTopOf="@id/button_add_to_shopping_cart"-->
-    <!--                        app:layout_constraintStart_toEndOf="@+id/tv_price_sale_detail_product"-->
-    <!--                        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
-
-    <!--                    <com.google.android.material.button.MaterialButton-->
-    <!--                        android:id="@+id/button_add_to_shopping_cart"-->
-    <!--                        android:layout_width="match_parent"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:layout_margin="15dp"-->
-    <!--                        android:layout_marginBottom="3dp"-->
-    <!--                        android:text="افزودن به سبد خرید"-->
-    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                        app:layout_constraintStart_toStartOf="parent"-->
-    <!--                        app:layout_constraintTop_toBottomOf="@+id/tv_price_regular_detail_product"-->
-    <!--                        android:drawableRight="@drawable/ic_add_shopping_cart" />-->
-
-    <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->

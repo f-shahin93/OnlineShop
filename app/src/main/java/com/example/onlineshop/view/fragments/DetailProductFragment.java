@@ -7,37 +7,27 @@ import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.onlineshop.R;
 import com.example.onlineshop.databinding.FragmentDetailProductBinding;
+import com.example.onlineshop.model.Attributes;
 import com.example.onlineshop.view.activities.ShoppingCartActivity;
-import com.example.onlineshop.model.ImagesItem;
 import com.example.onlineshop.model.Product;
-import com.example.onlineshop.repository.ProductRepository;
 import com.example.onlineshop.viewmodel.DetailProViewModel;
-import com.example.onlineshop.viewmodel.HomePageViewModel;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.HashMap;
 
-public class DetailProductFragment extends Fragment {
+public class DetailProductFragment extends VisibleFragment {
     public static final String ARG_PRODUCT = "Arg product";
-    //    private SliderLayout mSlider;
-//    private TextView mTvStatusProduct,mTvPriceSale,mTvPriceRegular , mTvDescription ,mTvRate;
-//    private MaterialButton mButtonAddShoppingCart;
     private DetailProViewModel mDetailProViewModel;
     private int mProductId;
     private Product mProduct;
@@ -65,15 +55,12 @@ public class DetailProductFragment extends Fragment {
 
         mDetailProViewModel = ViewModelProviders.of(this).get(DetailProViewModel.class);
 
-        mDetailProViewModel.getProductLiveData(mProductId).observe(this, new Observer<Product>() {
-            @Override
-            public void onChanged(Product product) {
-                mDetailProViewModel.setProduct(product);
-                mProduct = product;
-                initUI();
-                setupSlider();
+        mDetailProViewModel.getProductLiveData(mProductId).observe(this, product -> {
+            mDetailProViewModel.setProduct(product);
+            mProduct = product;
+            initUI();
+            setupSlider();
 
-            }
         });
 
     }
@@ -85,27 +72,16 @@ public class DetailProductFragment extends Fragment {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_product, container, false);
 
-        /*buttonAddToShoppingCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //mProductRepository.addPruductToList(mProductId);
-                getActivity().startActivity(ShoppingCartActivity.newIntent(getContext()));
-            }
-        });*/
-
+        mBinding.activityProductDetailsAddToCartBtnLayout.setOnClickListener(view -> {
+            mDetailProViewModel.storeProduct(mProduct);
+            getActivity().startActivity(ShoppingCartActivity.newIntent(getContext()));
+        });
 
 
         return mBinding.getRoot();
     }
 
     private void initUI() {
-//        mSlider = view.findViewById(R.id.slider_detail_product);
-//        mTvStatusProduct = view.findViewById(R.id.tv_status_detail_product);
-//        mTvPriceSale = view.findViewById(R.id.tv_price_sale_detail_product);
-//        mTvPriceRegular = view.findViewById(R.id.tv_price_regular_detail_product);
-//        mTvDescription = view.findViewById(R.id.tv_descriptor_detail_product);
-//        mTvRate = view.findViewById(R.id.tv_rate_product);
-//        mButtonAddShoppingCart = view.findViewById(R.id.button_add_to_shopping_cart);
 
         mBinding.tvProductDetailsMainTitle.setText(mProduct.getName());
 
@@ -119,33 +95,21 @@ public class DetailProductFragment extends Fragment {
             mBinding.tvProductDetailsNotExist.setVisibility(View.VISIBLE);
         } else {
             if (mProduct.getAttributes() != null && mProduct.getAttributes().size() > 0) {
-                if (mProduct.getAttributes().get(0) != null && mProduct.getAttributes().get(0).getName().equals("رنگ")) {
-                    mBinding.tvProductDetailsColor.setText("رنگ");
-                    int countColor = mProduct.getAttributes().get(0).getOptions().size();
-                    mBinding.tvProductDetailsColorCount.setText(" رنگ" + countColor);
-                    String namesColor = mProduct.getAttributes().get(0).getOptions().get(0);
-                    for (int i = 1; i < countColor; i++) {
-                        namesColor.concat("," + mProduct.getAttributes().get(0).getOptions().get(i));
-                    }
-                    mBinding.tvProductDetailsColorShow.setText(namesColor);
+
+                if (mProduct.getAttributes().get(0).getName().equals("رنگ")) {
+                    initUIColorText(mProduct.getAttributes().get(0));
+                } else {
+                    initUISizeText(mProduct.getAttributes().get(0));
                 }
-                if (mProduct.getAttributes().size() > 1 && mProduct.getAttributes().get(1) != null && mProduct.getAttributes().get(1).getName().equals("سایز")) {
-                    mBinding.tvProductDetailsSize.setText("سایز");
-                    int countsize = mProduct.getAttributes().get(1).getOptions().size();
-                    mBinding.tvProductDetailsSizeCount.setText(" سایز" + countsize);
-                    String namesSize = mProduct.getAttributes().get(1).getOptions().get(0);
-                    for (int i = 1; i < countsize; i++) {
-                        namesSize.concat("," + mProduct.getAttributes().get(1).getOptions().get(i));
+
+                if (mProduct.getAttributes().size() > 1) {
+                    if (mProduct.getAttributes().get(1).getName().equals("رنگ")) {
+                        initUIColorText(mProduct.getAttributes().get(1));
+                    } else {
+                        initUISizeText(mProduct.getAttributes().get(1));
                     }
-                    mBinding.tvProductDetailsSizeShow.setText(namesSize);
                 }
-            } else {
-                mBinding.tvProductDetailsSizeCount.setVisibility(View.GONE);
-                mBinding.tvProductDetailsSize.setVisibility(View.GONE);
-                mBinding.tvProductDetailsSizeShow.setVisibility(View.GONE);
-                mBinding.tvProductDetailsColorCount.setVisibility(View.GONE);
-                mBinding.tvProductDetailsColor.setVisibility(View.GONE);
-                mBinding.tvProductDetailsColorShow.setVisibility(View.GONE);
+
             }
 
             for (int i = 0; i < mProduct.getCategories().size(); i++) {
@@ -160,11 +124,11 @@ public class DetailProductFragment extends Fragment {
             }
 
             if (mProduct.getRegularPrice() != null && mProduct.getRegularPrice() != "") {
-                mBinding.tvProductDetailsPayablePrice.setText(" تومان" + mProduct.getRegularPrice());
-                mBinding.tvProductDetailsRealPrice.setText(" تومان" + mProduct.getPrice());
+                mBinding.tvProductDetailsPayablePrice.setText(mProduct.getRegularPrice() + " تومان");
+                mBinding.tvProductDetailsRealPrice.setText(mProduct.getPrice() + " تومان");
                 mBinding.tvProductDetailsRealPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             } else {
-                mBinding.tvProductDetailsPayablePrice.setText(" تومان" + mProduct.getPrice());
+                mBinding.tvProductDetailsPayablePrice.setText(mProduct.getPrice() + " تومان");
                 mBinding.tvProductDetailsRealPrice.setVisibility(View.GONE);
             }
 
@@ -196,7 +160,7 @@ public class DetailProductFragment extends Fragment {
 //        }
 
         for (int i = 0; i < mProduct.getImages().size(); i++) {
-            url_maps.put("", mProduct.getImages().get(i).getSrc());
+            url_maps.put(mProduct.getImages().get(i).getName(), mProduct.getImages().get(i).getSrc());
         }
 
         for (String name : url_maps.keySet()) {
@@ -218,5 +182,32 @@ public class DetailProductFragment extends Fragment {
         mBinding.sliderDetailProduct.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mBinding.sliderDetailProduct.setDuration(5000);
     }
+
+    public void initUIColorText(Attributes attributes) {
+        mBinding.tvProductDetailsColor.setVisibility(View.VISIBLE);
+        mBinding.tvProductDetailsColorCount.setVisibility(View.VISIBLE);
+        mBinding.tvProductDetailsColorShow.setText(View.VISIBLE);
+        int countColor = attributes.getOptions().size();
+        mBinding.tvProductDetailsColorCount.setText(countColor + " رنگ");
+        String namesColor = attributes.getOptions().get(0);
+        for (int i = 1; i < countColor; i++) {
+            namesColor.concat("," + attributes.getOptions().get(i));
+        }
+        mBinding.tvProductDetailsColorShow.setText(namesColor);
+    }
+
+    public void initUISizeText(Attributes attributes) {
+        mBinding.tvProductDetailsSizeCount.setVisibility(View.VISIBLE);
+        mBinding.tvProductDetailsSize.setVisibility(View.VISIBLE);
+        mBinding.tvProductDetailsSizeShow.setVisibility(View.VISIBLE);
+        int countSize = attributes.getOptions().size();
+        mBinding.tvProductDetailsSizeCount.setText(countSize + " سایز");
+        String namesSize = attributes.getOptions().get(0);
+        for (int i = 1; i < countSize; i++) {
+            namesSize.concat("," + attributes.getOptions().get(i));
+        }
+        mBinding.tvProductDetailsSizeShow.setText(namesSize);
+    }
+
 
 }
