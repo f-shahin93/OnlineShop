@@ -22,7 +22,7 @@ import com.example.onlineshop.view.Adapter.ProductListSubCategoryAdapter;
 import java.io.Serializable;
 import java.util.List;
 
-public class SearchProductListFragment extends Fragment {
+public class SearchProductListFragment extends VisibleFragment {
 
     public static final String ARG_CATEGORIES_LIST = "Arg categories List";
     public static final String SEARCH_PRODUCT_LIST_FRAGMENT = "SearchProductListFragment";

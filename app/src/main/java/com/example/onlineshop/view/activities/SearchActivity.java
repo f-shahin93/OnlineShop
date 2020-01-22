@@ -21,6 +21,7 @@ import com.example.onlineshop.model.category.Categories;
 import com.example.onlineshop.view.fragments.SearchProductListFragment;
 import com.example.onlineshop.view.fragments.SortDialogFragment;
 import com.example.onlineshop.model.Product;
+import com.example.onlineshop.viewmodel.ConnectivityViewModel;
 import com.example.onlineshop.viewmodel.SearchViewModel;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
     private String mQueryString;
     private SortDialogFragment mSortDialogFragment;
     private SearchViewModel mSearchViewModel;
+    private ConnectivityViewModel mConnectivityViewModel;
     private ActivitySearchBinding mBinding;
 
 
@@ -46,9 +48,10 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
         super.onCreate(savedInstanceState);
 
         mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+        mConnectivityViewModel = ViewModelProviders.of(this).get(ConnectivityViewModel.class);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_search);
 
-        setSupportActionBar(mBinding.toolbar);
+        setupToolbar();
 
         mSortDialogFragment = SortDialogFragment.newInstance(this, mBinding.tvHintSortItemSearch.getText().toString());
 
@@ -62,6 +65,11 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
 
     }
 
+    private void setupToolbar() {
+        setSupportActionBar(mBinding.toolbar);
+        getSupportActionBar().setTitle("جستجو در محصولات");
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -70,7 +78,7 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
 
         mSearchView = (SearchView) menu.findItem(R.id.search_activity_menu_item).getActionView();
 
-        mSearchView.setQueryHint("Search:");
+        mSearchView.setQueryHint("جستحو:");
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -78,14 +86,11 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
 
                 if (query != null) {
                     mQueryString = query;
-                    mSearchViewModel.search(mQueryString).observe(SearchActivity.this, new Observer<List<Product>>() {
-                        @Override
-                        public void onChanged(List<Product> list) {
-                            mListProductFilter = list;
-                            mSearchViewModel.setCategoryList(list);
-                            mListCategory = mSearchViewModel.getCategoriesItemList();
-                            callFragment();
-                        }
+                    mSearchViewModel.search(mQueryString).observe(SearchActivity.this, list -> {
+                        mListProductFilter = list;
+                        mSearchViewModel.setCategoryList(list);
+                        mListCategory = mSearchViewModel.getCategoriesItemList();
+                        callFragment();
                     });
 
                 }
@@ -124,4 +129,15 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
         callFragment();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mConnectivityViewModel.isOnline(this)) {
+
+        } else {
+            startActivity(DisconnectActivity.newIntent(this));
+        }
+
+    }
 }
