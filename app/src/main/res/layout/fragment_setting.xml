@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragments.SettingFragment"
+        android:layoutDirection="rtl">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_title_setting_notify"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:gravity="center"
+            android:padding="3dp"
+            app:fontFamily="@font/iran_sans_bold"/>
+
+        <View
+            android:background="@color/gray_200"
+            android:layout_width="wrap_content"
+            android:layout_height="1.0dip"
+            android:layout_marginTop="5.0dip"
+            android:layout_marginBottom="5.0dip" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:id="@+id/rb_setting_notify"
+            android:layout_marginLeft="20dp">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_disable_notify_setting"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/title_disable"
+                android:fontFamily="@font/iran_sans"/>
+
+            <View
+                android:background="@color/gray_200"
+                android:layout_width="wrap_content"
+                android:layout_height="1.0dip"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginBottom="5.0dip" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_setting_15minute"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/rb_15minute_setting_notify"
+                android:fontFamily="@font/iran_sans"/>
+
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_setting_3hour"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/rb_3hour__setting_notify"
+                android:fontFamily="@font/iran_sans"/>
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_setting_5hour"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/rb_5hour__setting_notify"
+                android:fontFamily="@font/iran_sans"/>
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_setting_8hour"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/rb_8hour__setting_notify"
+                android:fontFamily="@font/iran_sans"/>
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_setting_12hour"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/rb_12hour__setting_notify"
+                android:fontFamily="@font/iran_sans"/>
+
+            <View
+                android:background="@color/gray_200"
+                android:layout_width="wrap_content"
+                android:layout_height="1.0dip"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginBottom="5.0dip" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_setting_custom_time"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/rb_setting_custom_time"
+                android:fontFamily="@font/iran_sans"/>
+
+        </RadioGroup>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_custom_time_notify_setting"
+            android:layout_margin="20dp"
+            android:visibility="gone">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_custom_time_notify_setting"
+                android:text="@string/tv_title_setting_nothing_select"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/iran_sans_bold"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_custom_time_notify_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_clock"
+                android:fontFamily="@font/iran_sans"
+                android:id="@+id/tv_setting_custom_title_hour" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_custom_time_notify_setting"
+                android:id="@+id/spinner_setting_custom_minute"
+                android:layout_toRightOf="@id/tv_setting_custom_title_hour"
+                android:layout_marginLeft="3dp"/>
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
