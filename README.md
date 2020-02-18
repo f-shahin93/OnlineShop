@@ -28,4 +28,4 @@
 - Using WorkManager to show and schedule notification
 - Using EventBus to don't show notification when app is running
 - Using Lottie for show animation in splash page
-- Using MVVM architucture
+- Using MVVM architecture
