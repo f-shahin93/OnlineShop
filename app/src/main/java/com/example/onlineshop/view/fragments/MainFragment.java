@@ -4,18 +4,17 @@ package com.example.onlineshop.view.fragments;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -27,7 +26,6 @@ import com.example.onlineshop.view.Adapter.CategoryAdapter;
 import com.example.onlineshop.view.Adapter.HomePageAdapter;
 import com.example.onlineshop.view.activities.ProductListSeeAllActivity;
 import com.example.onlineshop.viewmodel.HomePageViewModel;
-import com.sergivonavi.materialbanner.Banner;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +52,7 @@ public class MainFragment extends VisibleFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHomePageViewModel = ViewModelProviders.of(this).get(HomePageViewModel.class);
+        mHomePageViewModel = new ViewModelProvider(this).get(HomePageViewModel.class);
 
         mHomePageViewModel.getListCategoryMutableLiveData().observe(this, categoriesList -> {
             mCategoryAdapter = new CategoryAdapter(getContext(), categoriesList, TAG_MAIN_FRAGMENT);
@@ -191,5 +189,4 @@ public class MainFragment extends VisibleFragment {
         mBinding.sliderPicApp.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mBinding.sliderPicApp.setDuration(5000);
     }
-
 }

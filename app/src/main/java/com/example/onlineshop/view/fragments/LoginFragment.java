@@ -5,47 +5,48 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.onlineshop.R;
 import com.example.onlineshop.databinding.FragmentLoginBinding;
-import com.example.onlineshop.model.CategoriesItem;
-import com.example.onlineshop.model.Product;
-import com.example.onlineshop.model.customers.Customers;
+import com.example.onlineshop.prefs.QueryPreferences;
+import com.example.onlineshop.utils.ShopConstants;
 import com.example.onlineshop.viewmodel.CustomerViewModel;
-import com.google.android.material.button.MaterialButton;
-
-import java.util.List;
 
 public class LoginFragment extends VisibleFragment {
 
+    public static final String ARGS_EMAIL = "Args email";
     private CustomerViewModel mCustomerViewModel;
     private FragmentLoginBinding mBinding;
+    private StartFragCallback mStartFragCallback;
+    private String email = "";
 
 
-    public static LoginFragment newInstance() {
-        LoginFragment fragment = new LoginFragment();
+    public static LoginFragment newInstance(StartFragCallback callback, String email) {
+        LoginFragment fragment = new LoginFragment(callback);
         Bundle args = new Bundle();
+        args.putString(ARGS_EMAIL, email);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public LoginFragment() {
-        // Required empty public constructor
+    public LoginFragment(StartFragCallback callback) {
+        mStartFragCallback = callback;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCustomerViewModel = ViewModelProviders.of(this).get(CustomerViewModel.class);
+        if (getArguments() == null) {
+            email = getArguments().getString(ARGS_EMAIL);
+        }
+
+        mCustomerViewModel = new ViewModelProvider(this).get(CustomerViewModel.class);
 
     }
 
@@ -55,22 +56,35 @@ public class LoginFragment extends VisibleFragment {
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
 
-        mBinding.buttonSignUp.setOnClickListener(view -> {
-            mCustomerViewModel.createCustomer(mBinding.etEmail.getText().toString(),
-                    mBinding.etFirstName.getText().toString(),
-                    mBinding.etLastName.getText().toString(),
-                    mBinding.etUsername.getText().toString(),
-                    mBinding.etPassword.getText().toString())
-                    .observe(this, customers ->
-                            Toast.makeText(getContext()
-                                    , "شما با موفقیت ثبت نام شدید"
-                                    , Toast.LENGTH_LONG).show());
+        if (!email.equals(""))
+            mBinding.etEmailLogin.setText(email);
+
+        mBinding.buttonLogin.setOnClickListener(view -> {
+            if(mBinding.etEmailLogin.getText().equals("") || mBinding.etPasswordLogin.getText().equals("")){
+                Toast.makeText(getContext(), "لطفا ایمیل یا رمز عبور را وارد نمایید!", Toast.LENGTH_SHORT).show();
+            }else {
+                mCustomerViewModel.getCustomers(mBinding.etEmailLogin.getText().toString()).observe(this
+                        , customers -> {
+                            if (customers.size() == 0)
+                                Toast.makeText(getContext(), "ایمیل نامعتبر است یا ثبت نام کنید!", Toast.LENGTH_SHORT).show();
+                            else {
+                                mCustomerViewModel.prepareUserInApp(customers.get(0));
+                                getActivity().finish();
+                            }
+                        });
+            }
         });
+
+        mBinding.buttonLoginSignUp.setOnClickListener(view -> mStartFragCallback.startSignUp());
 
         return mBinding.getRoot();
     }
 
-//    @Override
+    public interface StartFragCallback {
+        void startSignUp();
+    }
+
+    //    @Override
 //    public void onCustomerResponse(boolean singupCustomer) {
 //        if (singupCustomer) {
 //            Toast.makeText(getContext(), "تبریک!شما ثبت نام شدید.", Toast.LENGTH_SHORT).show();
