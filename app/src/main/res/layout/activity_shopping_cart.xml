@@ -23,8 +23,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_toolbar_shopping_cart"
+                android:layout_alignParentRight="true"
+                android:text="سبد خرید شما"
+                android:textSize="20sp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center|right"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/iran_sans_bold"/>
+
             <ImageButton
-                android:id="@+id/toolbarHomeActionbar_iv_cart_button"
+                android:id="@+id/iv_cart_button_toolbar"
                 android:layout_width="48.0dip"
                 android:layout_height="48.0dip"
                 android:layout_alignParentLeft="true"
@@ -35,18 +48,19 @@
                 android:padding="12.0dip"
                 android:src="@drawable/ic_main_shopping_cart" />
 
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/toolbarHomeActionbar_iv_cartCounter"-->
-<!--                android:layout_width="20.0dip"-->
-<!--                android:layout_height="20.0dip"-->
-<!--                android:layout_marginLeft="-26.0dip"-->
-<!--                android:layout_marginTop="7.0dip"-->
-<!--                android:layout_toRightOf="@id/toolbarHomeActionbar_iv_cart_button"-->
-<!--                android:background="@drawable/background_cart_counter"-->
-<!--                android:gravity="center"-->
-<!--                android:textColor="@color/digikala_red_dark"-->
-<!--                android:textSize="11.0sp"-->
-<!--                android:textStyle="bold" />-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cartCounter_toolbar"
+                android:layout_width="20.0dip"
+                android:layout_height="20.0dip"
+                android:layout_marginLeft="-26.0dip"
+                android:layout_marginTop="7.0dip"
+                android:layout_toRightOf="@id/iv_cart_button_toolbar"
+                android:background="@drawable/background_cart_counter"
+                android:gravity="center"
+                android:fontFamily="@font/iran_sans_bold"
+                android:textColor="@color/digikala_red_dark"
+                android:textSize="11.0sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

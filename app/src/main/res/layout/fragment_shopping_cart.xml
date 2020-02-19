@@ -8,63 +8,178 @@
     android:orientation="vertical"
     android:id="@+id/rl_root_shopping_cart"
     tools:context=".view.fragments.ShoppingCartFragment"
-    android:background="@color/gray_100">
+    android:background="@color/gray_100_transparent">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="8dp"
-            android:text="جمع کل خرید" />
+            android:text="جمع کل خرید"
+            android:fontFamily="@font/iran_sans"/>
 
         <TextView
-            android:id="@+id/tv_total_purchase_price"
+            android:id="@+id/tv_total_price_of_cart_products"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="قیمت کل" />
+            android:text="قیمت کل"
+            android:fontFamily="@font/iran_sans"/>
 
     </androidx.cardview.widget.CardView>
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_confirm_shopping"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_below="@id/cardView"-->
+<!--        android:background="@color/digikala_green_light"-->
+<!--        android:fontFamily="@font/iran_sans"-->
+<!--        android:gravity="center"-->
+<!--        android:padding="10dp"-->
+<!--        android:text="خرید خود را نهایی کنید"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:textSize="17sp"-->
+<!--        android:drawableStart="@drawable/ic_next_white"-->
+<!--        android:drawableLeft="@drawable/ic_next_white"/>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_shopping_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_below="@id/tv_confirm_shopping"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:padding="5dp"
-        android:layout_above="@id/tv_confirm_shopping"
-        android:layout_below="@+id/cardView"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="5dp" />
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/tv_confirm_shopping"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/colorAccent"
+        android:layout_below="@id/cardView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="@color/digikala_green_light"
+        android:fontFamily="@font/iran_sans"
         android:gravity="center"
         android:padding="10dp"
         android:text="خرید خود را نهایی کنید"
         android:textColor="@android:color/white"
         android:textSize="17sp"
-        android:layout_alignParentBottom="true"/>
+        app:icon="@drawable/ic_next_24dp"
+        app:iconGravity="textStart" />
 
 </RelativeLayout>
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+
+<!--<androidx.constraintlayout.widget.ConstraintLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
 <!--    xmlns:tools="http://schemas.android.com/tools"-->
 <!--    android:layout_width="match_parent"-->
 <!--    android:layout_height="match_parent"-->
 <!--    android:orientation="vertical"-->
-<!--    tools:context=".controller.fragments.ShoppingCartFragment">-->
+<!--    android:id="@+id/rl_root_shopping_cart"-->
+<!--    android:background="@color/gray_100"-->
+<!--    tools:context=".view.fragments.ShoppingCartFragment">-->
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/cardView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:layout_margin="8dp"-->
+<!--                android:text="جمع کل خرید"-->
+<!--                android:fontFamily="@font/iran_sans"/>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_total_price_of_cart_products"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="8dp"-->
+<!--                android:text="قیمت کل"-->
+<!--                android:fontFamily="@font/iran_sans"/>-->
+
+<!--        </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recycler_view_shopping_cart"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:layout_marginEnd="4dp"-->
+<!--        android:layout_marginRight="4dp"-->
+<!--        android:padding="5dp"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/cardView" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_confirm_shopping"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/recycler_view_shopping_cart"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:background="@color/digikala_green_light"-->
+<!--        android:drawableStart="@drawable/ic_next_white"-->
+<!--        android:drawableLeft="@drawable/ic_next_white"-->
+<!--        android:fontFamily="@font/iran_sans"-->
+<!--        android:gravity="center"-->
+<!--        android:padding="10dp"-->
+<!--        android:text="خرید خود را نهایی کنید"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:textSize="17sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--<androidx.appcompat.widget.LinearLayoutCompat-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    android:id="@+id/rl_root_shopping_cart"-->
+<!--    android:background="@color/gray_100"-->
+<!--    android:weightSum="5"-->
+<!--    tools:context=".view.fragments.ShoppingCartFragment">-->
 
 <!--    <androidx.cardview.widget.CardView-->
 <!--        android:id="@+id/cardView"-->
@@ -79,45 +194,45 @@
 <!--            android:layout_height="wrap_content"-->
 <!--            android:layout_gravity="end"-->
 <!--            android:layout_margin="8dp"-->
-<!--            android:text="جمع کل خرید" />-->
+<!--            android:text="جمع کل خرید"-->
+<!--            android:fontFamily="@font/iran_sans"/>-->
 
 <!--        <TextView-->
-<!--            android:id="@+id/tv_total_purchase_price"-->
+<!--            android:id="@+id/tv_total_price_of_cart_products"-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            android:layout_margin="8dp"-->
-<!--            android:text="قیمت کل" />-->
+<!--            android:text="قیمت کل"-->
+<!--            android:fontFamily="@font/iran_sans"/>-->
 
 <!--    </androidx.cardview.widget.CardView>-->
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/recycler_view_shopping_cart"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="5dp"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginEnd="4dp"-->
-<!--        android:layout_marginRight="4dp"-->
-<!--        android:padding="5dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/tv_confirm_shopping"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/cardView"-->
-<!-- />-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/recycler_view_shopping_cart"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="5"-->
+<!--            android:layout_above="@+id/tv_confirm_shopping"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:layout_marginEnd="4dp"-->
+<!--            android:layout_marginRight="4dp"-->
+<!--            android:padding="5dp" />-->
 
-<!--    <TextView-->
+<!--    <com.google.android.material.button.MaterialButton-->
 <!--        android:id="@+id/tv_confirm_shopping"-->
 <!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@color/colorAccent"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:fontFamily="@font/iran_sans"-->
 <!--        android:gravity="center"-->
+<!--        android:layout_weight="1"-->
 <!--        android:padding="10dp"-->
 <!--        android:text="خرید خود را نهایی کنید"-->
 <!--        android:textColor="@android:color/white"-->
 <!--        android:textSize="17dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
+<!--        app:backgroundTint="@color/digikala_green_light"-->
+<!--        app:icon="@drawable/ic_next_24dp"-->
+<!--        app:iconGravity="textStart"/>-->
 
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--</androidx.appcompat.widget.LinearLayoutCompat>-->
