@@ -6,6 +6,8 @@ import com.example.onlineshop.model.category.Categories;
 import com.example.onlineshop.model.customers.Billing;
 import com.example.onlineshop.model.customers.Customers;
 import com.example.onlineshop.model.customers.Shipping;
+import com.example.onlineshop.model.orders.Orders;
+import com.example.onlineshop.model.review.Review;
 
 import java.util.List;
 import java.util.Map;
@@ -48,24 +50,25 @@ public interface ProductService {
     Call<List<Product>> getProductsSubCategoires(@QueryMap Map<String, String> productQueries
             , @Query("category") String categoryId, @Query("name") String name);
 
-    @FormUrlEncoded
+    @GET("products/reviews")
+    Call<List<Review>> getProductReviewsList(@QueryMap Map<String, String> productQueries
+            , @Query("product") String productId);
+
     @POST("customers")
-    Call<Customers> setCustomers(@QueryMap Map<String, String> productQueries,
-                                 @Field("email") String email,
-                                 @Field("first_name") String first_name,
-                                 @Field("last_name") String last_name,
-                                 @Field("username") String username);
+    Call<Customers> setCustomers(@QueryMap Map<String, String> productQueries, @Body Customers customer);
 
 //    @FormUrlEncoded
 //    @POST("customers")
-//    Call<Customers> setCustomers(@Header("Content-Type") String userkey,
-//                                 @QueryMap Map<String, String> productQueries,
+//    Call<Customers> setCustomers(@QueryMap Map<String, String> productQueries,
 //                                 @Field("email") String email,
 //                                 @Field("first_name") String first_name,
 //                                 @Field("last_name") String last_name,
-//                                 @Field("username") String username,
-//                                 @Field("billing") Billing billing,
-//                                 @Field("shipping") Shipping shipping);
+//                                 @Field("username") String username);
 
+    @GET("customers")
+    Call<List<Customers>> getCustomer(@QueryMap Map<String, String> productQueries);
+
+    @POST("orders")
+    Call<Orders> setOrder(@QueryMap Map<String, String> productQueries, @Body Orders orders);
 
 }

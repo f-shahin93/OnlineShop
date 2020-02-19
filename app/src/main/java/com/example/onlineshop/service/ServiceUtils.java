@@ -111,7 +111,6 @@ public class ServiceUtils {
                 .build();
 
         EventBus.getDefault().post(new NotificationEvent(notification, NOTIFICATION_ID_TEST));
-
     }
 
 }

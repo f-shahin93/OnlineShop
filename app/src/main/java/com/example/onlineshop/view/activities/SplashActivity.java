@@ -2,7 +2,7 @@ package com.example.onlineshop.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -51,10 +51,10 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
 
-        Log.d("TagProduct", "call oncreate splash");
+       // Log.d("TagProduct", "call oncreate splash");
         mProgressBar = findViewById(R.id.progressBar__splash_activity);
 
-        splashViewModel = ViewModelProviders.of(this).get(SplashViewModel.class);
+        splashViewModel = new ViewModelProvider(this).get(SplashViewModel.class);
         splashViewModel.setItemsListsOfHomePage();
         splashViewModel.startServiceNotify();
 
@@ -74,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("TagProduct", "call onResume splash");
+       // Log.d("TagProduct", "call onResume splash");
 
 //        if(splashViewModel.isOnline(SplashActivity.this)){
 //            splashViewModel.setItemsListsOfHomePage();
@@ -98,7 +98,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onStart();
         EventBus.getDefault().register(this);
 
-        Log.d("TagProduct", "call onStart splash");
+       // Log.d("TagProduct", "call onStart splash");
     }
 
     @Override
@@ -106,19 +106,19 @@ public class SplashActivity extends AppCompatActivity {
         super.onStop();
         EventBus.getDefault().unregister(this);
 
-        Log.d("TagProduct", "call onStop splash");
+       // Log.d("TagProduct", "call onStop splash");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("TagProduct", "call onDestroy splash");
+        //Log.d("TagProduct", "call onDestroy splash");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("TagProduct", "call onPause splash");
+       // Log.d("TagProduct", "call onPause splash");
     }
 
     @Subscribe(priority = 2)

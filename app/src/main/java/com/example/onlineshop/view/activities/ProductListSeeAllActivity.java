@@ -20,7 +20,6 @@ public class ProductListSeeAllActivity extends SingleFragmentActivity {
     public static final String EXTRA_STATUS_LIST = "Extra statusList";
     private Toolbar mToolbar;
 
-
     @Override
     public Fragment createFragment() {
         return ProductsListSeeAllFragment.newInstance(getIntent().getStringExtra(EXTRA_STATUS_LIST));
@@ -41,7 +40,7 @@ public class ProductListSeeAllActivity extends SingleFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_list_see_all);
+//        setContentView(R.layout.activity_product_list_see_all);
 
         mToolbar = findViewById(R.id.toolbar_product_list_see_all);
         setSupportActionBar(mToolbar);
@@ -55,7 +54,6 @@ public class ProductListSeeAllActivity extends SingleFragmentActivity {
         }else if(statusList.equals("rating")){
             getSupportActionBar().setTitle("بهترین محصولات");
         }
-
     }
 
     public static Intent newIntent(Context context,String statusList){

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +35,6 @@ public class ProductsListSeeAllFragment extends VisibleFragment {
     private EndlessRecyclerViewScrollListener mEndlessRecyclVScrollListener;
     private int mPageNumber = 1;
 
-
     public ProductsListSeeAllFragment() {
         // Required empty public constructor
     }
@@ -54,7 +54,7 @@ public class ProductsListSeeAllFragment extends VisibleFragment {
             mStatusList = getArguments().getString(ARG_STATUS_LIST);
         }
 
-        mHomePageViewModel = ViewModelProviders.of(this).get(HomePageViewModel.class);
+        mHomePageViewModel = new ViewModelProvider(this).get(HomePageViewModel.class);
 
         if (mStatusList.equals("date")) {
             mHomePageViewModel.getListNewestProMutableLiveData().observe(this, list -> {
@@ -74,7 +74,6 @@ public class ProductsListSeeAllFragment extends VisibleFragment {
                 setupAdapter();
             });
         }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -139,5 +138,4 @@ public class ProductsListSeeAllFragment extends VisibleFragment {
             }
         }
     }
-
 }

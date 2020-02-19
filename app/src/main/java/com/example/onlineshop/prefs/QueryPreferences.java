@@ -8,6 +8,7 @@ public class QueryPreferences {
     private static final String PREF_LAST_PRODUCT_ID = "lastProductId";
     private static final String PREF_STATUS_NOTIFICATION = "statusNotification";
     private static final String PREF_STATUS_WORKMANAGER = "statusWorkManager";
+    private static final String PREF_STATUS_LOGIN = "statusLogin";
 
     private static SharedPreferences getSharedPreferences(Context context) {
         return context.getSharedPreferences(
@@ -44,6 +45,17 @@ public class QueryPreferences {
         SharedPreferences prefs = getSharedPreferences(context);
         prefs.edit().putBoolean(PREF_STATUS_WORKMANAGER,statusWorkManager).apply();
     }
+
+    public static boolean getStatusLogin(Context context) {
+        SharedPreferences prefs = getSharedPreferences(context);
+        return prefs.getBoolean(PREF_STATUS_LOGIN,false);
+    }
+
+    public static void setStatusLogin(Context context,boolean statusLogin){
+        SharedPreferences prefs = getSharedPreferences(context);
+        prefs.edit().putBoolean(PREF_STATUS_LOGIN,statusLogin).apply();
+    }
+
 
 
 }

@@ -10,13 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
+        <activity android:name=".view.activities.ReviewActivity"></activity>
         <activity android:name=".view.activities.SettingActivity" />
-
         <activity android:name=".view.activities.ProductListSubCategoriesActivity" />
         <activity
             android:name=".view.activities.FilterSearchActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.activities.ProductListSeeAllActivity" />
         <activity
             android:name=".view.activities.SplashActivity"
@@ -30,34 +29,28 @@
         </activity>
         <activity android:name=".view.activities.LoginActivity" />
         <activity
-            android:name=".view.activities.ShoppingCartActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:name=".view.activities.ShoppingCartActivity" />
         <activity
-            android:name=".view.activities.SearchActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:name=".view.activities.SearchActivity"/>
         <activity
-            android:name=".view.activities.DisconnectActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:name=".view.activities.DisconnectActivity"/>
         <activity
             android:name=".view.activities.DetailProductActivity"
-            android:parentActivityName=".view.activities.MainActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:parentActivityName=".view.activities.MainActivity" />
         <activity
-            android:name=".view.activities.CategoryViewPagerActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:name=".view.activities.CategoryViewPagerActivity" />
         <activity
-            android:name=".view.activities.SingleFragmentActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:name=".view.activities.SingleFragmentActivity"/>
         <activity
-            android:name=".view.activities.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge" />
+            android:name=".view.activities.MainActivity"/>
+
         <service
             android:name=".service.PollService"
-            android:exported="false"></service>
+            android:exported="false" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

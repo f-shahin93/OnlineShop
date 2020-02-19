@@ -9,6 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.work.BackoffPolicy;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -54,6 +55,13 @@ public class SplashViewModel extends AndroidViewModel {
         if (QueryPreferences.getStatusNotification(mContext) == 0) {
             mWorkmanager.cancelAllWork();
         }
+
+//        OneTimeWorkRequest oneTimeWorkRequest = new OneTimeWorkRequest.Builder(ServiceWorkManager.class)
+//                .setInitialDelay(5,TimeUnit.MINUTES)
+//                .build();
+//        mWorkmanager.enqueueUniqueWork("work",ExistingWorkPolicy.REPLACE,oneTimeWorkRequest);
+//       // mWorkmanager.enqueue(oneTimeWorkRequest);
+
 
         if (!QueryPreferences.getStatusWorkManager(mContext)) {
             PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest

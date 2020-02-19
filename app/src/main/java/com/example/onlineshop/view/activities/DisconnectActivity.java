@@ -1,50 +1,39 @@
 package com.example.onlineshop.view.activities;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.onlineshop.R;
-import com.example.onlineshop.view.fragments.BroadcastRecFragment;
+import com.example.onlineshop.databinding.ActivityDiscconnectBinding;
+import com.example.onlineshop.utils.ShopConstants;
 
 public class DisconnectActivity extends AppCompatActivity {
 
-    private AppCompatTextView mTextView;
-    private Button mButtonTry;
+    private ActivityDiscconnectBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discconnect);
 
-        mButtonTry = findViewById(R.id.button_disconnect);
-
-        mButtonTry.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(View view) {
-                boolean result = isOnline(DisconnectActivity.this);
-
-                if (result) {
-
-                        //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_discconnect);
 
 
-                    //onBackPressed();
-                } else {
-                    Toast.makeText(getApplicationContext(), "لطفا مجددا تلاش کنید!", Toast.LENGTH_LONG).show();
-                }
+        mBinding.buttonDisconnect.setOnClickListener(view -> {
+            boolean result = isOnline(DisconnectActivity.this);
+
+            if (result) {
+                setResult(ShopConstants.REQUEST_CODE_DISCONNECT);
+                finish();
+                //onBackPressed();
+            } else {
+                Toast.makeText(getApplicationContext(), "لطفا مجددا تلاش کنید!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -68,8 +57,8 @@ public class DisconnectActivity extends AppCompatActivity {
         }
     }
 
-    public static Intent newIntent(Context context){
-        Intent intent = new Intent(context,DisconnectActivity.class);
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, DisconnectActivity.class);
         return intent;
     }
 }

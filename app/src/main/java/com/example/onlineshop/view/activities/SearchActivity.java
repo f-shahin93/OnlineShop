@@ -6,7 +6,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,9 +24,6 @@ import com.example.onlineshop.model.Product;
 import com.example.onlineshop.viewmodel.ConnectivityViewModel;
 import com.example.onlineshop.viewmodel.SearchViewModel;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity implements SortDialogFragment.ResultDialogCallback {
@@ -47,8 +44,8 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
-        mConnectivityViewModel = ViewModelProviders.of(this).get(ConnectivityViewModel.class);
+        mSearchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+        mConnectivityViewModel = new ViewModelProvider(this).get(ConnectivityViewModel.class);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_search);
 
         setupToolbar();
@@ -138,6 +135,5 @@ public class SearchActivity extends AppCompatActivity implements SortDialogFragm
         } else {
             startActivity(DisconnectActivity.newIntent(this));
         }
-
     }
 }

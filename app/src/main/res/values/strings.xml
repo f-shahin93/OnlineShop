@@ -51,6 +51,7 @@
     <string name="title_color">رنگ</string>
     <string name="title_counter">تعداد</string>
     <string name="title_size">سایز</string>
+    <string name="title_no_user">ثبت نام/ورود</string>
 
 
 </resources>

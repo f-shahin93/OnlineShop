@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:gravity="bottom"
     android:background="@color/digikala_red_dark"
     android:orientation="vertical">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_nav_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/ic_account"
         android:padding="15dp"
-        android:text="ثبت نام/ورود"
+        android:text="@string/title_no_user"
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:textStyle="bold" />

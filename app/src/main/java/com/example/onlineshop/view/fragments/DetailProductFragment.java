@@ -8,8 +8,11 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Html;
+import android.text.Spannable;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,7 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.onlineshop.R;
 import com.example.onlineshop.databinding.FragmentDetailProductBinding;
 import com.example.onlineshop.model.Attributes;
+import com.example.onlineshop.view.activities.ReviewActivity;
 import com.example.onlineshop.view.activities.ShoppingCartActivity;
 import com.example.onlineshop.model.Product;
 import com.example.onlineshop.viewmodel.DetailProViewModel;
@@ -53,7 +57,7 @@ public class DetailProductFragment extends VisibleFragment {
             mProductId = getArguments().getInt(ARG_PRODUCT);
         }
 
-        mDetailProViewModel = ViewModelProviders.of(this).get(DetailProViewModel.class);
+        mDetailProViewModel = new ViewModelProvider(this).get(DetailProViewModel.class);
 
         mDetailProViewModel.getProductLiveData(mProductId).observe(this, product -> {
             mDetailProViewModel.setProduct(product);
@@ -73,7 +77,7 @@ public class DetailProductFragment extends VisibleFragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_product, container, false);
 
         mBinding.activityProductDetailsAddToCartBtnLayout.setOnClickListener(view -> {
-            mDetailProViewModel.storeProduct(mProduct);
+            mDetailProViewModel.addProduct(mProduct);
             getActivity().startActivity(ShoppingCartActivity.newIntent(getContext()));
         });
 
@@ -82,13 +86,18 @@ public class DetailProductFragment extends VisibleFragment {
     }
 
     private void initUI() {
-
         mBinding.tvProductDetailsMainTitle.setText(mProduct.getName());
 
         if (mProduct.getShortDescription() == null || mProduct.getShortDescription().equals("")) {
             mBinding.tvProductDetailsSecondaryTitle.setVisibility(View.GONE);
-        } else
-            mBinding.tvProductDetailsSecondaryTitle.setText(mProduct.getShortDescription());
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                mBinding.tvProductDetailsSecondaryTitle.setText(Html.fromHtml(mProduct.getShortDescription(), Html.FROM_HTML_MODE_LEGACY));
+            else {
+                Spanned sp = Html.fromHtml(mProduct.getShortDescription());
+                mBinding.tvProductDetailsSecondaryTitle.setText(sp);
+            }
+        }
 
         if (!mProduct.getStatus().equals("publish")) {
             mBinding.activityProductDetailsConfigLayout.setVisibility(View.GONE);
@@ -133,21 +142,21 @@ public class DetailProductFragment extends VisibleFragment {
             }
 
             mBinding.progressBarProductDetailsAddToCart.hide();
-            mDetailProViewModel.getIsClickAddtoCartLiveData().observe(DetailProductFragment.this, new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean aBoolean) {
-                    if (aBoolean) {
-                        mDetailProViewModel.storeProduct(mProduct);
-                        getActivity().startActivity(ShoppingCartActivity.newIntent(getContext()));
-                    }
-                }
-            });
 
         }
 
-        mBinding.tvDescriptorDetailProduct.setText(mProduct.getDescription());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mBinding.tvDescriptorDetailProduct.setText(Html.fromHtml(mProduct.getDescription(), Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            Spanned sp = Html.fromHtml(mProduct.getDescription());
+            mBinding.tvDescriptorDetailProduct.setText(sp);
+        }
 
         mBinding.tvRateDetailProduct.setText(mProduct.getAverageRating());
+
+        mBinding.activityProductDetailsRlCommentBtn.setOnClickListener(view -> {
+            startActivity(ReviewActivity.newIntent(getContext(), mProductId,mProduct.getName()));
+        });
 
     }
 

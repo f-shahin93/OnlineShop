@@ -1,27 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.activities.DisconnectActivity"
-    android:id="@+id/ll_activity_disconnect">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Network is disconnect"
-        android:textSize="20sp"
-        android:layout_margin="30dp"
-        android:gravity="center"/>
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".view.activities.DisconnectActivity"
+        android:id="@+id/ll_activity_disconnect">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_disconnect"
-        android:layout_gravity="center"
-        android:text="try again"
-        android:layout_margin="20dp"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="15dp"
+            android:id="@+id/iv_icon_disconnect_wifi"
+            android:gravity="center"
+            android:background="@drawable/ic_wifi"
+            android:layout_gravity="center"/>
 
-</LinearLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="خطا در اتصال به اینترنت!"
+            android:textSize="20sp"
+            android:fontFamily="@font/iran_sans_bold"
+            android:layout_margin="15dp"
+            android:id="@+id/tv_disconnect_wifi"
+            android:gravity="center"
+            android:padding="3dp"
+            android:layout_below="@id/iv_icon_disconnect_wifi"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_disconnect"
+            android:text="تلاش مجدد"
+            android:fontFamily="@font/iran_sans_bold"
+            android:layout_marginTop="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:layout_below="@id/tv_disconnect_wifi"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>
