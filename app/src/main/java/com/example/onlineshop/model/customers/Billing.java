@@ -3,7 +3,9 @@ package com.example.onlineshop.model.customers;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Billing{
+import io.realm.RealmObject;
+
+public class Billing extends RealmObject {
 
 	@SerializedName("country")
 	private String country;
@@ -144,12 +146,6 @@ public class Billing{
 			"}";
 		}
 
-	public Billing( String email,String firstName,String lastName) {
-		this.lastName = lastName;
-		this.firstName = firstName;
-		this.email = email;
-	}
-
 	public Billing(String country, String city, String phone, String address1, String address2, String postcode, String lastName, String company, String state, String firstName, String email) {
 		this.country = country;
 		this.city = city;
@@ -162,5 +158,8 @@ public class Billing{
 		this.state = state;
 		this.firstName = firstName;
 		this.email = email;
+	}
+
+	public Billing() {
 	}
 }

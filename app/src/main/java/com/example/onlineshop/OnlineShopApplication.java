@@ -13,6 +13,9 @@ import com.example.onlineshop.event.NotificationEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 public class OnlineShopApplication extends Application {
 
     @Override
@@ -21,6 +24,7 @@ public class OnlineShopApplication extends Application {
 
         createNotificationChannel();
         EventBus.getDefault().register(this);
+        initRealmDB();
     }
 
     @Override
@@ -49,6 +53,17 @@ public class OnlineShopApplication extends Application {
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         notificationManagerCompat.notify(notificationId, notification);
+    }
+
+    private void initRealmDB(){
+        Realm.init(getApplicationContext());
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .name("OnlineShop.db")
+                .schemaVersion(1)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+
+        Realm.setDefaultConfiguration(realmConfiguration);
     }
 
 }

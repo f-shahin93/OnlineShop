@@ -1,14 +1,17 @@
 package com.example.onlineshop.view.activities;
 
-import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.onlineshop.R;
+import com.example.onlineshop.databinding.ActivityShoppingCartBinding;
 import com.example.onlineshop.view.fragments.ShoppingCartFragment;
+import com.example.onlineshop.viewmodel.DetailProViewModel;
 
 public class ShoppingCartActivity extends SingleFragmentActivity {
 
@@ -35,11 +38,13 @@ public class ShoppingCartActivity extends SingleFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping_cart);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_shopping_cart);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("سبد خرید شما");
+        ActivityShoppingCartBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_shopping_cart);
+        DetailProViewModel viewModel = new ViewModelProvider(this).get(DetailProViewModel.class);
+        setSupportActionBar(binding.toolbarShoppingCart);
+
+        viewModel.getCountProductCart().observe(this, integer ->
+                binding.tvCartCounterToolbar.setText(String.valueOf(integer)));
 
     }
 

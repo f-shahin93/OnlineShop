@@ -2,24 +2,25 @@ package com.example.onlineshop.view.Adapter;
 
 
 import android.content.Context;
-import android.content.DialogInterface;
+import android.os.Build;
+import android.text.Html;
+import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlineshop.R;
+import com.example.onlineshop.databinding.ItemListShoppingCartBinding;
 import com.example.onlineshop.model.Product;
-import com.example.onlineshop.repository.ProductRepository;
 import com.example.onlineshop.viewmodel.DetailProViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -29,13 +30,13 @@ import java.util.List;
 public class ProductShoppingCartAdapter extends RecyclerView.Adapter<ProductShoppingCartAdapter.ShoppingCartViewHolder> {
 
     private Context mContext;
+    private ItemListShoppingCartBinding mShoppingCartBinding;
     private List<Product> mProductList;
-    private ShoppingAdapterCallback mCallback;
 
-    public ProductShoppingCartAdapter(Context context, List<Product> list ,ShoppingAdapterCallback callback) {
+    public ProductShoppingCartAdapter(Context context, List<Product> list) {
         mContext = context;
         mProductList = list;
-        mCallback = callback;
+        setHasStableIds(true);
     }
 
     public void setListadapter(List<Product> list) {
@@ -46,12 +47,14 @@ public class ProductShoppingCartAdapter extends RecyclerView.Adapter<ProductShop
     @NonNull
     @Override
     public ShoppingCartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_list_shopping_cart, parent, false);
-        return new ShoppingCartViewHolder(view);
+        mShoppingCartBinding = DataBindingUtil.inflate(LayoutInflater.from(mContext),
+                R.layout.item_list_shopping_cart, parent, false);
+        return new ShoppingCartViewHolder(mShoppingCartBinding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingCartViewHolder holder, int position) {
+        getItemViewType(mProductList.indexOf(mProductList.get(position)));
         holder.bind(mProductList.get(position));
 
     }
@@ -61,40 +64,49 @@ public class ProductShoppingCartAdapter extends RecyclerView.Adapter<ProductShop
         return mProductList.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
     public class ShoppingCartViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView mTvDescription, mTvTitle, mTvPriceFinal, mTvTotalPrice, mTvDelete;
-        private AppCompatSpinner mSpinner;
-        private AppCompatImageView mIvProduct;
+        private DetailProViewModel mDetailProViewModel;
         private Product mProductVh;
-        private List countProductSpinner;
+        private List<Integer> countProductSpinner;
         private ArrayAdapter mArrayAdapter;
-        private int tempSpItem;
+        private int spItemSelected;
 
         public ShoppingCartViewHolder(@NonNull View itemView) {
             super(itemView);
-            mTvTitle = itemView.findViewById(R.id.title_product_shopping_cart);
-            mTvDescription = itemView.findViewById(R.id.description_product_shopping_cart);
-            mTvPriceFinal = itemView.findViewById(R.id.final_price_shopping_cart);
-            mTvTotalPrice = itemView.findViewById(R.id.total_price_shopping_cart);
-            mIvProduct = itemView.findViewById(R.id.Iv_product_shopping_cart);
-            mSpinner = itemView.findViewById(R.id.spinner_shopping_cart);
-            mTvDelete = itemView.findViewById(R.id.tv_delete_product_from_shopping_cart);
+            mDetailProViewModel = new ViewModelProvider((FragmentActivity) mContext).get(DetailProViewModel.class);
 
-            countProductSpinner = new ArrayList();
-            for (int i = 0; i < 10; i++) {
+            setupSpinner();
+
+        }
+
+        private void setupSpinner() {
+            countProductSpinner = new ArrayList<>();
+            for (int i = 1; i < 11; i++) {
+                Log.d("TagProduct","setListSpinner : "+i);
                 countProductSpinner.add(i);
             }
             mArrayAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, countProductSpinner);
             mArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mSpinner.setAdapter(mArrayAdapter);
-            mSpinner.setSelection(0);
+            mShoppingCartBinding.spinnerShoppingCart.setAdapter(mArrayAdapter);
 
-            mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            mShoppingCartBinding.spinnerShoppingCart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                    tempSpItem = (int) adapterView.getItemAtPosition(position);
+                    spItemSelected = (int) adapterView.getItemAtPosition(position);
+                    Log.d("TagProduct","spItemSelected : " + mProductVh.getName() +": "+ spItemSelected);
+                    Log.d("TagProduct","OnItemSelectedSpinner : " + mProductVh.getName() +": "+ mProductVh.getCountProductInCart().getValue());
+                    if (mProductVh.getCountProductInCart().getValue() != spItemSelected)
+                        mDetailProViewModel.changeCountProductListCart(mProductVh, spItemSelected);
                 }
 
                 @Override
@@ -103,59 +115,65 @@ public class ProductShoppingCartAdapter extends RecyclerView.Adapter<ProductShop
                 }
             });
 
-            mTvDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    new AlertDialog.Builder(mContext)
-                            .setMessage("اطمینان دارید که این محصول حذف شود؟")
-                            .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    //ProductRepository.getInstance().deletePruductFromList(mProductVh);
-                                    mCallback.notifyChangedList(true,mProductVh);
-                                }
-                            })
-                            .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.dismiss();
-                                }
-                            })
-                            .create();
-                }
+            mShoppingCartBinding.tvDeleteProductFromShoppingCart.setOnClickListener(view -> {
+                mDetailProViewModel.showDeleteDialog(mProductVh, true);
+
+//                    new AlertDialog.Builder(mContext)
+//                            .setMessage("اطمینان دارید که این محصول حذف شود؟")
+//                            .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    //ProductRepository.getInstance().deletePruductFromList(mProductVh);
+//                                    mCallback.notifyChangedList(true, mProductVh);
+//                                }
+//                            })
+//                            .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    dialogInterface.dismiss();
+//                                }
+//                            })
+//                            .create();
             });
-
-
         }
 
         public void bind(Product product) {
             mProductVh = product;
-            mTvTitle.setText(mProductVh.getName());
-            mTvDescription.setText(mProductVh.getShortDescription());
+            Log.d("TagProduct", "OnbindCartViewHol : " + mProductVh.getName() + ": " + mProductVh.getCountProductInCart().getValue());
+            mShoppingCartBinding.titleProductShoppingCart.setText(mProductVh.getName());
 
-            if (mProductVh.getRegularPrice() == null) {
-                mTvTotalPrice.setText(mProductVh.getPrice());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                mShoppingCartBinding.descriptionProductShoppingCart
+                        .setText(Html.fromHtml(mProductVh.getShortDescription(), Html.FROM_HTML_MODE_LEGACY));
             } else {
-                mTvTotalPrice.setText(mProductVh.getRegularPrice());
+                Spanned sp = Html.fromHtml(mProductVh.getShortDescription());
+                mShoppingCartBinding.descriptionProductShoppingCart.setText(sp);
+            }
+
+            if (mProductVh.getCountProductInCart().getValue() != null) {
+                Log.d("TagProduct", "OnbindSpinner : " + mProductVh.getName() + ": " + mProductVh.getCountProductInCart().getValue());
+                mShoppingCartBinding.spinnerShoppingCart.setSelection(mProductVh.getCountProductInCart().getValue()-1);
+            }
+
+            if (mProductVh.getRegularPrice() == null || mProductVh.getRegularPrice().equals("")) {
+                mShoppingCartBinding.totalPriceShoppingCart.setText(mProductVh.getPrice() + " تومان");
+            } else {
+                mShoppingCartBinding.totalPriceShoppingCart.setText(mProductVh.getRegularPrice() + " تومان");
             }
 
             if (mProductVh.getSalePrice() == null) {
-                mTvPriceFinal.setText(mProductVh.getPrice());
+                mShoppingCartBinding.finalPriceShoppingCart.setText(mProductVh.getPrice() + " تومان");
             } else {
-                mTvPriceFinal.setText(mProductVh.getSalePrice());
+                mShoppingCartBinding.finalPriceShoppingCart.setText(mProductVh.getSalePrice() + " تومان");
             }
 
             Picasso.with(mContext)
                     .load(mProductVh.getImages().get(0).getSrc())
                     .resize(100, 100)
                     .placeholder(R.drawable.place_holder_shopping_cart)
-                    .into(mIvProduct);
+                    .into(mShoppingCartBinding.IvProductShoppingCart);
         }
 
-    }
-
-    public interface ShoppingAdapterCallback {
-        void notifyChangedList(boolean flagDeleteItem,Product product);
     }
 
 }

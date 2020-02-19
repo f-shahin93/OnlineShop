@@ -1,6 +1,8 @@
 package com.example.onlineshop.model.customers;
 
 import java.util.List;
+
+import com.example.onlineshop.model.Links;
 import com.google.gson.annotations.SerializedName;
 
 public class Customers{
@@ -52,6 +54,13 @@ public class Customers{
 
 	@SerializedName("username")
 	private String username;
+
+	@SerializedName("password")
+	private String password;
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public void setDateModifiedGmt(String dateModifiedGmt){
 		this.dateModifiedGmt = dateModifiedGmt;
@@ -204,13 +213,14 @@ public class Customers{
 			"}";
 		}
 
-	public Customers(String email,String firstName,String lastName,String username, Billing billing, Shipping shipping) {
+	public Customers(String email,String firstName,String lastName,String username,String password , Billing billing, Shipping shipping) {
 		this.lastName = lastName;
 		this.billing = billing;
 		this.shipping = shipping;
 		this.firstName = firstName;
 		this.email = email;
 		this.username = username;
+		this.password = password;
 	}
 
 
